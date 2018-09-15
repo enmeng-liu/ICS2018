@@ -42,7 +42,7 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
-//static int cmd_x(char *args);
+static int cmd_x(char *args);
 
 static struct {
   char *name;
@@ -54,7 +54,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute by single step", cmd_si},
 	{ "info", "Show related information, 'r' for registers and 'w' for watchpoints", cmd_info},
-//	{ "x", "Scan the memory from the address expressed by a certain expression", cmd_x},
+	{ "x", "Scan the memory from the address expressed by a certain expression", cmd_x},
 
   /* TODO: Add more commands */
 
@@ -116,6 +116,31 @@ static int cmd_info(char *args){
 		}
 				else{
 			  printf("Unkown command\n");
+		}
+		return 0;
+}
+
+static int cmd_x(char *args){
+		char *arg = strtok(NULL, " ");
+		int num = atoi(arg);
+		char *expr = strtok(NULL, " ");
+		char *hex="0x";
+		if(strncmp(expr, hex ,2) == 0){
+				uint32_t addr = strtol(expr, NULL, 16);
+				for(int i =0; i < num; ++i){
+						if(i%4 == 0){
+								if(i !=0){
+										printf("\n");
+								}
+							  printf("0x%x: ", addr);
+						}//line change
+						printf("%02x ", pmem[addr]);
+						addr ++;
+				}
+				printf("\n");
+		}
+		else {
+				 printf("This command hasn't been implemented!\n");
 		}
 		return 0;
 }
