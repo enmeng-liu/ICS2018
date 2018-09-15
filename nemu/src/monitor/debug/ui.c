@@ -40,7 +40,7 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args);
 
-//static int cmd_info(char *args);
+static int cmd_info(char *args);
 
 //static int cmd_x(char *args);
 
@@ -53,7 +53,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute by single step", cmd_si},
-//	{ "info", "Show related information, 'r' for registers and 'w' for watchpoints", cmd_info},
+	{ "info", "Show related information, 'r' for registers and 'w' for watchpoints", cmd_info},
 //	{ "x", "Scan the memory from the address expressed by a certain expression", cmd_x},
 
   /* TODO: Add more commands */
@@ -95,6 +95,28 @@ static int cmd_si(char *argv){
 			  num = atol(arg);
 		}
 		cpu_exec(num);
+		return 0;
+}
+
+static int cmd_info(char *args){
+		char *arg = strtok(NULL, " ");
+		if(*arg == 'r'){
+				printf("$eax = 0x%08x\n", cpu.eax);
+				printf("$ecx = 0x%08x\n", cpu.ecx);
+				printf("$edx = 0x%08x\n", cpu.edx);
+				printf("$ebx = 0x%08x\n", cpu.ebx);
+				printf("$esp = 0x%08x\n", cpu.esp);
+				printf("$ebp = 0x%08x\n", cpu.ebp);
+				printf("$esi = 0x%08x\n", cpu.esi);
+				printf("$edi = 0x%08x\n", cpu.edi);
+				printf("$eip = 0x%08x\n", cpu.eip);
+		}
+		else if(*arg == 'w'){
+				printf("This command hasn't been implemented yet!\n");
+		}
+				else{
+			  printf("Unkown command\n");
+		}
 		return 0;
 }
 
