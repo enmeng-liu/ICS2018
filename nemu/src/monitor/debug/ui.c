@@ -38,6 +38,12 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args);
+
+//static int cmd_info(char *args);
+
+//static int cmd_x(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -46,6 +52,9 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+	{ "si", "Execute by single step", cmd_si},
+//	{ "info", "Show related information, 'r' for registers and 'w' for watchpoints", cmd_info},
+//	{ "x", "Scan the memory from the address expressed by a certain expression", cmd_x},
 
   /* TODO: Add more commands */
 
@@ -74,6 +83,19 @@ static int cmd_help(char *args) {
     printf("Unknown command '%s'\n", arg);
   }
   return 0;
+}
+
+static int cmd_si(char *argv){
+		uint64_t num;
+		char *arg = strtok(NULL, " ");
+		if(arg == NULL){
+				num = 1;
+		}//the default case
+	  else {
+			  num = atol(arg);
+		}
+		cpu_exec(num);
+		return 0;
 }
 
 void ui_mainloop(int is_batch_mode) {
