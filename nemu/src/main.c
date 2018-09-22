@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
 	FILE *fp = fopen("input", "r");
 	int cnt = 0;
 	while(fscanf(fp, "%u %s\n", &answer, test) == 2){
+		printf("Read something\n");
 		cnt ++;
 	  bool succ = true;
 		int result = expr(test, &succ);
