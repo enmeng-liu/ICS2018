@@ -269,12 +269,14 @@ uint32_t eval(int p ,int q, bool* success){
 												if(val1 < val2){
 														printf("negative numbers!\n");
 														*success = false;
+														return 0;
 												}	
 									case '*': return val1 * val2;
 									case '/':
 												if(val2 == 0){
 														printf("Divide by 0!\n");
 														*success = false;
+														return 0;
 												}
 												else return val1 / val2;
 									default: panic("Unkown calculating error!");
