@@ -5,6 +5,7 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <stdlib.h>
 
 enum {
   TK_NOTYPE = 256,
@@ -129,7 +130,9 @@ static bool make_token(char *e) {
 							}	
 							else {
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
-								printf("--%s is recognized!--\n", tokens[nr_token-1].str);
+							  unsigned temp;
+								temp = (unsigned)atol(tokens[nr_token-1].str);
+								printf("--%u is recognized!--\n", temp);
 							}
 							break;
           default: TODO();
