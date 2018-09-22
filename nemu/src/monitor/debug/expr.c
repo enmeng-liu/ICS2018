@@ -171,7 +171,7 @@ bool check_parentheses(int p, int q){
 	printf("check () from %d to %d\n", p ,q);
 	//judge if the pair of parentheses can be thrown away, not just matched
 	if(tokens[p].type != '(' || tokens[q].type != ')') {
-			//printf("No parentheses at all\n");
+			printf("No parentheses at all\n");
 			return false;
 	}
 	//No parentheses at all
@@ -189,17 +189,17 @@ bool check_parentheses(int p, int q){
 			assert(0);
 	}
 	if(check_inner(p+1,q-1) == false) {
-			//printf("Find pair but cannot throw\n");
+			printf("Find pair but cannot throw\n");
 			return false;
 	}
 	else {
-			//printf("Find pair can throw\n");
+			printf("Find pair can throw\n");
 			return true;
 	}
 }
 
 static int find_main_op(int p, int q){
-		//printf("find main op from %d to %d\n", p ,q);
+		printf("find main op from %d to %d\n", p ,q);
 		int i = p;
 		int op = 0, op_prior = 100;
 		int prior[150]={};// the priority of the operators
@@ -208,23 +208,23 @@ static int find_main_op(int p, int q){
 		prior['*'] = prior['/'] = 2;
 		while(i <= q){
 			if(tokens[i].type == TK_NUMBER) {
-					//printf("Meet numbers!\n");
+					printf("Meet numbers!\n");
 			}
 			else if(tokens[i].type == '('){
-							//printf("Meet (!\n");
+							printf("Meet (!\n");
 							while(i <= q && tokens[i].type != ')') i++;
-							//printf("Find )!\n");
+							printf("Find )!\n");
 							if(i > q) {
 									panic("WTF!");
 									assert(0);
 							}
 		       }
 					 else if(prior[tokens[i].type] <= op_prior){
-									 //printf("Meet tokens!\n");
+									 printf("Meet tokens!\n");
 									 op = i;
 									 op_prior = prior[tokens[i].type];
 									 //find the latest operator with leatest priority
-								 	 // print("Main operator changes to %c\n", tokens[i].type);
+								 	  printf("Main operator changes to %c\n", tokens[i].type);
 					      }
 			i++;
 		}
@@ -234,7 +234,7 @@ static int find_main_op(int p, int q){
 
 uint32_t eval(int p ,int q){
 	if(p > q){
-		//printf("**Somethig wrong with the bounds!**\n");
+		printf("**Somethig wrong with the bounds!**\n");
 		assert(0);
 	}	
 	else if(p == q){
