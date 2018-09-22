@@ -196,7 +196,7 @@ bool check_parentheses(int p, int q){
 
 static int find_main_op(int p, int q){
 		int i = p;
-		int op = 0, op_prior = 0;
+		int op = 0, op_prior = 100;
 		int prior[150]={};// the priority of the operators
 		prior['+'] = prior['-'] = 1;
 		prior['*'] = prior['/'] = 2;
@@ -214,6 +214,7 @@ static int find_main_op(int p, int q){
 							}
 		       }
 					 else if(prior[tokens[i].type] <= op_prior){
+									 printf("Meet tokens!\n");
 									 op = i;
 									 op_prior = prior[tokens[i].type];
 									 //find the latest operator with leatest priority
