@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     fscanf(fp, "%d", &result);
     pclose(fp);
 
-    printf("%u %s\n", result, buf);
+    printf("%u %s\n----------------------\n", result, buf);
   }
   return 0;
 }
