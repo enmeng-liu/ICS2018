@@ -203,7 +203,7 @@ static int find_main_op(int p, int q){
 		int i = p;
 		int op = 0, op_prior = 100;
 		int prior[150]={};// the priority of the operators
-		prior[')'] = prior['('] = -1;
+		prior[')'] = prior['('] = 100;
 		prior['+'] = prior['-'] = 1;
 		prior['*'] = prior['/'] = 2;
 		while(i <= q){
@@ -213,7 +213,7 @@ static int find_main_op(int p, int q){
 			else if(tokens[i].type == '('){
 							//printf("Meet (!\n");
 							while(i <= q && tokens[i].type != ')') i++;
-							printf("Find )!\n");
+							//printf("Find )!\n");
 							if(i > q) {
 									panic("WTF!");
 									assert(0);
