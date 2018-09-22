@@ -151,37 +151,46 @@ static bool make_token(char *e) {
   return true;
 }
 
-static int check_parentheses(int p, int q){
-	//judge if the pair of parentheses can be thrown away, not just matched
-	if(tokens[p].type != '(' || tokens[q].type != ')' ){
-		return 0;
-	//This expression do not need to throw away any parentheses
-	//0 means no parentheses
+bool check_inner(int p, int q){
+	//check the inner condition of parentheses
+	if(tokens[p].type != '(' && tokens[p].type != ')' ) return false;
+	int brackets = 0;
+	for(int i = p; i <= q; ++i){
+			if(tokens[i].type == '(') brackets++;
+			else if(tokens[i].type == ')') brackets--;
+			if(brackets < 0) return false;
 	}
-	else  {
-		int brackets = 0;
-		for(int i = p; i <= q; ++i){
-			if(tokens[i].type == '(') brackets ++;
-			else if(tokens[i].type == ')') brackets --;
-			if(brackets < 0) {
-					panic("Parentheses not match! Illegal expression!");
+	if(brackets != 0) return false;
+	return true;
+}
+
+bool check_parentheses(int p, int q){
+	//judge if the pair of parentheses can be thrown away, not just matched
+	if(tokens[p].type != '(' && tokens[q].type != ')') {
+			printf("No parentheses at all\n");
+			return false;
+	}
+	//No parentheses at all
+	int brackets = 0;
+	for(int i = p; i <= q; ++i){
+			if(tokens[i].type == '(') brackets++;
+			else if(tokens[i].type == ')') brackets--;
+			if(brackets < 0){
+					panic("Please check your parentheses!\n");
 					assert(0);
 			}
-		}
-		if(brackets !=0) {
-			panic("Parentheses not match! Illegal expression!");
+	}
+	if(brackets != 0) {
+		  panic("Please checker your parentheses!\n");
 			assert(0);
-		}
-		else if(check_parentheses(p+1, q-1) == 0){
-		      	printf("Find pair that cannot be thrown away\n");
-		      	return 2;
-						//2 means cannot throw away
-	      	} 
-		     else {
-						printf("Find pair that can be thrown away!\n");
-			   		return 1;
-						//1 means can be thrown away			
-				 }
+	}
+	if(check_inner(p+1,q-1) == false) {
+			printf("Find pair but cannot throw\n");
+			return false;
+	}
+	else {
+			printf("Find pair can throw\n");
+			return true;
 	}
 }
 
