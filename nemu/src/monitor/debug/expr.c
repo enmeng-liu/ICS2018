@@ -257,7 +257,11 @@ uint32_t eval(int p ,int q){
 							//calculate the two parts of expressions recursively
 							switch(tokens[op].type){
 									case '+': return val1 + val2;
-									case '-': return val1 - val2;
+									case '-':
+												if(val1 < val2){
+														panic("negative numbers!");
+														assert(0);
+												}	
 									case '*': return val1 * val2;
 									case '/':
 												if(val2 == 0){
