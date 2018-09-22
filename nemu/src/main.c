@@ -13,9 +13,6 @@ int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
   int is_batch_mode = init_monitor(argc, argv);
 
-  /* Receive commands from user. */
-  ui_mainloop(is_batch_mode);
-
 	uint32_t answer;
 	char *test = NULL;
 	FILE *fp = fopen("input", "r");
@@ -36,6 +33,9 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	fclose(fp);
+  /* Receive commands from user. */
+  ui_mainloop(is_batch_mode);
+
 
   return 0;
 }
