@@ -25,7 +25,7 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-	{"\\[0-9\\]+", TK_NUMBER}, //numbers
+	{"[0-9]+", TK_NUMBER}, //numbers
 	{"\\(", '('},					//left parenthesis
 	{"\\)", ')'},					//right parenthesis
   {"\\+", '+'},         // plus
