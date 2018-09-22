@@ -88,6 +88,9 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+					case TK_NOTYPE:
+							printf("Spaces are thrown away!\n");
+							break;			//directly throw away the spaces
           default: TODO();
         }
 
