@@ -212,8 +212,14 @@ static int find_main_op(int p, int q){
 			}
 			else if(tokens[i].type == '('){
 							//printf("Meet (!\n");
-							while(i <= q && tokens[i].type != ')') i++;
 							//printf("Find )!\n");
+							int brackets = 1;
+							while(brackets > 0){
+								i++;
+								if(tokens[i].type == '(') brackets++;
+								else if(tokens[i].type == ')') brackets--;
+								if(brackets == 0) break;
+							}
 							if(i > q) {
 									panic("WTF!");
 									assert(0);
