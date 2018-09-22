@@ -153,7 +153,6 @@ static int cmd_p(char *args){
 		uint32_t ans = expr(args, &suc);
 		if(suc == false){
 				printf("illegal expressions\n");
-				assert(0);
 		}
 		else printf("%u\n", ans);
 		return 0;
