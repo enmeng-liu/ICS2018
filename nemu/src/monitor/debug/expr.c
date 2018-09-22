@@ -151,11 +151,12 @@ static bool make_token(char *e) {
   return true;
 }
 
-bool check_parentheses(int p, int q){
+static int check_parentheses(int p, int q){
 	//judge if the pair of parentheses can be thrown away, not just matched
 	if(tokens[p].type != '(' || tokens[q].type != ')' ){
-		return false;
+		return 0;
 	//This expression do not need to throw away any parentheses
+	//0 means no parentheses
 	}
 	else  {
 		int brackets = 0;
@@ -171,13 +172,15 @@ bool check_parentheses(int p, int q){
 			panic("Parentheses not match! Illegal expression!");
 			assert(0);
 		}
-		else if(check_parentheses(p+1, q-1) == false){
+		else if(check_parentheses(p+1, q-1) == 0){
 		      	printf("Find pair that cannot be thrown away\n");
-		      	return false;
+		      	return 2;
+						//2 means cannot throw away
 	      	} 
 		     else {
 						printf("Find pair that can be thrown away!\n");
-			   		return true;			
+			   		return 1;
+						//1 means can be thrown away			
 				 }
 	}
 }
@@ -223,7 +226,7 @@ uint32_t eval(int p ,int q){
 							return temp;
 					}
 	}
-			 else if(check_parentheses(p,q) == true){
+			 else if(check_parentheses(p,q) == 1){
 					  	return eval (p+1, q-1);
 						//The expression is surrounded by a pair of parentheses that can be thrown away
 			      } 
