@@ -19,8 +19,10 @@ int main(int argc, char *argv[]) {
 	FILE *fp = fopen("input", "r");
 	int cnt = 0;
 	assert(fp != NULL);
-  fscanf(fp, "%u %s\n", &answer, test);
-	printf("%u %s\n", answer, test);
+  //fscanf(fp, "%u %s\n", &answer, test);
+	fscanf(fp, "%u", &answer);
+	fscanf(fp, "%s", test);
+	printf("%u%s\n", answer, test);
 	while(fscanf(fp, "%u %s\n", &answer, test) == 2){
 		printf("Read something\n");
 		cnt ++;
