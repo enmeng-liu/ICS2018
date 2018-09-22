@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 	char *test = NULL;
 	FILE *fp = fopen("input", "r");
 	int cnt = 0;
-	while(fscanf(fp, "%u %s\n", & answer, test) ){
+	while(fscanf(fp, "%u %s\n", &answer, test) == 2){
 		cnt ++;
 	  bool succ = true;
 		int result = expr(test, &succ);
