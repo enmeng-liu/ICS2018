@@ -205,7 +205,9 @@ static int find_main_op(int p, int q){
 					printf("Meet numbers!\n");
 			}
 			else if(tokens[i].type == '('){
+							printf("Meet (!\n");
 							while(i <= q && tokens[i].type != ')') i++;
+							printf("Find )!\n");
 							if(i > q) {
 									panic("WTF!");
 									assert(0);
