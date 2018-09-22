@@ -44,6 +44,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+static int cmd_p(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -55,6 +57,7 @@ static struct {
 	{ "si", "Execute by single step", cmd_si},
 	{ "info", "Show related information, 'r' for registers and 'w' for watchpoints", cmd_info},
 	{ "x", "Scan the memory from the address expressed by a certain expression", cmd_x},
+	{ "p", "Print the value of the expression followed", cmd_p},
 
   /* TODO: Add more commands */
 
@@ -142,6 +145,17 @@ static int cmd_x(char *args){
 		else {
 				 printf("This command hasn't been implemented!\n");
 		}
+		return 0;
+}
+
+static int cmd_p(char *args){
+		bool suc = true; 
+		uint32_t ans = expr(args, &suc);
+		if(suc == false){
+				printf("illegal expressions\n");
+				assert(0);
+		}
+		else printf("%u\n", ans);
 		return 0;
 }
 
