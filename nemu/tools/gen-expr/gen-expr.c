@@ -10,30 +10,29 @@ static char buf[65536];
 static int buf_len = 0;
 
 static int choose(int x){
-	if(buf_len > 60000) return 0;
   int num = (rand())%x;
 	return num;	
 }
 
 static inline void gen_space(){
 	if(buf_len > 60000) return;
-	int num = (rand())%5000;
+	int num = (rand())%50;
 	for (int i = 1; i <= num; ++i){
-		buf_len += sprintf(buf, " ");
+		buf_len += sprintf(buf + buf_len, " ");
 	}
 }
 
 static inline void gen_num(){
-	int num = rand();
+	int num = (rand())%10000;
 	if(num == 0) num++;
-  buf_len += sprintf(buf, "%d", num);
+  buf_len += sprintf(buf + buf_len, "%d", num);
 }
 
 static inline void gen(char c){
-	buf_len += sprintf(buf, "%c", c);
+	buf_len += sprintf(buf + buf_len, "%c", c);
 }
 
-static inline void gen_op{
+static inline void gen_op(){
 	int num = choose(4);
 	switch(num){
 		case 0: gen('+'); break;
@@ -44,12 +43,12 @@ static inline void gen_op{
 }
 
 static inline void gen_rand_expr() {
-  buf[0] = '\0';
 	switch (choose(3)){
 		case 0: gen_num(); break;
 		case 1: gen('('); gen_space();  gen_rand_expr(); gen_space(); gen(')');break;
-		default: gen_rand_expr(); gen_space(); gen_rand_op(); gen space(); gen_rand_expr(); break;
+		default: gen_rand_expr(); gen_space(); gen_op(); gen_space(); gen_rand_expr(); break;
 	}
+	if(buf[0] == '\0') gen_rand_expr();
 }
 
 static char code_buf[65536];
@@ -64,6 +63,7 @@ static char *code_format =
 int main(int argc, char *argv[]) {
   int seed = time(0);
   srand(seed);
+	//buf[0] = '\0';
   int loop = 1;
   if (argc > 1) {
     sscanf(argv[1], "%d", &loop);
@@ -71,6 +71,8 @@ int main(int argc, char *argv[]) {
 	// input the number of loops by command line
   int i;
   for (i = 0; i < loop; i ++) {
+		buf[0] = '\0';
+		buf_len = 0;
     gen_rand_expr();
 
     sprintf(code_buf, code_format, buf);
