@@ -45,8 +45,8 @@ static inline void gen_op(){
 static inline void gen_rand_expr() {
 	switch (choose(3)){
 		case 0: gen_num(); break;
-		case 1: gen('('); gen_space();  gen_rand_expr(); gen_space(); gen(')');break;
-		default: gen_rand_expr(); gen_space(); gen_op(); gen_space(); gen_rand_expr(); break;
+		case 1: gen('('); gen_rand_expr(); gen(')');break;
+		default: gen_rand_expr(); gen_op(); gen_rand_expr(); break;
 	}
 	if(buf[0] == '\0') gen_rand_expr();
 }
