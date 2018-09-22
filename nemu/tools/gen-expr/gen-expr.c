@@ -36,7 +36,7 @@ static inline void gen_op(){
 	int num = choose(4);
 	switch(num){
 		case 0: gen('+'); break;
-		case 1: gen('-'); break;
+		case 1: gen('+'); break;
 		case 2: gen('*'); break;
 		default: gen('/'); break;
 	} 
