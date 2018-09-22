@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
 	char *test = NULL;
 	FILE *fp = fopen("input", "r");
 	int cnt = 0;
+	assert(fp != NULL);
 	while(fscanf(fp, "%u %s\n", &answer, test) == 2){
 		printf("Read something\n");
 		cnt ++;
