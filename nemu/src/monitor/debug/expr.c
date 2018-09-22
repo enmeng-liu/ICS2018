@@ -90,37 +90,37 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
 					case TK_NOTYPE:
-							printf("--Spaces are thrown away!--\n");
+							//printf("--Spaces are thrown away!--\n");
 							break;			//directly throw away the spaces
 					case '(':
 							tokens[nr_token].type = '('; 
 							nr_token ++;
-						  printf("-- ( is recognized!--\n");
+						 // printf("-- ( is recognized!--\n");
 							break;
 					case ')':
 						  tokens[nr_token].type = ')';
 						  nr_token ++;
-						  printf("-- ) is recognized!--\n");
+						 // printf("-- ) is recognized!--\n");
 						  break;
 					case '+':
 						  tokens[nr_token].type = '+';
 						  nr_token ++;
-						 printf("-- + is recognized!--\n");
+						// printf("-- + is recognized!--\n");
 					   break;	 
 					case '-':
 							tokens[nr_token].type = '-'; 
 							nr_token ++;
-						  printf("-- - is recognized!--\n");
+						 // printf("-- - is recognized!--\n");
 							break;
 					case '*':
 							tokens[nr_token].type = '*'; 
 							nr_token ++;
-						  printf("-- * is recognized!--\n");
+						 // printf("-- * is recognized!--\n");
 							break;
 					case '/':
 							tokens[nr_token].type = '/'; 
 							nr_token ++;
-						  printf("-- / is recognized!--\n");
+						 // printf("-- / is recognized!--\n");
 							break;
 					case TK_NUMBER:
 							tokens[nr_token].type = TK_NUMBER;
@@ -130,9 +130,9 @@ static bool make_token(char *e) {
 							}	
 							else {
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
-							  unsigned temp;
-								temp = (unsigned)atol(tokens[nr_token-1].str);
-								printf("--%u is recognized!--\n", temp);
+							  //unsigned temp;
+								//temp = (unsigned)atol(tokens[nr_token-1].str);
+						  	//	printf("--%u is recognized!--\n", temp);
 							}
 							break;
           default: TODO();
@@ -151,11 +151,110 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_parentheses(int p, int q){
+	//judge if the pair of parentheses can be thrown away, not just matched
+	if(tokens[p].type != '(' || tokens[q].type != ')' ){
+		return false;
+	//This expression do not need to throw away any parentheses
+	}
+	else  {
+		int brackets = 0;
+		for(int i = p; i <= q; ++i){
+			if(tokens[i].type == '(') brackets ++;
+			else if(tokens[i].type == ')') brackets --;
+			if(brackets < 0) {
+					panic("Parentheses not match! Illegal expression!");
+					assert(0);
+			}
+		}
+		if(brackets !=0) {
+			panic("Parentheses not match! Illegal expression!");
+			assert(0);
+		}
+		else if(check_parentheses(p+1, q-1) == false){
+		      	printf("Find pair that cannot be thrown away\n");
+		      	return false;
+	      	} 
+		     else {
+						printf("Find pair that can be thrown away!\n");
+			   		return true;			
+				 }
+	}
+}
+
+static int find_main_op(int p, int q){
+		int i = p;
+		int op = 0, op_prior = 0;
+		int prior[150]={};// the priority of the operators
+		prior['+'] = prior['-'] = 1;
+		prior['*'] = prior['/'] = 2;
+		while(i <= p){
+			if(tokens[i].type == TK_NUMBER) i++;
+			else if(tokens[i].type == '('){
+							while(i <= q && tokens[i].type != ')') i++;
+							if(i >= q) {
+									panic("WTF!");
+									assert(0);
+							}
+		       }
+					 else if(prior[tokens[i].type] <= op_prior){
+									 op = i;
+									 op_prior = prior[tokens[i].type];
+									 //find the latest operator with leatest priority
+					      }
+		}
+		printf("**The main operator is %c**\n", tokens[op].type);
+		return op;
+}
+
+uint32_t eval(int p ,int q){
+	if(p > q){
+		printf("**Somethig wrong with the bounds!**\n");
+		assert(0);
+	}	
+	else if(p == q){
+		   		if(tokens[p].type != TK_NUMBER){
+							printf("**Cannot read a single nondigit token!**\n");
+							assert(0);
+					}
+					else {
+							int temp = (unsigned)atol(tokens[p].str);
+							return temp;
+					}
+	}
+			 else if(check_parentheses(p,q) == true){
+					  	return eval (p+1, q-1);
+						//The expression is surrounded by a pair of parentheses that can be thrown away
+			      } 
+			 			else {
+							int op = find_main_op(p,q); //find the position of the main operator
+							uint32_t val1 = eval(p,op-1);
+							uint32_t val2 = eval(op+1,q);
+							//calculate the two parts of expressions recursively
+							switch(tokens[op].type){
+									case '+': return val1 + val2;
+									case '-': return val1 - val2;
+									case '*': return val1 * val2;
+									case '/':
+												if(val2 == 0){
+														panic("Divide by 0");
+														assert(0);
+												}
+												else return val1 / val2;
+									default: panic("Unkown calculating error!");
+													 assert(0);
+							}
+
+						}
+}
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
+	uint32_t result = eval(0,nr_token-1);
+	return result;
 
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
