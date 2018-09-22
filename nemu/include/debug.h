@@ -43,6 +43,6 @@ extern FILE* log_fp;
 #define panic(format, ...) \
   Assert(0, format, ## __VA_ARGS__)
 
-#define TODO() panic("please implement me")
+#define TODO() panic("Congratulations! You can implement me now!")
 
 #endif
