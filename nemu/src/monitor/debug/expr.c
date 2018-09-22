@@ -203,6 +203,7 @@ static int find_main_op(int p, int q){
 		int i = p;
 		int op = 0, op_prior = 100;
 		int prior[150]={};// the priority of the operators
+		prior[')'] = prior['('] = -1;
 		prior['+'] = prior['-'] = 1;
 		prior['*'] = prior['/'] = 2;
 		while(i <= q){
