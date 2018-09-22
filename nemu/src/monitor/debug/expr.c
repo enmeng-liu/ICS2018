@@ -238,7 +238,7 @@ static int find_main_op(int p, int q){
 		return op;
 }
 
-uint32_t eval(int p ,int q){
+uint32_t eval(int p ,int q, bool* success){
 	if(p > q){
 		printf("**Somethig wrong with the bounds!**\n");
 		assert(0);
@@ -255,26 +255,26 @@ uint32_t eval(int p ,int q){
 					}
 	}
 			 else if(check_parentheses(p,q) == true){
-					  	return eval (p+1, q-1);
+					  	return eval (p+1, q-1,success);
 						//The expression is surrounded by a pair of parentheses that can be thrown away
 			      } 
 			 			else {
 							int op = find_main_op(p,q); //find the position of the main operator
-							uint32_t val1 = eval(p,op-1);
-							uint32_t val2 = eval(op+1,q);
+							uint32_t val1 = eval(p,op-1,success);
+							uint32_t val2 = eval(op+1,q,success);
 							//calculate the two parts of expressions recursively
 							switch(tokens[op].type){
 									case '+': return val1 + val2;
 									case '-':
 												if(val1 < val2){
-														panic("negative numbers!");
-														assert(0);
+														printf("negative numbers!\n");
+														*success = false;
 												}	
 									case '*': return val1 * val2;
 									case '/':
 												if(val2 == 0){
-														panic("Divide by 0");
-														assert(0);
+														printf("Divide by 0!\n");
+														*success = false;
 												}
 												else return val1 / val2;
 									default: panic("Unkown calculating error!");
@@ -289,7 +289,11 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-	uint32_t result = eval(0,nr_token-1);
+	uint32_t result = eval(0,nr_token-1,success);
+	if(*success == false) {
+		printf("Calculation failed!\n");
+		return 0;
+	}
 	return result;
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
