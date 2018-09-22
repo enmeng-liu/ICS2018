@@ -167,7 +167,7 @@ bool check_inner(int p, int q){
 bool check_parentheses(int p, int q){
 	printf("check () from %d to %d\n", p ,q);
 	//judge if the pair of parentheses can be thrown away, not just matched
-	if(tokens[p].type != '(' && tokens[q].type != ')') {
+	if(tokens[p].type != '(' || tokens[q].type != ')') {
 			printf("No parentheses at all\n");
 			return false;
 	}
