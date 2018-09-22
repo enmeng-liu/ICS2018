@@ -121,6 +121,17 @@ static bool make_token(char *e) {
 							nr_token ++;
 						  printf("-- / is recognized!--\n");
 							break;
+					case TK_NUMBER:
+							tokens[nr_token].type = TK_NUMBER;
+							nr_token ++;
+						  if(substr_len > 10){
+								panic("Too long number!\n");
+							}	
+							else {
+								strncpy(tokens[nr_token-1].str, substr_start,32);
+								printf("--%s is recognized!--\n", tokens[nr_token-1].str);
+							}
+							break;
           default: TODO();
         }
 
