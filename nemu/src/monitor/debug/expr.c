@@ -128,7 +128,7 @@ static bool make_token(char *e) {
 								panic("Too long number!\n");
 							}	
 							else {
-								strncpy(tokens[nr_token-1].str, substr_start,32);
+								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 								printf("--%s is recognized!--\n", tokens[nr_token-1].str);
 							}
 							break;
