@@ -208,10 +208,10 @@ static int find_main_op(int p, int q){
 		prior['*'] = prior['/'] = 2;
 		while(i <= q){
 			if(tokens[i].type == TK_NUMBER) {
-					printf("Meet numbers!\n");
+					//printf("Meet numbers!\n");
 			}
 			else if(tokens[i].type == '('){
-							printf("Meet (!\n");
+							//printf("Meet (!\n");
 							while(i <= q && tokens[i].type != ')') i++;
 							printf("Find )!\n");
 							if(i > q) {
@@ -220,7 +220,7 @@ static int find_main_op(int p, int q){
 							}
 		       }
 					 else if(prior[tokens[i].type] <= op_prior){
-									 printf("Meet tokens!\n");
+									 //printf("Meet tokens!\n");
 									 op = i;
 									 op_prior = prior[tokens[i].type];
 									 //find the latest operator with leatest priority
