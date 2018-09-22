@@ -89,8 +89,38 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
 					case TK_NOTYPE:
-							printf("Spaces are thrown away!\n");
+							printf("--Spaces are thrown away!--\n");
 							break;			//directly throw away the spaces
+					case '(':
+							tokens[nr_token].type = '('; 
+							nr_token ++;
+						  printf("-- ( is recognized!--\n");
+							break;
+					case ')':
+						  tokens[nr_token].type = ')';
+						  nr_token ++;
+						  printf("-- ) is recognized!--\n");
+						  break;
+					case '+':
+						  tokens[nr_token].type = '+';
+						  nr_token ++;
+						 printf("-- + is recognized!--\n");
+					   break;	 
+					case '-':
+							tokens[nr_token].type = '-'; 
+							nr_token ++;
+						  printf("-- - is recognized!--\n");
+							break;
+					case '*':
+							tokens[nr_token].type = '*'; 
+							nr_token ++;
+						  printf("-- * is recognized!--\n");
+							break;
+					case '/':
+							tokens[nr_token].type = '/'; 
+							nr_token ++;
+						  printf("-- / is recognized!--\n");
+							break;
           default: TODO();
         }
 
