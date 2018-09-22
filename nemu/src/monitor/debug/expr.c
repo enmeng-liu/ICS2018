@@ -165,6 +165,7 @@ bool check_inner(int p, int q){
 }
 
 bool check_parentheses(int p, int q){
+	printf("check () from %d to %d\n", p ,q);
 	//judge if the pair of parentheses can be thrown away, not just matched
 	if(tokens[p].type != '(' && tokens[q].type != ')') {
 			printf("No parentheses at all\n");
@@ -195,6 +196,7 @@ bool check_parentheses(int p, int q){
 }
 
 static int find_main_op(int p, int q){
+		printf("find main op from %d to %d\n", p ,q);
 		int i = p;
 		int op = 0, op_prior = 100;
 		int prior[150]={};// the priority of the operators
