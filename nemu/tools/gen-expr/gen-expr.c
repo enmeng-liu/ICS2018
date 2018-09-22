@@ -25,6 +25,7 @@ static inline void gen_space(){
 
 static inline void gen_num(){
 	int num = rand();
+	if(num == 0) num++;
   buf_len += sprintf(buf, "%d", num);
 }
 
@@ -46,8 +47,8 @@ static inline void gen_rand_expr() {
   buf[0] = '\0';
 	switch (choose(3)){
 		case 0: gen_num(); break;
-		case 1: gen('('); gen_rand_expr(); gen(')');break;
-		default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+		case 1: gen('('); gen_space();  gen_rand_expr(); gen_space(); gen(')');break;
+		default: gen_rand_expr(); gen_space(); gen_rand_op(); gen space(); gen_rand_expr(); break;
 	}
 }
 
