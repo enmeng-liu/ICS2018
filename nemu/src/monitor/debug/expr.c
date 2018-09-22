@@ -201,7 +201,9 @@ static int find_main_op(int p, int q){
 		prior['+'] = prior['-'] = 1;
 		prior['*'] = prior['/'] = 2;
 		while(i <= q){
-			if(tokens[i].type == TK_NUMBER) i++;
+			if(tokens[i].type == TK_NUMBER) {
+					printf("Meet numbers!\n");
+			}
 			else if(tokens[i].type == '('){
 							while(i <= q && tokens[i].type != ')') i++;
 							if(i > q) {
@@ -215,6 +217,7 @@ static int find_main_op(int p, int q){
 									 //find the latest operator with leatest priority
 								 	 // print("Main operator changes to %c\n", tokens[i].type);
 					      }
+			i++;
 		}
 		printf("**The main operator is %c**\n", tokens[op].type);
 		return op;
@@ -235,7 +238,7 @@ uint32_t eval(int p ,int q){
 							return temp;
 					}
 	}
-			 else if(check_parentheses(p,q) == 1){
+			 else if(check_parentheses(p,q) == true){
 					  	return eval (p+1, q-1);
 						//The expression is surrounded by a pair of parentheses that can be thrown away
 			      } 
