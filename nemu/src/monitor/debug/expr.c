@@ -153,7 +153,7 @@ static bool make_token(char *e) {
 
 bool check_inner(int p, int q){
 	//check the inner condition of parentheses
-	if(tokens[p].type != '(' && tokens[p].type != ')' ) return false;
+	if(tokens[p].type != '(' && tokens[p].type != ')' ) return true;
 	int brackets = 0;
 	for(int i = p; i <= q; ++i){
 			if(tokens[i].type == '(') brackets++;
