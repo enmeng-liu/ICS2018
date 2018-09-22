@@ -192,7 +192,7 @@ static int find_main_op(int p, int q){
 			if(tokens[i].type == TK_NUMBER) i++;
 			else if(tokens[i].type == '('){
 							while(i <= q && tokens[i].type != ')') i++;
-							if(i >= q) {
+							if(i > q) {
 									panic("WTF!");
 									assert(0);
 							}
