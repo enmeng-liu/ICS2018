@@ -188,7 +188,7 @@ static int find_main_op(int p, int q){
 		int prior[150]={};// the priority of the operators
 		prior['+'] = prior['-'] = 1;
 		prior['*'] = prior['/'] = 2;
-		while(i <= p){
+		while(i <= q){
 			if(tokens[i].type == TK_NUMBER) i++;
 			else if(tokens[i].type == '('){
 							while(i <= q && tokens[i].type != ')') i++;
@@ -201,6 +201,7 @@ static int find_main_op(int p, int q){
 									 op = i;
 									 op_prior = prior[tokens[i].type];
 									 //find the latest operator with leatest priority
+								 	 // print("Main operator changes to %c\n", tokens[i].type);
 					      }
 		}
 		printf("**The main operator is %c**\n", tokens[op].type);
