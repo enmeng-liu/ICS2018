@@ -23,6 +23,7 @@ static inline void gen_space(){
 }
 
 static inline void gen_num(){
+	if(buf_len > 60000) return;
 	int num = (rand())%10000;
 	if(num == 0) num++;
   buf_len += sprintf(buf + buf_len, "%d", num);
@@ -93,7 +94,7 @@ int main(int argc, char *argv[]) {
     fscanf(fp, "%d", &result);
     pclose(fp);
 
-    printf("%u %s\n----------------------\n", result, buf);
+    printf("%u %s\n", result, buf);
   }
   return 0;
 }
