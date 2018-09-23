@@ -269,11 +269,12 @@ long long eval(int p ,int q, bool* success){
 							switch(tokens[op].type){
 									case '+': return val1 + val2;
 									case '-':
-												if(val1 < val2){
+												/*if(val1 < val2){
 														//printf("negative numbers!\n");
 														*success = false;
 														return 0;
-												}	
+												}	*/
+												    return val1 - val2;
 									case '*': return val1 * val2;
 									case '/':
 												if(val2 == 0){
