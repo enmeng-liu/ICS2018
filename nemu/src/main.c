@@ -35,14 +35,15 @@ int main(int argc, char *argv[]) {
 	  bool succ = true;
 		int result = expr(test, &succ);
 		if(succ == false) {
-			panic("exprssion calculating failed\n");
-			assert(0);
+			printf("exprssion calculating failed\n");
+			continue;
 		}
 		if(result == answer){
 			printf("case %d: right\n", cnt);
 		}
 		else {
 		 printf("case %d: wrong\n", cnt);
+		 printf("The result is %u\n", result);
 		}
 	}
 	fclose(fp);
