@@ -72,13 +72,15 @@ static bool make_token(char *e) {
 
   nr_token = 0;
 
-	printf("Start make tokens: %s\n", e);
+	//printf("Start make tokens: %s\n", e);
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
+				for(int k = pmatch.rm_so; k < pmatch.rm_so; ++k) printf("Recog: %c",e[k]);
+				printf("\n");
 
         //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
           //  i, rules[i].regex, position, substr_len, substr_len, substr_start);

@@ -150,7 +150,6 @@ static int cmd_x(char *args){
 
 static int cmd_p(char *args){
 		bool suc = true; 
-		printf("The args passed: %s\n", args);
 		uint32_t ans = expr(args, &suc);
 		if(suc == false){
 				printf("illegal expressions\n");
