@@ -130,9 +130,9 @@ static bool make_token(char *e) {
 							}	
 							else {
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
-							  unsigned temp;
-								temp = (unsigned)atol(tokens[nr_token-1].str);
-						  	printf("--%u is recognized!--\n", temp);
+							  //unsigned temp;
+								//temp = (unsigned)atol(tokens[nr_token-1].str);
+						  	printf("--%s is recognized!--\n", tokens[nr_token-1].str);
 							}
 							break;
           default: TODO();
