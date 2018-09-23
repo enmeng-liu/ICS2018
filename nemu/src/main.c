@@ -13,7 +13,6 @@ int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
   int is_batch_mode = init_monitor(argc, argv);
 
-	printf("yarimasune\n");
 	uint32_t answer;
 	char test[65540];
 	FILE *fp = fopen("input", "r");
