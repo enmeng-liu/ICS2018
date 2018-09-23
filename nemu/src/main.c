@@ -17,17 +17,19 @@ int main(int argc, char *argv[]) {
 	uint32_t answer;
 	char test[65540];
 	FILE *fp = fopen("input", "r");
-	//int cnt = 0;
+	int cnt = 0;
 	assert(fp != NULL);
   //fscanf(fp, "%u %s\n", &answer, test);
-	fscanf(fp, "%u", &answer);
-	getchar();
-	fgets(test, 70000, fp);
+	//fscanf(fp, "%u", &answer);
+	//getchar();
+	//fgets(test, 70000, fp);
 	//fscanf(fp, "%s", test);
   //fscanf(fp, "%[^\n]%*c", test);
 	printf("%u %s\n", answer, test);
-	/*while(fscanf(fp, "%u %s\n", &answer, test) == 2){
+	while(fscanf(fp, "%u", &answer) == 1){
 		printf("Read something\n");
+		getchar();
+		fgets(test, 70000 ,fp);
 		cnt ++;
 	  bool succ = true;
 		int result = expr(test, &succ);
@@ -41,7 +43,7 @@ int main(int argc, char *argv[]) {
 		else {
 		 printf("case %d: wrong\n", cnt);
 		}
-	}*/
+	}
 	fclose(fp);
   /* Receive commands from user. */
   ui_mainloop(is_batch_mode);
