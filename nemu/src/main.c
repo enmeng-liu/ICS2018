@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 		printf("Read something\n");
 		//getchar();
 		fscanf(fp, "%s", test);
-		printf("Read: %u %s\n", answer, test);
+		//printf("Read: %u %s\n", answer, test);
 		cnt ++;
 	  bool succ = true;
 		int result = expr(test, &succ);
@@ -44,6 +44,7 @@ int main(int argc, char *argv[]) {
 		else {
 		 printf("case %d: wrong\n", cnt);
 		 printf("The result is %u\n", result);
+		 printf("The answer is %u\n", answer);
 		}
 	}
 	fclose(fp);
