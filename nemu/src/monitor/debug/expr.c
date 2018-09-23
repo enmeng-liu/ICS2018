@@ -79,6 +79,7 @@ static bool make_token(char *e) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
+				printf("substr_len: %d", substr_len);
 
         //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
           //  i, rules[i].regex, position, substr_len, substr_len, substr_start);
@@ -124,8 +125,8 @@ static bool make_token(char *e) {
 						 // printf("-- / is recognized!--\n");
 							break;
 					case TK_NUMBER:
-				      for(int k = pmatch.rm_so; k < pmatch.rm_so; ++k) printf("Recog: %c",e[k]);
-				      printf("\n");
+				     // for(int k = pmatch.rm_so; k < pmatch.rm_so; ++k) printf("Recog: %c",e[k]);
+				      //printf("\n");
 							tokens[nr_token].type = TK_NUMBER;
 							nr_token ++;
 						  if(substr_len > 10){
