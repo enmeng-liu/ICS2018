@@ -95,11 +95,11 @@ int main(int argc, char *argv[]) {
     fp = popen("./.expr", "r");
     assert(fp != NULL);
 
-    int result;
-    fscanf(fp, "%d", &result);
+    long long result;
+    fscanf(fp, "%lld", &result);
     pclose(fp);
 
-    printf("%u %s\n", result, buf);
+    printf("%lld %s\n", result, buf);
   }
   return 0;
 }
