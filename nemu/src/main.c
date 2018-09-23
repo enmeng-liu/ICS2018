@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
   //fscanf(fp, "%[^\n]%*c", test);
 	printf("%u %s\n", answer, test);
 	while(fscanf(fp, "%u", &answer) == 1){
-		printf("Read something\n");
+		//printf("Read something\n");
 		//getchar();
 		fscanf(fp, "%s", test);
 		//printf("Read: %u %s\n", answer, test);
