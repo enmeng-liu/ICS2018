@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
 		 printf("case %d: wrong\n", cnt);
 		 printf("The result is %lld\n", result);
 		 printf("The answer is %lld\n", answer);
+		 printf("%s\n", test);
 		}
 	}
 	fclose(fp);
