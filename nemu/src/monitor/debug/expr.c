@@ -130,11 +130,12 @@ static bool make_token(char *e) {
 				      //printf("\n");
 							tokens[nr_token].type = TK_NUMBER;
 							nr_token ++;
+								int templen = strlen(tokens[nr_token-1].str);
+								printf("substr_len: %d\n", templen);
 						  if(substr_len > 10){
 								panic("Too long number!\n");
 							}	
 							else {
-								int templen = strlen(tokens[nr_token-1].str);
 								for(int k = 0; k < templen; ++k) tokens[nr_token-1].str[k] = '\0';
 								printf("substr_len: %d\n", templen);
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
