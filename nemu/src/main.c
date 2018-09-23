@@ -13,26 +13,18 @@ int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
   int is_batch_mode = init_monitor(argc, argv);
 
-	/*uint32_t answer;
+	uint32_t answer;
 	char test[65540];
 	FILE *fp = fopen("input", "r");
 	int cnt = 0;
 	assert(fp != NULL);
-  //fscanf(fp, "%u %s\n", &answer, test);
-	//fscanf(fp, "%u", &answer);
-	//getchar();
-	//fgets(test, 70000, fp);
-	//fscanf(fp, "%s", test);
-  //fscanf(fp, "%[^\n]%*c", test);
-	printf("%u %s\n", answer, test);
 	while(fscanf(fp, "%u", &answer) == 1){
-		//printf("Read something\n");
-		//getchar();
 		fscanf(fp, "%s", test);
 		//printf("Read: %u %s\n", answer, test);
 		cnt ++;
 	  bool succ = true;
-		int result = expr(test, &succ);
+		printf("The parameters passed: %s\n", test );
+		uint32_t  result = expr(test, &succ);
 		if(succ == false) {
 			printf("exprssion calculating failed\n");
 			continue;
@@ -46,7 +38,7 @@ int main(int argc, char *argv[]) {
 		 printf("The answer is %u\n", answer);
 		}
 	}
-	fclose(fp);*/
+	fclose(fp);
   /* Receive commands from user. */
   ui_mainloop(is_batch_mode);
 
