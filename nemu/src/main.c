@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 	uint32_t answer;
 	char test[65540];
 	FILE *fp = fopen("input", "r");
-	int cnt = 0;
+	//int cnt = 0;
 	assert(fp != NULL);
   //fscanf(fp, "%u %s\n", &answer, test);
 	fscanf(fp, "%u", &answer);
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	//fscanf(fp, "%s", test);
   //fscanf(fp, "%[^\n]%*c", test);
 	printf("%u %s\n", answer, test);
-	while(fscanf(fp, "%u %s\n", &answer, test) == 2){
+	/*while(fscanf(fp, "%u %s\n", &answer, test) == 2){
 		printf("Read something\n");
 		cnt ++;
 	  bool succ = true;
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 		else {
 		 printf("case %d: wrong\n", cnt);
 		}
-	}
+	}*/
 	fclose(fp);
   /* Receive commands from user. */
   ui_mainloop(is_batch_mode);
