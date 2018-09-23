@@ -250,7 +250,7 @@ uint32_t eval(int p ,int q, bool* success){
 					}
 					else {
 							unsigned temp = (unsigned)atol(tokens[p].str);
-							printf("Get number %u", temp);
+							printf("Get number %u\n", temp);
 							return temp;
 					}
 	}
