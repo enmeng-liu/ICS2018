@@ -135,7 +135,7 @@ static bool make_token(char *e) {
 							}	
 							else {
 								int templen = strlen(tokens[nr_token-1].str);
-								tokens[nr_token-1].str[0] = '\0';
+								for(int k = 0; k < templen; ++k) tokens[nr_token-1].str[k] = '\0';
 								printf("substr_len: %d\n", templen);
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 								printf("substr_len: %d\n", templen);
