@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 
 	printf("yarimasune\n");
 	uint32_t answer;
-	char *test = NULL;
+	char test[65540];
 	FILE *fp = fopen("input", "r");
 	int cnt = 0;
 	assert(fp != NULL);
