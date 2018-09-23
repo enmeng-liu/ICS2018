@@ -58,7 +58,7 @@ static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
 "  long long result = %s; "
-"  printf(\"%%u\", result); "
+"  printf(\"%%lld\", result); "
 "  return 0; "
 "}";
 
