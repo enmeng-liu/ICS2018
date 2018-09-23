@@ -241,6 +241,7 @@ static int find_main_op(int p, int q){
 }
 
 uint32_t eval(int p ,int q, bool* success){
+	if(*success == false) return 0;
 	if(p > q){
 		printf("**Somethig wrong with the bounds!**\n");
 		assert(0);
@@ -269,14 +270,14 @@ uint32_t eval(int p ,int q, bool* success){
 									case '+': return val1 + val2;
 									case '-':
 												if(val1 < val2){
-														printf("negative numbers!\n");
+														//printf("negative numbers!\n");
 														*success = false;
 														return 0;
 												}	
 									case '*': return val1 * val2;
 									case '/':
 												if(val2 == 0){
-														printf("Divide by 0!\n");
+														//printf("Divide by 0!\n");
 														*success = false;
 														return 0;
 												}
@@ -296,7 +297,7 @@ uint32_t expr(char *e, bool *success) {
   }
 	uint32_t result = eval(0,nr_token-1,success);
 	if(*success == false) {
-		printf("Calculation failed!\n");
+		//printf("Calculation failed!\n");
 		return 0;
 	}
 	return result;

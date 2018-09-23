@@ -152,7 +152,7 @@ static int cmd_p(char *args){
 		bool suc = true; 
 		uint32_t ans = expr(args, &suc);
 		if(suc == false){
-				printf("illegal expressions\n");
+				printf("Illegal expressions: negative numbers or divide by zero\n");
 		}
 		else printf("%u\n", ans);
 		return 0;
