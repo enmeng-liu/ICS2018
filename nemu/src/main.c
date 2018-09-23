@@ -28,8 +28,8 @@ int main(int argc, char *argv[]) {
 	printf("%u %s\n", answer, test);
 	while(fscanf(fp, "%u", &answer) == 1){
 		printf("Read something\n");
-		getchar();
-		fgets(test, 70000 ,fp);
+		//getchar();
+		fscanf(fp, "%s", test);
 		printf("Read: %u %s\n", answer, test);
 		cnt ++;
 	  bool succ = true;
