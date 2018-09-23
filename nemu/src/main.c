@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
   //fscanf(fp, "%[^\n]%*c", test);
 	char *whole = NULL;
 	fgets(whole, 70000, fp);
+	printf("%s\n", whole);
 	char *answerchar = NULL;
  	int answersize = sprintf(answerchar, "%s", whole);
 	printf("%d\n", answersize);
