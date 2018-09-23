@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	fgets(whole, 70000, fp);
 	char *answerchar = NULL;
  	int answersize = sprintf(answerchar, "%s", whole);
-	answer = (unsigned) atol(answerchar);
+	//answer = (unsigned) atol(answerchar);
 	strncpy(test, whole+answersize, 65539);
 	printf("%u %s\n", answer, test);
 	while(fscanf(fp, "%u %s\n", &answer, test) == 2){
