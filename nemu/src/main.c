@@ -20,8 +20,14 @@ int main(int argc, char *argv[]) {
 	int cnt = 0;
 	assert(fp != NULL);
   //fscanf(fp, "%u %s\n", &answer, test);
-	fscanf(fp, "%u", &answer);
-  fscanf(fp, "%[^\n]%*c", test);
+	//fscanf(fp, "%u", &answer);
+  //fscanf(fp, "%[^\n]%*c", test);
+	char *whole = NULL;
+	fgets(whole, 70000, fp);
+	char *answerchar = NULL;
+ 	int answersize = sprintf(answerchar, "%s", whole);
+	answer = (unsigned) atol(answerchar);
+	strncpy(test, whole+answersize, 65539);
 	printf("%u %s\n", answer, test);
 	while(fscanf(fp, "%u %s\n", &answer, test) == 2){
 		printf("Read something\n");
