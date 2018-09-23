@@ -62,7 +62,7 @@ typedef struct token {
   char str[32];
 } Token;
 
-Token tokens[65600];
+Token tokens[65600] = {};
 int nr_token;
 
 static bool make_token(char *e) {
@@ -287,6 +287,7 @@ uint32_t eval(int p ,int q, bool* success){
 }
 
 uint32_t expr(char *e, bool *success) {
+	printf("The expr to be calculated is %s\n", e);
   if (!make_token(e)) {
     *success = false;
     return 0;
