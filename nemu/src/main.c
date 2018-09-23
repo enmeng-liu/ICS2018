@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 	  bool succ = true;
 		int result = expr(test, &succ);
 		if(succ == false) {
-			panic("exprssion calcalating failed\n");
+			panic("exprssion calculating failed\n");
 			assert(0);
 		}
 		if(result == answer){
