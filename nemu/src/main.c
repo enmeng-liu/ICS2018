@@ -23,10 +23,10 @@ int main(int argc, char *argv[]) {
 		//printf("Read: %u %s\n", answer, test);
 		cnt ++;
 	  bool succ = true;
-		printf("The parameters passed: %s\n", test );
+		//printf("The parameters passed: %s\n", test );
 		uint32_t  result = expr(test, &succ);
 		if(succ == false) {
-			printf("exprssion calculating failed\n");
+			//printf("exprssion calculating failed\n");
 			continue;
 		}
 		if(result == answer){

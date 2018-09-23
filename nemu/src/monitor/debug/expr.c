@@ -72,19 +72,16 @@ static bool make_token(char *e) {
 
   nr_token = 0;
 
-	//printf("Start make tokens: %s\n", e);
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-				//printf("substr_len: %d", substr_len);
 
         //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
           //  i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
-				//printf("e[position]: %c\n", e[position]);
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
@@ -126,25 +123,18 @@ static bool make_token(char *e) {
 						 // printf("-- / is recognized!--\n");
 							break;
 					case TK_NUMBER:
-				     // for(int k = pmatch.rm_so; k < pmatch.rm_so; ++k) printf("Recog: %c",e[k]);
-				      //printf("\n");
 							tokens[nr_token].type = TK_NUMBER;
 							nr_token ++;
-								int templen = strlen(tokens[nr_token-1].str);
-								printf("substr_len: %d\n", templen);
+							int templen = strlen(tokens[nr_token-1].str);
 						  if(substr_len > 10){
 								panic("Too long number!\n");
 							}	
 							else {
 								for(int k = 0; k < templen; ++k) tokens[nr_token-1].str[k] = '\0';
-								printf("substr_len: %d\n", templen);
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
-								printf("substr_len: %d\n", templen);
-								//for(int k = 0; k < substr_len; ++k) printf("%c",substr_start[k]);
-								//printf("\n");
 							  //unsigned temp;
 								//temp = (unsigned)atol(tokens[nr_token-1].str);
-						  	printf("--%s is recognized!--\n", tokens[nr_token-1].str);
+						  	//printf("--%s is recognized!--\n", tokens[nr_token-1].str);
 							}
 							break;
           default: TODO();
@@ -262,7 +252,7 @@ uint32_t eval(int p ,int q, bool* success){
 					}
 					else {
 							unsigned temp = (unsigned)atol(tokens[p].str);
-							printf("Get number %u\n", temp);
+							//printf("Get number %u\n", temp);
 							return temp;
 					}
 	}
@@ -299,7 +289,7 @@ uint32_t eval(int p ,int q, bool* success){
 }
 
 uint32_t expr(char *e, bool *success) {
-	printf("The expr to be calculated is %s\n", e);
+	//printf("The expr to be calculated is %s\n", e);
   if (!make_token(e)) {
     *success = false;
     return 0;
