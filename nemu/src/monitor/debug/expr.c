@@ -134,9 +134,10 @@ static bool make_token(char *e) {
 								panic("Too long number!\n");
 							}	
 							else {
-								tokens[nr_token-1].str[0] = '\0';
-								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 								int templen = strlen(tokens[nr_token-1].str);
+								tokens[nr_token-1].str[0] = '\0';
+								printf("substr_len: %d\n", templen);
+								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 								printf("substr_len: %d\n", templen);
 								//for(int k = 0; k < substr_len; ++k) printf("%c",substr_start[k]);
 								//printf("\n");
