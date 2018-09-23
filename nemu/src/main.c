@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 	  bool succ = true;
 		long long  result = expr(test, &succ);
 		if(succ == false) {
-			printf("Illegal expression!\n");
+			printf("case %d: Illegal expression!\n", cnt);
 			continue;
 		}
 		if(result == answer){
