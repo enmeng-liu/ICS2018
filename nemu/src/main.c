@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
 		printf("Read something\n");
 		getchar();
 		fgets(test, 70000 ,fp);
+		printf("Read: %u %s\n", answer, test);
 		cnt ++;
 	  bool succ = true;
 		int result = expr(test, &succ);
