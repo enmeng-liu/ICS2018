@@ -126,7 +126,7 @@ static bool make_token(char *e) {
 							tokens[nr_token].type = TK_NUMBER;
 							nr_token ++;
 							int templen = strlen(tokens[nr_token-1].str);
-						  if(substr_len > 10){
+						  if(substr_len > 100){
 								panic("Too long number!\n");
 							}	
 							else {
@@ -134,7 +134,7 @@ static bool make_token(char *e) {
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 							  //unsigned temp;
 								//temp = (unsigned)atol(tokens[nr_token-1].str);
-						  	//printf("--%s is recognized!--\n", tokens[nr_token-1].str);
+						  	printf("--%s is recognized!--\n", tokens[nr_token-1].str);
 							}
 							break;
           default: TODO();
