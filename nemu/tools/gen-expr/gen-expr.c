@@ -57,7 +57,7 @@ static char code_buf[65536];
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
-"  unsigned result = %s; "
+"  long long result = %s; "
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";

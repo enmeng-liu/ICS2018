@@ -240,7 +240,7 @@ static int find_main_op(int p, int q){
 		return op;
 }
 
-uint32_t eval(int p ,int q, bool* success){
+long long eval(int p ,int q, bool* success){
 	if(*success == false) return 0;
 	if(p > q){
 		printf("**Somethig wrong with the bounds!**\n");
@@ -252,7 +252,7 @@ uint32_t eval(int p ,int q, bool* success){
 							assert(0);
 					}
 					else {
-							unsigned temp = (unsigned)atol(tokens[p].str);
+							long long temp = atol(tokens[p].str);
 							//printf("Get number %u\n", temp);
 							return temp;
 					}
@@ -263,8 +263,8 @@ uint32_t eval(int p ,int q, bool* success){
 			      } 
 			 			else {
 							int op = find_main_op(p,q); //find the position of the main operator
-							uint32_t val1 = eval(p,op-1,success);
-							uint32_t val2 = eval(op+1,q,success);
+							long long val1 = eval(p,op-1,success);
+							long long val2 = eval(op+1,q,success);
 							//calculate the two parts of expressions recursively
 							switch(tokens[op].type){
 									case '+': return val1 + val2;
@@ -289,13 +289,13 @@ uint32_t eval(int p ,int q, bool* success){
 						}
 }
 
-uint32_t expr(char *e, bool *success) {
+long long expr(char *e, bool *success) {
 	//printf("The expr to be calculated is %s\n", e);
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
-	uint32_t result = eval(0,nr_token-1,success);
+	long long result = eval(0,nr_token-1,success);
 	if(*success == false) {
 		//printf("Calculation failed!\n");
 		return 0;

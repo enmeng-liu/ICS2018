@@ -150,11 +150,11 @@ static int cmd_x(char *args){
 
 static int cmd_p(char *args){
 		bool suc = true; 
-		uint32_t ans = expr(args, &suc);
+		long long ans = expr(args, &suc);
 		if(suc == false){
 				printf("Illegal expressions: negative numbers or divide by zero\n");
 		}
-		else printf("%u\n", ans);
+		else printf("%lld\n", ans);
 		return 0;
 }
 
