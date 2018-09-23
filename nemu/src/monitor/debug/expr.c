@@ -252,7 +252,7 @@ long long eval(int p ,int q, bool* success){
 							assert(0);
 					}
 					else {
-							long long temp = atol(tokens[p].str);
+							long long temp = atoll(tokens[p].str);
 							//printf("Get number %u\n", temp);
 							return temp;
 					}
