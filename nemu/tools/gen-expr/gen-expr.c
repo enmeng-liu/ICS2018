@@ -30,6 +30,7 @@ static inline void gen_num(){
 }
 
 static inline void gen(char c){
+	if(buf_len > 60000) return;
 	buf_len += sprintf(buf + buf_len, "%c", c);
 }
 
@@ -75,6 +76,10 @@ int main(int argc, char *argv[]) {
 		buf[0] = '\0';
 		buf_len = 0;
     gen_rand_expr();
+		if(buf_len > 60000) {
+			loop ++;
+			continue;
+		}
 
     sprintf(code_buf, code_format, buf);
 
