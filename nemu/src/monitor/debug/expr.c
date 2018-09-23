@@ -135,9 +135,10 @@ static bool make_token(char *e) {
 							}	
 							else {
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
-								printf("substr_len: %d\n", substr_len);
-								for(int k = 0; k < substr_len; ++k) printf("%c",substr_start[k]);
-								printf("\n");
+								int templen = strlen(tokens[nr_token-1].str);
+								printf("substr_len: %d\n", templen);
+								//for(int k = 0; k < substr_len; ++k) printf("%c",substr_start[k]);
+								//printf("\n");
 							  //unsigned temp;
 								//temp = (unsigned)atol(tokens[nr_token-1].str);
 						  	printf("--%s is recognized!--\n", tokens[nr_token-1].str);
