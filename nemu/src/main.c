@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 	//fscanf(fp, "%u", &answer);
   //fscanf(fp, "%[^\n]%*c", test);
 	char *whole = NULL;
-	fgets(whole, 70000, fp);
+	fgets(whole, 700000, fp);
 	printf("%s\n", whole);
 	char *answerchar = NULL;
  	int answersize = sprintf(answerchar, "%s", whole);
