@@ -22,7 +22,8 @@ int main(int argc, char *argv[]) {
   //fscanf(fp, "%u %s\n", &answer, test);
 	fscanf(fp, "%u", &answer);
 	getchar();
-	fscanf(fp, "%s", test);
+	fgets(test, 70000, fp);
+	//fscanf(fp, "%s", test);
   //fscanf(fp, "%[^\n]%*c", test);
 	printf("%u %s\n", answer, test);
 	while(fscanf(fp, "%u %s\n", &answer, test) == 2){
