@@ -234,7 +234,7 @@ static int find_main_op(int p, int q){
 					      }
 			i++;
 		}
-		printf("**The main operator is %c at position %d**\n", tokens[op].type, op);
+		//printf("**The main operator is %c at position %d**\n", tokens[op].type, op);
 		return op;
 }
 
