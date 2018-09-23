@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 
 	uint32_t answer;
 	char test[65540];
-	FILE *fp = fopen("./../tools/gen-expr/input", "r");
+	FILE *fp = fopen("./tools/gen-expr/input", "r");
 	int cnt = 0;
 	assert(fp != NULL);
 	while(fscanf(fp, "%u", &answer) == 1){
