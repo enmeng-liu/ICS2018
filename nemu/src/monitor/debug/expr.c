@@ -285,11 +285,11 @@ bool check_parentheses(int p, int q){
 			assert(0);
 	}
 	if(check_inner(p+1,q-1) == false) {
-			printf("Find pair but cannot throw\n");
+			//printf("Find pair but cannot throw\n");
 			return false;
 	}
 	else {
-			printf("Find pair can throw\n");
+			//printf("Find pair can throw\n");
 			return true;
 	}
 }
@@ -298,10 +298,14 @@ static int find_main_op(int p, int q){
 		printf("find main op from %d to %d\n", p ,q);
 		int i = p;
 		int op = 0, op_prior = 100;
-		int prior[150]={};// the priority of the operators
+		int prior[350]={};// the priority of the operators
 		prior[')'] = prior['('] = 100;
-		prior['+'] = prior['-'] = 1;
-		prior['*'] = prior['/'] = 2;
+		prior[TK_OR] = 1;
+		prior[TK_AND] = 2;
+		prior[TK_EQ] = prior[TK_NEQ] = 3;
+		prior[TK_L] = prior[TK_G] = prior[TK_LE] = prior[TK_GE] = 4;
+		prior['+'] = prior['-'] = 5;
+		prior['*'] = prior['/'] = 6;
 		while(i <= q){
 			if(tokens[i].type == TK_NUMBER) {
 					//printf("Meet numbers!\n");
@@ -341,7 +345,7 @@ long long eval(int p ,int q, bool* success){
 		assert(0);
 	}	
 	else if(p == q){
-		   		if(tokens[p].type != TK_NUMBER && tokens[p].type != TK_HEX && tokens[p].type != TK_REG){
+		   		if(tokens[p].type != TK_NUMBER){
 				    	panic("**Cannot read a single nondigit token!**\n");
 							assert(0);
 					}
@@ -406,7 +410,7 @@ long long expr(char *e, bool *success) {
 
 	for(int i = 0; i < nr_token; ++i){
 		int type_now = tokens[i+1].type;
-		if(tokens[i].type == '*' && (i == 0 ||(type_now != TK_NUMBER && type_now != TK_HEX && type_now != TK_REG) )){
+		if(tokens[i].type == '*' && (i == 0 ||type_now != TK_NUMBER)) {
 			tokens[i].type = TK_DEREF;
 			Log("Recognize dereferrence!");
 		}
