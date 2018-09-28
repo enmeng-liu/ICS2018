@@ -112,8 +112,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+       // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+           // i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -199,7 +199,7 @@ static bool make_token(char *e) {
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 								//Log("Get heximal number!");
 								tokens[nr_token-1].value = strtol(tokens[nr_token-1].str+2,NULL,16);
-								printf("--Get heximal number %lld in decimal\n", tokens[nr_token-1].value);
+								//printf("--Get heximal number %lld in decimal\n", tokens[nr_token-1].value);
 							}
 							break;
 					case TK_NUMBER:
@@ -213,7 +213,7 @@ static bool make_token(char *e) {
 								for(int k = 0; k < templen; ++k) tokens[nr_token-1].str[k] = '\0';
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 						    tokens[nr_token-1].value = atoll(tokens[nr_token-1].str);
-								printf("--Get decimal number %lld\n", tokens[nr_token-1].value);
+								//printf("--Get decimal number %lld\n", tokens[nr_token-1].value);
 								//directly change into long long type
 							}
 							break;
@@ -228,7 +228,7 @@ static bool make_token(char *e) {
 								strncpy(tokens[nr_token-1].str, substr_start+1,3);
 								//Log("Get registers!");
 								tokens[nr_token-1].value =(long long)reg_read(tokens[nr_token-1].str);
-								printf("--Read register %s: %lld\n", tokens[nr_token-1].str,tokens[nr_token-1].value);
+								//printf("--Read register %s: %lld\n", tokens[nr_token-1].str,tokens[nr_token-1].value);
 							}
 							break;
           default: TODO();
