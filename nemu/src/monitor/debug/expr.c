@@ -14,7 +14,6 @@ enum {
 	TK_REG,
  	TK_EQ,
 	TK_NEQ,
-	TK_NOT,
 	TK_LE,
 	TK_GE,
 	TK_L,
@@ -48,7 +47,6 @@ static struct rule {
 	{"/"  , '/'},					//divide
   {"==", TK_EQ},        //equal
 	{"!=", TK_NEQ},				//not equal
-	{"!",  TK_NOT}, 			//not
 	{"<=", TK_LE},				//less than or equal
 	{">=", TK_GE},				//greater than or equal	
 	{"<" , TK_L},					//less than
@@ -81,10 +79,24 @@ void init_regex() {
 typedef struct token {
   int type;
   char str[32];
+	long long value;
 } Token;
 
 Token tokens[65600] = {};
 int nr_token;
+
+static uint32_t reg_read(char *regname){
+	if(strcasecmp(regname,"eax") == 0) return cpu.eax;
+	if(strcasecmp(regname,"ecx") == 0) return cpu.ecx;
+	if(strcasecmp(regname,"edx") == 0) return cpu.edx;
+	if(strcasecmp(regname,"ebx") == 0) return cpu.ebx;
+	if(strcasecmp(regname,"esp") == 0) return cpu.esp;
+	if(strcasecmp(regname,"ebp") == 0) return cpu.ebp;
+	if(strcasecmp(regname,"esi") == 0) return cpu.esi;
+	if(strcasecmp(regname,"edi") == 0) return cpu.edi;
+	if(strcasecmp(regname,"eip") == 0) return cpu.eip;
+	else {panic("Register reading failure!"); return 0;}
+}
 
 static bool make_token(char *e) {
   int position = 0;
@@ -176,7 +188,7 @@ static bool make_token(char *e) {
 							nr_token ++;
 							break;
 					case TK_HEX:
-							tokens[nr_token].type = TK_HEX;
+							tokens[nr_token].type = TK_NUMBER;
 							nr_token ++;
 							int templen_hex = strlen(tokens[nr_token-1].str);
 						  if(substr_len > 100){
@@ -186,6 +198,8 @@ static bool make_token(char *e) {
 								for(int k = 0; k < templen_hex; ++k) tokens[nr_token-1].str[k] = '\0';
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 								//Log("Get heximal number!");
+								tokens[nr_token-1].value = strtol(tokens[nr_token-1].str+2,NULL,16);
+								printf("--Get heximal number %lld in decimal\n", tokens[nr_token-1].value);
 							}
 							break;
 					case TK_NUMBER:
@@ -198,6 +212,9 @@ static bool make_token(char *e) {
 							else {
 								for(int k = 0; k < templen; ++k) tokens[nr_token-1].str[k] = '\0';
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
+						    tokens[nr_token-1].value = atoll(tokens[nr_token-1].str);
+								printf("--Get decimal number %lld\n", tokens[nr_token-1].value);
+								//directly change into long long type
 							}
 							break;
 					case TK_REG:
@@ -210,6 +227,8 @@ static bool make_token(char *e) {
 								for(int k = 0; k < 4; ++k) tokens[nr_token-1].str[k] = '\0';
 								strncpy(tokens[nr_token-1].str, substr_start+1,3);
 								//Log("Get registers!");
+								tokens[nr_token-1].value =(long long)reg_read(tokens[nr_token-1].str);
+								printf("--Read register %s: %lld\n", tokens[nr_token-1].str,tokens[nr_token-1].value);
 							}
 							break;
           default: TODO();
@@ -322,14 +341,13 @@ long long eval(int p ,int q, bool* success){
 		assert(0);
 	}	
 	else if(p == q){
-		   		if(tokens[p].type != TK_NUMBER){
+		   		if(tokens[p].type != TK_NUMBER && tokens[p].type != TK_HEX && tokens[p].type != TK_REG){
 				    	panic("**Cannot read a single nondigit token!**\n");
 							assert(0);
 					}
 					else {
-							long long temp = atoll(tokens[p].str);
 							//printf("Get number %u\n", temp);
-							return temp;
+							return tokens[p].value;
 					}
 	}
 			 else if(check_parentheses(p,q) == true){
@@ -337,31 +355,45 @@ long long eval(int p ,int q, bool* success){
 						//The expression is surrounded by a pair of parentheses that can be thrown away
 			      } 
 			 			else {
-							int op = find_main_op(p,q); //find the position of the main operator
-							long long val1 = eval(p,op-1,success);
-							long long val2 = eval(op+1,q,success);
-							//calculate the two parts of expressions recursively
-							switch(tokens[op].type){
-									case '+': return val1 + val2;
-									case '-':
+							if(tokens[p].type == TK_DEREF){
+									uint32_t vaddr = (uint32_t)tokens[p+1].value;
+									tokens[p+1].value = (long long)vaddr_read(vaddr,32);
+									return eval(p+1,q,success);
+							}
+							else{
+								int op = find_main_op(p,q); //find the position of the main operator
+								long long val1 = eval(p,op-1,success);
+								long long val2 = eval(op+1,q,success);
+								//calculate the two parts of expressions recursively
+								switch(tokens[op].type){
+										case '+': return val1 + val2;
+										case '-':
 												/*if(val1 < val2){
 														//printf("negative numbers!\n");
 														*success = false;
 														return 0;
 												}	*/
 												    return val1 - val2;
-									case '*': return val1 * val2;
-									case '/':
+										case '*': return val1 * val2;
+										case '/':
 												if(val2 == 0){
 														//printf("Divide by 0!\n");
 														*success = false;
 														return 0;
 												}
 												else return val1 / val2;
-									default: panic("Unkown calculating error!");
+										case TK_LE: return val1 <= val2;
+										case TK_GE: return val1 >= val2;
+										case TK_L:  return val1 < val2;
+										case TK_G:  return val1 > val2;
+										case TK_EQ: return val1 == val2;
+										case TK_NEQ:return val1 != val2;
+										case TK_AND:return val1 && val2;
+										case TK_OR: return val1 || val2;
+										default: panic("Unkown calculating error!");
 													 assert(0);
-							}
-
+								}
+             }
 						}
 }
 
@@ -379,6 +411,7 @@ long long expr(char *e, bool *success) {
 			Log("Recognize dereferrence!");
 		}
 	}
+
 	long long result = eval(0,nr_token-1,success);
 	if(*success == false) {
 		//printf("Calculation failed!\n");
