@@ -409,8 +409,8 @@ long long expr(char *e, bool *success) {
   }
 
 	for(int i = 0; i < nr_token; ++i){
-		int type_now = tokens[i+1].type;
-		if(tokens[i].type == '*' && (i == 0 ||type_now != TK_NUMBER)) {
+		int type_now = tokens[i-1].type;
+		if(tokens[i].type == '*' && (i == 0 ||type_now != TK_NUMBER || type_now != ')')) {
 			tokens[i].type = TK_DEREF;
 			Log("Recognize dereferrence!");
 		}
