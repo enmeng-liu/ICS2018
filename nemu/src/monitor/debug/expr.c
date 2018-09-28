@@ -330,11 +330,11 @@ static int find_main_op(int p, int q){
 									 op = i;
 									 op_prior = prior[tokens[i].type];
 									 //find the latest operator with leatest priority
-								 	  //printf("Main operator changes to %c\n", tokens[i].type);
+								 	 //Log("Main operator changes to %c\n", tokens[i].type);
 					      }
 			i++;
 		}
-		printf("**The main operator is %c at position %d**\n", tokens[op].type, op);
+		Log("**The main operator is %c at position %d**", tokens[op].type, op);
 		return op;
 }
 
