@@ -154,7 +154,10 @@ static int cmd_p(char *args){
 		if(suc == false){
 				printf("Illegal expressions: negative numbers or divide by zero\n");
 		}
-		else printf("%lld\n", ans);
+		else{
+		  printf("decimal result: %lld\n", ans);
+			printf("heximal result: %llx\n",ans);
+		} 
 		return 0;
 }
 
