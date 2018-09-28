@@ -19,7 +19,8 @@ enum {
 	TK_L,
 	TK_G,
 	TK_AND,
-	TK_OR
+	TK_OR,
+	TK_DEREF	//dereferrence
 
   /* TODO: Add more token types */
 
@@ -182,7 +183,7 @@ static bool make_token(char *e) {
 							else {
 								for(int k = 0; k < templen_hex; ++k) tokens[nr_token-1].str[k] = '\0';
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
-								Log("Get heximal number!");
+								//Log("Get heximal number!");
 							}
 							break;
 					case TK_NUMBER:
@@ -206,7 +207,7 @@ static bool make_token(char *e) {
 							else {
 								for(int k = 0; k < 4; ++k) tokens[nr_token-1].str[k] = '\0';
 								strncpy(tokens[nr_token-1].str, substr_start+1,3);
-								Log("Get registers!");
+								//Log("Get registers!");
 							}
 							break;
           default: TODO();
