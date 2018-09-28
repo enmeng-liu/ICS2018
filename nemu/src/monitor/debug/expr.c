@@ -172,6 +172,19 @@ static bool make_token(char *e) {
 							tokens[nr_token].type = TK_OR;
 							nr_token ++;
 							break;
+					case TK_HEX:
+							tokens[nr_token].type = TK_HEX;
+							nr_token ++;
+							int templen_hex = strlen(tokens[nr_token-1].str);
+						  if(substr_len > 100){
+								panic("Too long number!\n");
+							}	
+							else {
+								for(int k = 0; k < templen_hex; ++k) tokens[nr_token-1].str[k] = '\0';
+								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
+								Log("Get heximal number!");
+							}
+							break;
 					case TK_NUMBER:
 							tokens[nr_token].type = TK_NUMBER;
 							nr_token ++;
@@ -182,9 +195,18 @@ static bool make_token(char *e) {
 							else {
 								for(int k = 0; k < templen; ++k) tokens[nr_token-1].str[k] = '\0';
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
-							  //unsigned temp;
-								//temp = (unsigned)atol(tokens[nr_token-1].str);
-						  	//printf("--%s is recognized!--\n", tokens[nr_token-1].str);
+							}
+							break;
+					case TK_REG:
+							tokens[nr_token].type = TK_REG;
+							nr_token ++;
+						  if(substr_len > 4){
+								panic("Wrong format of registers!\n");
+							}	
+							else {
+								for(int k = 0; k < 4; ++k) tokens[nr_token-1].str[k] = '\0';
+								strncpy(tokens[nr_token-1].str, substr_start+1,3);
+								Log("Get registers!");
 							}
 							break;
           default: TODO();
