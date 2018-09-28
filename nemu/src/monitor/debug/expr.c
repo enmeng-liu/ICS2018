@@ -35,8 +35,8 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},     //spaces
-	{"[0-9]+", TK_NUMBER}, //numbers
 	{"\\b0[xX][0-9a-fA-F]+\\b",TK_HEX},	 //hex numbers
+	{"[0-9]+", TK_NUMBER}, //numbers
 	{"$[eE][a-zA-Z][xipXIP]", TK_REG}, //registers
 	{"\\(", '('},					//left parenthesis
 	{"\\)", ')'},					//right parenthesis
