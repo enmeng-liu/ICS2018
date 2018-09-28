@@ -14,6 +14,7 @@ enum {
 	TK_REG,
  	TK_EQ,
 	TK_NEQ,
+	TK_NOT,
 	TK_LE,
 	TK_GE,
 	TK_L,
@@ -47,6 +48,7 @@ static struct rule {
 	{"/"  , '/'},					//divide
   {"==", TK_EQ},        //equal
 	{"!=", TK_NEQ},				//not equal
+	{"!",  TK_NOT}, 			//not
 	{"<=", TK_LE},				//less than or equal
 	{">=", TK_GE},				//greater than or equal	
 	{"<" , TK_L},					//less than
@@ -369,6 +371,14 @@ long long expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+
+	for(int i = 0; i < nr_token; ++i){
+		int type_now = tokens[i+1].type;
+		if(tokens[i].type == '*' && (i == 0 ||(type_now != TK_NUMBER && type_now != TK_HEX && type_now != TK_REG) )){
+			tokens[i].type = TK_DEREF;
+			Log("Recognize dereferrence!");
+		}
+	}
 	long long result = eval(0,nr_token-1,success);
 	if(*success == false) {
 		//printf("Calculation failed!\n");
