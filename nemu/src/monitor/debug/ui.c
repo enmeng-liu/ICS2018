@@ -156,7 +156,7 @@ static int cmd_p(char *args){
 		}
 		else{
 		  printf("decimal result: %lld\n", ans);
-			printf("heximal result: %llx\n",ans);
+			printf("heximal result: 0x%8llx\n",ans);
 		} 
 		return 0;
 }
