@@ -413,6 +413,7 @@ long long expr(char *e, bool *success) {
 		if(tokens[i].type == '*' && (i == 0 ||type_now != TK_NUMBER || type_now != ')')) {
 			tokens[i].type = TK_DEREF;
 			Log("Recognize dereferrence!");
+			if(type_now == TK_NUMBER || type_now == ')') Log("WTF!");
 		}
 	}
 
