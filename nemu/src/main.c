@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
   int is_batch_mode = init_monitor(argc, argv);
 
-	long long answer;
+	/*long long answer;
 	char test[65540];
 	FILE *fp = fopen("./tools/gen-expr/input", "r");
 	int cnt = 0;
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 		 printf("%s\n", test);
 		}
 	}
-	fclose(fp);
+	fclose(fp);*/
   /* Receive commands from user. */
   ui_mainloop(is_batch_mode);
 
