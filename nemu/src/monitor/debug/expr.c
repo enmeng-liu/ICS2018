@@ -51,7 +51,7 @@ static struct rule {
 	{"<" , TK_L},					//less than
 	{">" , TK_G},					//greater than
 	{"&&", TK_AND},				//logic and
-	{"||", TK_OR}					//logic or
+	{"\\|\\|", TK_OR}					//logic or
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
