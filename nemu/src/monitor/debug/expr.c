@@ -218,7 +218,7 @@ static bool make_token(char *e) {
 							}
 							break;
 					case TK_REG:
-							tokens[nr_token].type = TK_REG;
+							tokens[nr_token].type = TK_NUMBER;
 							nr_token ++;
 						  if(substr_len > 4){
 								panic("Wrong format of registers!\n");
