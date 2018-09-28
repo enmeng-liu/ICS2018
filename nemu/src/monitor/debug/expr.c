@@ -299,7 +299,7 @@ static int find_main_op(int p, int q){
 		int i = p;
 		int op = 0, op_prior = 100;
 		int prior[350]={};// the priority of the operators
-		prior[')'] = prior['('] = 100;
+		prior[')'] = prior['('] = prior[TK_DEREF] = 100;
 		prior[TK_OR] = 1;
 		prior[TK_AND] = 2;
 		prior[TK_EQ] = prior[TK_NEQ] = 3;
@@ -341,7 +341,7 @@ static int find_main_op(int p, int q){
 long long eval(int p ,int q, bool* success){
 	if(*success == false) return 0;
 	if(p > q){
-		printf("**Somethig wrong with the bounds!**\n");
+		panic("**Somethig wrong with the bounds!**\n");
 		assert(0);
 	}	
 	else if(p == q){
@@ -360,9 +360,23 @@ long long eval(int p ,int q, bool* success){
 			      } 
 			 			else {
 							if(tokens[p].type == TK_DEREF){
-									uint32_t vaddr = (uint32_t)tokens[p+1].value;
+								uint32_t vaddr;
+								if(tokens[p+1].type == TK_NUMBER){
+									vaddr = (uint32_t)tokens[p+1].value;
 									tokens[p+1].value = (long long)vaddr_read(vaddr,32);
 									return eval(p+1,q,success);
+									}
+								else {
+									if(tokens[p+1].type == '(' && tokens[q].type == ')'){
+										vaddr = (uint32_t)eval(p+1, q, success);
+										return (long long) vaddr_read(vaddr,32);
+										}
+									else {
+										panic("Something wrong with dereferrence!");
+										*success = false;
+										return 0;
+									}
+								}
 							}
 							else{
 								int op = find_main_op(p,q); //find the position of the main operator
