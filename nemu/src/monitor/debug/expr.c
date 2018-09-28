@@ -10,7 +10,14 @@
 enum {
   TK_NOTYPE = 256,
 	TK_NUMBER,
- 	TK_EQ
+ 	TK_EQ,
+	TK_NEQ,
+	TK_LE,
+	TK_GE,
+	TK_L,
+	TK_G,
+	TK_AND,
+	TK_OR
 
   /* TODO: Add more token types */
 
@@ -25,15 +32,22 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
+  {" +", TK_NOTYPE},     //spaces
 	{"[0-9]+", TK_NUMBER}, //numbers
 	{"\\(", '('},					//left parenthesis
 	{"\\)", ')'},					//right parenthesis
-  {"\\+", '+'},         // plus
-	{"\\-", '-'},				  // minus
+  {"\\+", '+'},         //plus
+	{"\\-", '-'},				  //minus
 	{"\\*", '*'},					//multiply
 	{"/"  , '/'},					//divide
-  {"==", TK_EQ}         // equal
+  {"==", TK_EQ},        //equal
+	{"!=", TK_NEQ},				//not equal
+	{"<=", TK_LE},				//less than or equal
+	{">=", TK_GE},				//greater than or equal	
+	{"<" , TK_L},					//less than
+	{">" , TK_G},					//greater than
+	{"&&", TK_AND},				//logic and
+	{"||", TK_OR}					//logic or
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -79,8 +93,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-          //  i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -134,7 +148,7 @@ static bool make_token(char *e) {
 								strncpy(tokens[nr_token-1].str, substr_start,substr_len);
 							  //unsigned temp;
 								//temp = (unsigned)atol(tokens[nr_token-1].str);
-						  	printf("--%s is recognized!--\n", tokens[nr_token-1].str);
+						  	//printf("--%s is recognized!--\n", tokens[nr_token-1].str);
 							}
 							break;
           default: TODO();
