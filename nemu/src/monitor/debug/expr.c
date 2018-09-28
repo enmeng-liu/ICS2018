@@ -371,48 +371,42 @@ long long eval(int p ,int q, bool* success){
 										vaddr = (uint32_t)eval(p+1, q, success);
 										return (long long) vaddr_read(vaddr,32);
 										}
-									else {
-										panic("Something wrong with dereferrence!");
-										*success = false;
-										return 0;
-									}
 								}
 							}
-							else{
-								int op = find_main_op(p,q); //find the position of the main operator
-								long long val1 = eval(p,op-1,success);
-								long long val2 = eval(op+1,q,success);
-								//calculate the two parts of expressions recursively
-								switch(tokens[op].type){
-										case '+': return val1 + val2;
-										case '-':
-												/*if(val1 < val2){
-														//printf("negative numbers!\n");
-														*success = false;
-														return 0;
-												}	*/
-												    return val1 - val2;
-										case '*': return val1 * val2;
-										case '/':
-												if(val2 == 0){
-														//printf("Divide by 0!\n");
-														*success = false;
-														return 0;
-												}
-												else return val1 / val2;
-										case TK_LE: return val1 <= val2;
-										case TK_GE: return val1 >= val2;
-										case TK_L:  return val1 < val2;
-										case TK_G:  return val1 > val2;
-										case TK_EQ: return val1 == val2;
-										case TK_NEQ:return val1 != val2;
-										case TK_AND:return val1 && val2;
-										case TK_OR: return val1 || val2;
-										default: panic("Unkown calculating error!");
+							int op = find_main_op(p,q); //find the position of the main operator
+							long long val1 = eval(p,op-1,success);
+							long long val2 = eval(op+1,q,success);
+							//calculate the two parts of expressions recursively
+							switch(tokens[op].type){
+									case '+': return val1 + val2;
+									case '-':
+											/*if(val1 < val2){
+													//printf("negative numbers!\n");
+													*success = false;
+													return 0;
+											}	*/
+											    return val1 - val2;
+									case '*': return val1 * val2;
+									case '/':
+											if(val2 == 0){
+												//printf("Divide by 0!\n");
+												*success = false;
+												return 0;
+											}
+										else return val1 / val2;
+									case TK_LE: return val1 <= val2;
+									case TK_GE: return val1 >= val2;
+									case TK_L:  return val1 < val2;
+									case TK_G:  return val1 > val2;
+									case TK_EQ: return val1 == val2;
+									case TK_NEQ:return val1 != val2;
+									case TK_AND:return val1 && val2;
+									case TK_OR: return val1 || val2;
+									default: panic("Unkown calculating error!");
 													 assert(0);
-								}
-             }
-						}
+							}
+            }
+					
 }
 
 long long expr(char *e, bool *success) {
