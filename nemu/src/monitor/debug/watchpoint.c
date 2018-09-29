@@ -154,8 +154,8 @@ void print_wp(){
 	while(temp != NULL){
 		if(temp->change_flag == true){
 			printf("Changed watchpoint NO.%d: %s\n", temp->NO, temp->expr);
-			printf("Old value: %lld\n", temp->old_value);
-			printf("New value: %lld\n", temp->new_value);
+			printf("Old value: (dec)%lld  (hex)0x%llx\n", temp->old_value, temp->old_value);
+			printf("New value: (dec)%lld  (hex)0x%llx\n", temp->new_value,temp->new_value);
 		}
 		temp = temp->next;
 	}
