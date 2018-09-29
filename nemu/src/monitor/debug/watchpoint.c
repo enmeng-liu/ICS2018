@@ -101,6 +101,7 @@ void info_wp(){
 	}
 	while(temp != NULL){
 		printf("Watchpoint No.%d: %s =  %lld\n", temp->NO, temp->expr, temp->old_value);
+		temp = temp->next;
 	}
 }
 
