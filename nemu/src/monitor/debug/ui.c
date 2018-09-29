@@ -46,6 +46,10 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -58,6 +62,8 @@ static struct {
 	{ "info", "Show related information, 'r' for registers and 'w' for watchpoints", cmd_info},
 	{ "x", "Scan the memory from the address expressed by a certain expression", cmd_x},
 	{ "p", "Print the value of the expression followed", cmd_p},
+	{ "w", "Add a new watchpoint", cmd_w},
+	{ "d", "Delete a watchpoint by its NO", cmd_d}
 
   /* TODO: Add more commands */
 
@@ -159,6 +165,17 @@ static int cmd_p(char *args){
 			printf("heximal result: 0x%08llx\n",ans);
 		} 
 		return 0;
+}
+
+static int cmd_w(char *args){
+	add_wp(new_wp(), args);
+	return 0;
+}
+
+static int cmd_d(char *args){
+	int wp_NO = atoi(args);
+	free_wp(wp_NO);
+	return 0;
 }
 
 void ui_mainloop(int is_batch_mode) {
