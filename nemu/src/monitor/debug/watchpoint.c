@@ -40,7 +40,12 @@ WP* new_wp(){
 
 void add_wp(WP *target_wp, char *exp){
 	/*add a new wp to head*/
-	target_wp -> NO = head -> NO + 1;
+	if(head == NULL){
+		target_wp->NO = 1;
+	}
+	else{
+		target_wp -> NO = head -> NO + 1;
+	}
 	strncpy(target_wp->expr, exp, strlen(exp));
 	target_wp -> old_value = 0;
 	target_wp -> next = head;
