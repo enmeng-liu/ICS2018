@@ -121,11 +121,12 @@ static int cmd_info(char *args){
 				printf("$eip = 0x%08x\n", cpu.eip);
 		}
 		else if(*arg == 'w'){
-				printf("This command hasn't been implemented yet!\n");
+					//printf("This command hasn't been implemented yet!\n");
+					info_wp();
 		}
 				else{
-			  printf("Unkown command\n");
-		}
+					panic("Cannot info this!");
+				}
 		return 0;
 }
 

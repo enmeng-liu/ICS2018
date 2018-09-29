@@ -88,7 +88,20 @@ void free_wp(int wp_NO){
 		target->next = free_;
 		free_ = target;
 	}
-	Log("Successfully free a wp NO%d: %s",free_->NO, free_->expr);
+	Log("Successfully free a wp NO.%d: %s",free_->NO, free_->expr);
 	return;
 }
+
+
+void info_wp(){
+	WP *temp = head;
+	if(head == NULL){
+		printf("No wp to info!\n");
+		return;
+	}
+	while(temp != NULL){
+		printf("Watchpoint No.%d: %s =  %lld\n", temp->NO, temp->expr, temp->old_value);
+	}
+}
+
 

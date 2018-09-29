@@ -18,5 +18,6 @@ WP* new_wp();
 void add_wp(WP* target_wp, char *exp);
 WP* search_wp(int wp_NO);
 void free_wp(int wp_NO);
+void info_wp();
 
 #endif
