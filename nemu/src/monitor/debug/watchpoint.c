@@ -11,6 +11,8 @@ void init_wp_pool() {
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
 		wp_pool[i].old_value = 0;
+		wp_pool[i].new_value = 0;
+		wp_pool[i].change_flag = false;
     wp_pool[i].next = &wp_pool[i + 1];
 		for(int j = 0; j < strlen(wp_pool[i].expr); ++j) {
 			wp_pool[i].expr[j] = '\0';
@@ -48,6 +50,8 @@ void add_wp(WP *target_wp, char *exp){
 	}
 	strncpy(target_wp->expr, exp, strlen(exp));
 	target_wp -> old_value = 0;
+	target_wp -> new_value = 0;
+	target_wp -> change_flag = false;
 	target_wp -> next = head;
 	head = target_wp;
 	Log("Successfully add a new wp: %s", head->expr);
@@ -94,6 +98,7 @@ void free_wp(int wp_NO){
 
 
 void info_wp(){
+	/*print all the information of wps*/
 	WP *temp = head;
 	if(head == NULL){
 		printf("No wp to info!\n");
@@ -103,6 +108,70 @@ void info_wp(){
 		printf("Watchpoint No.%d: %s =  %lld\n", temp->NO, temp->expr, temp->old_value);
 		temp = temp->next;
 	}
+}
+
+
+bool check_wp(){
+	/*check whether the wps has changed*/
+	bool flag = false;
+	WP* temp = head;
+	if(head == NULL){
+		return false;
+	}
+	while(temp != NULL){
+		bool succ = true;
+		temp -> new_value = expr(temp -> expr, &succ);
+		if(succ == false) {
+			panic("wp calculating error!");
+			assert(0);
+			return false;
+		}
+		if(temp->new_value != temp->old_value){
+			flag = true;
+			temp -> change_flag = true;
+			Log("Recognize wp change NO.%d", temp->NO);
+		}
+		temp = temp -> next;
+	}
+	Log("Wp checked!");
+	return flag;
+}
+
+void print_wp(){
+	/*print all the changed wp*/
+	WP* temp = head;
+	if(head == NULL) {
+		panic("wp printing error!");
+		assert(0);
+		return;
+	}
+	while(temp != NULL){
+		if(temp->change_flag == true){
+			printf("Changed watchpoint NO.%d: %s\n", temp->NO, temp->expr);
+			printf("Old value: %lld\n", temp->old_value);
+			printf("New value: %lld\n", temp->new_value);
+		}
+		temp = temp->next;
+	}
+	Log("wp printed!");
+	return;
+}
+
+void update_wp(){
+	/*update the value of all wps*/
+	if(head == NULL){
+		panic("wp updating error!");
+		assert(0);
+		return;
+	}
+	WP* temp = head;
+	while(temp != NULL){
+		temp->old_value = temp->new_value;
+		temp->change_flag = false;
+		temp = temp->next;
+	}
+	Log("wp updated!");
+	return;
 }
 
 
