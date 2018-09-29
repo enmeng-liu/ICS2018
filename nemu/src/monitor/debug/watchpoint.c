@@ -49,8 +49,14 @@ void add_wp(WP *target_wp, char *exp){
 		target_wp -> NO = head -> NO + 1;
 	}
 	strncpy(target_wp->expr, exp, strlen(exp));
-	target_wp -> old_value = 0;
-	target_wp -> new_value = 0;
+	bool succ = true;
+	target_wp -> old_value = expr(exp, &succ);
+	if(succ == false){
+		panic("Something wrong with calculation!");
+		assert(0);
+		return;
+	}
+	target_wp -> new_value = target_wp -> old_value;
 	target_wp -> change_flag = false;
 	target_wp -> next = head;
 	head = target_wp;
