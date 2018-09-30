@@ -38,9 +38,9 @@ void cpu_exec(uint64_t n) {
     /* Execute one instruction, including instruction fetch,
      * instruction decode, and the actual execution. */
     exec_wrapper(print_flag);
+		printf("After the first check: nemu_state = %d\n", nemu_state);
     nr_guest_instr_add(1);
 
-		printf("After the first check: nemu_state = %d\n", nemu_state);
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
 		if(check_wp() == true){
