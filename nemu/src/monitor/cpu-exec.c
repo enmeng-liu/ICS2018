@@ -25,7 +25,6 @@ void monitor_statistic() {
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
-	printf("At the start: nemu_state = %d\n", nemu_state);
   if (nemu_state == NEMU_END || nemu_state == NEMU_ABORT) {
     printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
     return;
@@ -38,14 +37,13 @@ void cpu_exec(uint64_t n) {
     /* Execute one instruction, including instruction fetch,
      * instruction decode, and the actual execution. */
     exec_wrapper(print_flag);
-		printf("After the first check: nemu_state = %d\n", nemu_state);
     nr_guest_instr_add(1);
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
 		if(check_wp() == true){
 			if(nemu_state == NEMU_RUNNING) nemu_state = NEMU_STOP;
-			printf("--Watchpoints information changed!--\n");
+			Log("--Watchpoints information changed!--");
 			print_wp();
 			update_wp();
 		}
@@ -69,9 +67,7 @@ void cpu_exec(uint64_t n) {
         return;
       }
     }
-		printf("At the end of loop: nemu_state = %d\n", nemu_state);
   }
 
   if (nemu_state == NEMU_RUNNING) { nemu_state = NEMU_STOP; }
-	printf("At the end: nemu_state = %d\n", nemu_state);
 }
