@@ -56,6 +56,7 @@ void cpu_exec(uint64_t n) {
     device_update();
 #endif
 
+		printf("The cpu-exec has reached here![Line 58]\n");
     if (nemu_state != NEMU_RUNNING) {
       if (nemu_state == NEMU_END) {
         printflog("\33[1;31mnemu: HIT %s TRAP\33[0m at eip = 0x%08x\n\n",
