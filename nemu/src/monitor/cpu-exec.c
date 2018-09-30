@@ -25,6 +25,7 @@ void monitor_statistic() {
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
+	printf("At the start: nemu_state = %d\n", nemu_state);
   if (nemu_state == NEMU_END || nemu_state == NEMU_ABORT) {
     printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
     return;
@@ -67,7 +68,9 @@ void cpu_exec(uint64_t n) {
         return;
       }
     }
+		printf("At the end of loop: nemu_state = %d\n", nemu_state);
   }
 
   if (nemu_state == NEMU_RUNNING) { nemu_state = NEMU_STOP; }
+	printf("At the end: nemu_state = %d\n", nemu_state);
 }
