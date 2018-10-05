@@ -29,6 +29,7 @@ make_EHelper(call) {
 	// Don't forget to add push eip
   rtl_push(&cpu.eip);
 	cpu.eip = decoding.jmp_eip;
+	Log("Successful call to addr 0x%x",cpu.eip);
   //TODO();
 
   print_asm("call %x", decoding.jmp_eip);
