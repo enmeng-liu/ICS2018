@@ -15,6 +15,7 @@ make_EHelper(and) {
 
 make_EHelper(xor) {
 	rtl_xor(&id_dest->val, &id_dest->val, &id_src->val);
+	operand_write(id_dest,&id_dest->val);
 	Log("Successful xor!");
   //TODO();
 
