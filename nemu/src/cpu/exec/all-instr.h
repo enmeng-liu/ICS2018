@@ -12,6 +12,10 @@ make_EHelper(xor);
 /*control.c*/
 make_EHelper(call);
 
+
+/*special.c*/
+make_EHelper(nop);
+
 make_EHelper(operand_size);
 
 make_EHelper(inv);
