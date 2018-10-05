@@ -16,6 +16,7 @@ make_EHelper(xor);
 
 /*control.c*/
 make_EHelper(call);
+make_EHelper(ret);
 
 
 /*special.c*/
