@@ -36,6 +36,7 @@ static inline make_DopHelper(SI) {
 
   op->type = OP_TYPE_IMM;
   op->simm =(int32_t)instr_fetch(eip, op->width);
+	Log("fetch simm: %d", op->simm);
   /* TODO: Use instr_fetch() to read `op->width' bytes of memory
    * pointed by `eip'. Interpret the result as a signed immediate,
    * and assign it to op->simm.
