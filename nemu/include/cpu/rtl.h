@@ -169,8 +169,10 @@ static inline void rtl_push(const rtlreg_t* src1) {
 
 static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
+	*dest = vaddr_read(cpu.esp,4);
   // esp <- esp + 4
-  TODO();
+	cpu.esp += 4;
+  //TODO();
 }
 
 static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,

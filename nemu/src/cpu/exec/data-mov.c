@@ -14,7 +14,9 @@ make_EHelper(push) {
 }
 
 make_EHelper(pop) {
-  TODO();
+	rtl_pop(&id_src->val);
+	Log("Successful pop!");
+  //TODO();
 
   print_asm_template1(pop);
 }

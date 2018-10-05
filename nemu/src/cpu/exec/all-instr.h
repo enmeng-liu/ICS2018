@@ -3,6 +3,7 @@
 /*data-mov.c*/
 make_EHelper(mov);
 make_EHelper(push);
+make_EHelper(pop);
 
 
 /*arith.c*/
