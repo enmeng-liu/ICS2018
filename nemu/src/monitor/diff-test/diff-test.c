@@ -15,6 +15,7 @@ static bool is_skip_dut;
 void difftest_skip_ref() { is_skip_ref = true; }
 void difftest_skip_dut() { is_skip_dut = true; }
 
+
 void reg_num_to_name(int i,char *name){
 	switch(i){
 		case 0: strncpy(name,"EAX",4); break;
