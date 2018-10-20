@@ -89,12 +89,12 @@ void difftest_step(uint32_t eip) {
 		if(cpu.gpr[i]._32 != ref_r.gpr[i]._32){
 			char reg_name[7]="";
 			reg_num_to_name(i,reg_name);
-			printf("Different value of %s\nDUT:%8x\nREF:%8x\n",reg_name,cpu.gpr[i]._32,ref_r.gpr[i]._32);
+			printf("Different value of %s\nDUT:0x%08x\nREF:0x%08x\n",reg_name,cpu.gpr[i]._32,ref_r.gpr[i]._32);
 			nemu_state = NEMU_ABORT;
 		}
 	}
 	if(cpu.eip != ref_r.eip){
-		printf("Different value of eip\nDUT:%8x\nREF:%8x\n",cpu.eip,ref_r.eip);
+		printf("Different value of eip\nDUT:0x%8x\nREF:0x%8x\n",cpu.eip,ref_r.eip);
 	}
   // TODO: Check the registers state with the reference design.
   // Set `nemu_state` to `NEMU_ABORT` if they are not the same.
