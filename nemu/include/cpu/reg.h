@@ -41,6 +41,7 @@ typedef struct {
 		unsigned IF:1;
 		unsigned garbage3:1;
 		unsigned OF:1;
+		unsigned :0;
 	}eflags;
 } CPU_state;
 

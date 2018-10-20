@@ -18,14 +18,14 @@ void difftest_skip_dut() { is_skip_dut = true; }
 
 void reg_num_to_name(int i,char *name){
 	switch(i){
-		case 0: strncpy(name,"EAX",4); break;
-		case 1: strncpy(name,"ECX",4); break;
-		case 2: strncpy(name,"EDX",4); break;
-		case 3: strncpy(name,"EBX",4); break;
-		case 4: strncpy(name,"ESP",4); break;
-		case 5: strncpy(name,"EBP",4); break;
-		case 6: strncpy(name,"ESI",4); break;
-		case 7: strncpy(name,"EDI",4); break;
+		case 0: strncpy(name,"eax",4); break;
+		case 1: strncpy(name,"ecx",4); break;
+		case 2: strncpy(name,"edx",4); break;
+		case 3: strncpy(name,"ebx",4); break;
+		case 4: strncpy(name,"esp",4); break;
+		case 5: strncpy(name,"ebp",4); break;
+		case 6: strncpy(name,"esi",4); break;
+		case 7: strncpy(name,"edi",4); break;
 		default: Assert(0,"Undefined register number.\n");
 	} 
 }
@@ -85,7 +85,7 @@ void difftest_step(uint32_t eip) {
   ref_difftest_getregs(&ref_r);
 
 	for(int i = 0; i < 8; ++i){
-		Log("Compare reg NO.%d",i);	
+		//Log("Compare reg NO.%d",i);	
 		if(cpu.gpr[i]._32 != ref_r.gpr[i]._32){
 			char reg_name[7]="";
 			reg_num_to_name(i,reg_name);
@@ -93,7 +93,9 @@ void difftest_step(uint32_t eip) {
 			nemu_state = NEMU_ABORT;
 		}
 	}
-	Assert(ref_r.eip == cpu.eip, "Different value of EIP\nDUT:%8x\nREF:%8x\n",cpu.eip,ref_r.eip);
+	if(cpu.eip != ref_r.eip){
+		printf("Different value of eip\nDUT:%8x\nREF:%8x\n",cpu.eip,ref_r.eip);
+	}
   // TODO: Check the registers state with the reference design.
   // Set `nemu_state` to `NEMU_ABORT` if they are not the same.
   //TODO();
