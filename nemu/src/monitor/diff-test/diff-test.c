@@ -89,6 +89,7 @@ void difftest_step(uint32_t eip) {
 			char reg_name[7]="";
 			reg_num_to_name(i,reg_name);
 			printf("Different value of %s\nDUT:%8x\nREF:%8x\n",reg_name,cpu.gpr[i]._32,ref_r.gpr[i]._32);
+			nemu_state = NEMU_ABORT;
 		}
 	}
 	Assert(ref_r.eip == cpu.eip, "Different value of EIP\nDUT:%8x\nREF:%8x\n",cpu.eip,ref_r.eip);
