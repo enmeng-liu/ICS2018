@@ -84,6 +84,7 @@ void difftest_step(uint32_t eip) {
   ref_difftest_getregs(&ref_r);
 
 	for(int i = 0; i < 8; ++i){
+		Log("Compare reg NO.%d",i);	
 		if(cpu.gpr[i]._32 != ref_r.gpr[i]._32){
 			char reg_name[7]="";
 			reg_num_to_name(i,reg_name);
