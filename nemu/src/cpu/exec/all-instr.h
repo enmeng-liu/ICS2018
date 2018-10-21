@@ -13,7 +13,10 @@ make_EHelper(cwtl);
 
 
 /*arith.c*/
+make_EHelper(add);
 make_EHelper(sub);
+make_EHelper(cmp);
+make_EHelper(inc);
 
 
 /*logic.c*/
