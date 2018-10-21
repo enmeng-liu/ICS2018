@@ -2,13 +2,29 @@
 #include "cpu/cc.h"
 
 make_EHelper(test) {
-  TODO();
+	rtl_and(&id_dest->val, &id_dest->val, &id_src->val);
+	//dest = dest & src
+	operand_write(id_dest, &id_dest->val);
 
+	rtl_update_ZFSF(&id_dest->val, id_dest->width);
+
+	rtl_li(&t0,0);
+	rtl_set_CF(&t0);
+	rtl_set_OF(&t0);
+	//CF = OF = 0
+	
   print_asm_template2(test);
 }
 
 make_EHelper(and) {
-  TODO();
+	rtl_and(&id_dest->val, &id_dest->val, &id_src->val);
+	//dest = dest & src	
+	operand_write(id_dest, &id_dest->val);
+	
+	rtl_li(&t0,0);
+	rtl_set_CF(&t0);
+	rtl_set_OF(&t0);
+	//CF = OF = 0
 
   print_asm_template2(and);
 }
@@ -16,14 +32,24 @@ make_EHelper(and) {
 make_EHelper(xor) {
 	rtl_xor(&id_dest->val, &id_dest->val, &id_src->val);
 	operand_write(id_dest,&id_dest->val);
-	Log("Successful xor!");
-  //TODO();
+
+	rtl_li(&t0,0);
+	rtl_set_CF(&t0);
+	rtl_set_OF(&t0);
+	//CF = OF = 0
 
   print_asm_template2(xor);
 }
 
 make_EHelper(or) {
-  TODO();
+	rtl_or(&id_dest->val, &id_dest->val, &id_src->val);
+	//dest = dest | src	
+	operand_write(id_dest, &id_dest->val);
+	
+	rtl_li(&t0,0);
+	rtl_set_CF(&t0);
+	rtl_set_OF(&t0);
+	//CF = OF = 0
 
   print_asm_template2(or);
 }

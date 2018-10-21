@@ -94,13 +94,37 @@ make_EHelper(inc) {
 }
 
 make_EHelper(dec) {
-  TODO();
+  rtl_subi(&t2, &id_dest->val, 1);
+  rtl_setrelop(RELOP_LTU, &t3, &id_dest->val, &t2);
+  operand_write(id_dest, &t2);
+	//dest = dest - (src + CF)
+
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  rtl_setrelop(RELOP_LTU, &t0, &id_dest->val, &t2);
+  rtl_or(&t0, &t3, &t0);
+  rtl_set_CF(&t0);
+
+  rtl_xori(&t0, &id_dest->val, 1);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
 
   print_asm_template1(dec);
 }
 
 make_EHelper(neg) {
-  TODO();
+	rtl_setrelopi(RELOP_EQ, &t0, &id_dest->val, 0);
+	rtl_set_CF(&t0);
+	//CF = (dest == 0)
+	switch(id_dest->width){
+		case 1: rtl_ori(&t2, &id_dest->val, 0x80);
+		case 2: rtl_ori(&t2, &id_dest->val, 0x8000);
+		case 4: rtl_ori(&t2, &id_dest->val, 0x80000000);
+	}
+	//dest = - dest
+	operand_write(id_dest, &t2);
 
   print_asm_template1(neg);
 }
