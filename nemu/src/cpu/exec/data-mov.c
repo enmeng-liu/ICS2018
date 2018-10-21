@@ -61,10 +61,14 @@ make_EHelper(leave) {
 
 make_EHelper(cltd) {
   if (decoding.is_operand_size_16) {
-    TODO();
+		rtl_sext(&t0,&reg_l(R_EAX),2);
+		rtl_mv(&reg_l(R_EDX), (&t0)+2);
+		//DX:AX <- sign-ext of AX
   }
   else {
-    TODO();
+		//rtl_andi(&t0, &reg_l(R_EAX), 0x80000000);
+		rtl_sari(&reg_l(R_EDX), &reg_l(R_EAX), 31);
+		//EDX:EAX <- sign-ext of EAX
   }
 
   print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");
@@ -72,10 +76,16 @@ make_EHelper(cltd) {
 
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
-    TODO();
+    //TODO();
+		rtl_sext(&t0, &reg_l(R_EAX), 1);
+		rtl_mv(&reg_l(R_EAX), &t0);
+		//AX <- sign-ext of AL
   }
   else {
-    TODO();
+    //TODO();
+		rtl_sext(&t0, &reg_l(R_EAX), 2);
+		rtl_sm(&reg_l(R_EAX), &t0, 4);
+		//EAX <- sign-ext of AX
   }
 
   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");

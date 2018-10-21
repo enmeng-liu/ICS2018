@@ -155,7 +155,9 @@ static inline void rtl_not(rtlreg_t *dest, const rtlreg_t* src1) {
 
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  //TODO();
+	rtl_shli(dest, src1, 32-width*8);
+	rtl_sari(dest, dest, 31);
 }
 
 static inline void rtl_push(const rtlreg_t* src1) {
@@ -182,7 +184,13 @@ static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
-  TODO();
+	switch(width){
+		case 1: rtl_andi(dest, src1, 0x80); break;
+		case 2: rtl_andi(dest, src1, 0x8000); break;
+		case 4: rtl_andi(dest, src1, 0x80000000); break;
+		default: Assert(0, "Wrong msb!");
+	}
+  //TODO();
 }
 
 #define make_rtl_setget_eflags(f) \
