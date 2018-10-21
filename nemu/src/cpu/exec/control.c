@@ -28,23 +28,21 @@ make_EHelper(call) {
   // the target address is calculated at the decode stage
 	// Don't forget to add push eip
   rtl_push(eip);
-	*eip = decoding.jmp_eip;
-	Log("Successful call to addr 0x%x",*eip);
-  //TODO();
+  rtl_j(decoding.jmp_eip);
+	//*eip = decoding.jmp_eip;
 
   print_asm("call %x", decoding.jmp_eip);
 }
 
 make_EHelper(ret) {
 	rtl_pop(eip);
-	Log("Successful pop!");
-  //TODO();
 
   print_asm("ret");
 }
 
 make_EHelper(call_rm) {
-  TODO();
+	rtl_push(eip);
+  rtl_jr(&id_dest->val);
 
   print_asm("call *%s", id_dest->str);
 }

@@ -119,9 +119,9 @@ make_EHelper(neg) {
 	rtl_set_CF(&t0);
 	//CF = (dest == 0)
 	switch(id_dest->width){
-		case 1: rtl_ori(&t2, &id_dest->val, 0x80);
-		case 2: rtl_ori(&t2, &id_dest->val, 0x8000);
-		case 4: rtl_ori(&t2, &id_dest->val, 0x80000000);
+		case 1: rtl_ori(&t2, &id_dest->val, 0x80); break;
+		case 2: rtl_ori(&t2, &id_dest->val, 0x8000); break;
+		case 4: rtl_ori(&t2, &id_dest->val, 0x80000000); break;
 	}
 	//dest = - dest
 	operand_write(id_dest, &t2);

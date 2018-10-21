@@ -34,11 +34,20 @@ make_EHelper(xor);
 make_EHelper(test);
 make_EHelper(and);
 make_EHelper(or);
+make_EHelper(setcc);
+make_EHelper(not);
+make_EHelper(sar);
+make_EHelper(shr);
+make_EHelper(shl);
 
 
 /*control.c*/
 make_EHelper(call);
+make_EHelper(call_rm);
 make_EHelper(ret);
+make_EHelper(jmp);
+make_EHelper(jmp_rm);
+make_EHelper(jcc);
 
 
 /*special.c*/

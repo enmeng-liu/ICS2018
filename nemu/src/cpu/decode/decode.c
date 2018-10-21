@@ -146,6 +146,7 @@ make_DHelper(I2a) {
   decode_op_I(eip, id_src, true);
 }
 
+
 /* Gv <- EvIb
  * Gv <- EvIv
  * use for imul */
@@ -286,7 +287,7 @@ make_DHelper(J) {
   decode_op_SI(eip, id_dest, false);
   // the target address can be computed in the decode stage
   decoding.jmp_eip = id_dest->simm + *eip;
-	Log("Calculated jmp addr: 0x%x=%d+0x%x", decoding.jmp_eip,id_dest->simm,*eip);
+	//Log("Calculated jmp addr: 0x%x=%d+0x%x", decoding.jmp_eip,id_dest->simm,*eip);
 }
 
 make_DHelper(push_SI) {
