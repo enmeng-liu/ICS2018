@@ -4,6 +4,7 @@
 #include "monitor/monitor.h"
 #include "diff-test.h"
 
+
 static void (*ref_difftest_memcpy_from_dut)(paddr_t dest, void *src, size_t n);
 static void (*ref_difftest_getregs)(void *c);
 static void (*ref_difftest_setregs)(const void *c);
@@ -29,6 +30,8 @@ void reg_num_to_name(int i,char *name){
 		default: Assert(0,"Undefined register number.\n");
 	} 
 }
+
+
 
 void init_difftest(char *ref_so_file, long img_size) {
 #ifndef DIFF_TEST
@@ -89,12 +92,34 @@ void difftest_step(uint32_t eip) {
 		if(cpu.gpr[i]._32 != ref_r.gpr[i]._32){
 			char reg_name[7]="";
 			reg_num_to_name(i,reg_name);
-			printf("Different value of %s\nDUT:0x%08x\nREF:0x%08x\n",reg_name,cpu.gpr[i]._32,ref_r.gpr[i]._32);
+			printf("Different value of %s\nDUT:0x%08x\nShould be:0x%08x\n",reg_name,cpu.gpr[i]._32,ref_r.gpr[i]._32);
 			nemu_state = NEMU_ABORT;
 		}
 	}
+
 	if(cpu.eip != ref_r.eip){
-		printf("Different value of eip\nDUT:0x%8x\nREF:0x%8x\n",cpu.eip,ref_r.eip);
+		printf("Different value of eip\nDUT:0x%8x\nShould be:0x%8x\n",cpu.eip,ref_r.eip);
+		nemu_state = NEMU_ABORT;
+	
+	if(ref_r.eflags.CF != cpu.eflags.CF){
+		printf("Different value of CF\nDUT:%d\nShould be:%d",cpu.eflags.CF,ref_r.eflags.CF);
+		nemu_state = NEMU_ABORT;
+	}	
+
+	if(ref_r.eflags.OF != cpu.eflags.OF){
+		printf("Different value of OF\nDUT:%d\nShould be:%d",cpu.eflags.OF,ref_r.eflags.OF);
+		nemu_state = NEMU_ABORT;
+	}	
+
+	if(ref_r.eflags.SF != cpu.eflags.SF){
+		printf("Different value of SF\nDUT:%d\nShould be:%d",cpu.eflags.SF,ref_r.eflags.SF);
+		nemu_state = NEMU_ABORT;
+	}	
+
+	if(ref_r.eflags.ZF != cpu.eflags.ZF){
+		printf("Different value of ZF\nDUT:%d\nShould be:%d",cpu.eflags.ZF,ref_r.eflags.ZF);
+		nemu_state = NEMU_ABORT;
+	}	
 	}
   // TODO: Check the registers state with the reference design.
   // Set `nemu_state` to `NEMU_ABORT` if they are not the same.
