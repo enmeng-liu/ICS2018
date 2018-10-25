@@ -8,6 +8,7 @@ make_EHelper(pusha);
 make_EHelper(popa);
 make_EHelper(leave);
 make_EHelper(movsx);
+make_EHelper(movzx);
 make_EHelper(cltd);
 make_EHelper(cwtl);
 make_EHelper(lea);
