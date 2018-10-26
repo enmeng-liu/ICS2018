@@ -191,6 +191,7 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 		default: Assert(0, "Wrong msb!");
 	}
 	rtl_shri(dest, dest, width*8 - 1);
+	Log("Get msb of %d: %d\n", *src1,*dest);
 }
 
 #define make_rtl_setget_eflags(f) \
