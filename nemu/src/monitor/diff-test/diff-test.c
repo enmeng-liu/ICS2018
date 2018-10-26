@@ -102,22 +102,22 @@ void difftest_step(uint32_t eip) {
 		nemu_state = NEMU_ABORT;
 	
 	if(ref_r.eflags.CF != cpu.eflags.CF){
-		printf("Different value of CF\nDUT:%d\nShould be:%d",cpu.eflags.CF,ref_r.eflags.CF);
+		printf("Different value of CF\nDUT:%d\nShould be:%d\n",cpu.eflags.CF,ref_r.eflags.CF);
 		nemu_state = NEMU_ABORT;
 	}	
 
 	if(ref_r.eflags.OF != cpu.eflags.OF){
-		printf("Different value of OF\nDUT:%d\nShould be:%d",cpu.eflags.OF,ref_r.eflags.OF);
+		printf("Different value of OF\nDUT:%d\nShould be:%d\n",cpu.eflags.OF,ref_r.eflags.OF);
 		nemu_state = NEMU_ABORT;
 	}	
 
 	if(ref_r.eflags.SF != cpu.eflags.SF){
-		printf("Different value of SF\nDUT:%d\nShould be:%d",cpu.eflags.SF,ref_r.eflags.SF);
+		printf("Different value of SF\nDUT:%d\nShould be:%d\n",cpu.eflags.SF,ref_r.eflags.SF);
 		nemu_state = NEMU_ABORT;
 	}	
 
 	if(ref_r.eflags.ZF != cpu.eflags.ZF){
-		printf("Different value of ZF\nDUT:%d\nShould be:%d",cpu.eflags.ZF,ref_r.eflags.ZF);
+		printf("Different value of ZF\nDUT:%d\nShould be:%d\n",cpu.eflags.ZF,ref_r.eflags.ZF);
 		nemu_state = NEMU_ABORT;
 	}	
 	}
