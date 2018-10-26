@@ -50,7 +50,7 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
-	Log("cmp: %d - %d", id_dest->val, id_src->val);
+	//Log("cmp: %d - %d", id_dest->val, id_src->val);
   rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &t3, &id_dest->val, &t2);
 	//dest - src
