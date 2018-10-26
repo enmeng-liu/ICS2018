@@ -50,9 +50,10 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
+	Log("cmp: %d - %d", id_dest->val, id_src->val);
   rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &t3, &id_dest->val, &t2);
-	//dest - (src + CF)
+	//dest - src
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
@@ -156,6 +157,7 @@ make_EHelper(adc) {
 }
 
 make_EHelper(sbb) {
+	/*written by yzh*/
   rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &t3, &id_dest->val, &t2);
   rtl_get_CF(&t1);
