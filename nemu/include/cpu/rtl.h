@@ -156,10 +156,10 @@ static inline void rtl_not(rtlreg_t *dest, const rtlreg_t* src1) {
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
 	rtl_shli(dest, src1, 32 - width * 8);
-	Log("shift width: %d", 32 - 8 *width);
-	Log("After shl:0x%08x -> 0x%08x", *dest, *src1);
+	//Log("shift width: %d", 32 - 8 *width);
+	//Log("After shl:0x%08x -> 0x%08x", *dest, *src1);
 	rtl_sari(dest, dest, 32 - width * 8);
-	Log("After sar:0x%08x", *dest);
+	//Log("After sar:0x%08x", *dest);
 }
 
 static inline void rtl_push(const rtlreg_t* src1) {
