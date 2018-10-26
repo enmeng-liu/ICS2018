@@ -191,7 +191,7 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 		default: Assert(0, "Wrong msb!");
 	}*/
 	//Log("after rtl_andi:0x%08x -> 0x%08x\n", *src1, *dest);
-	rtl_shri(dest, dest, width*8 - 1);
+	rtl_shri(dest, src1, width*8 - 1);
 	Log("0x%08x shr to 0x%08x\n", *src1,*dest);
 }
 
