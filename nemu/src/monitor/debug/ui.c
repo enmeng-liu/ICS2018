@@ -119,6 +119,10 @@ static int cmd_info(char *args){
 				printf("$esi = 0x%08x\n", cpu.esi);
 				printf("$edi = 0x%08x\n", cpu.edi);
 				printf("$eip = 0x%08x\n", cpu.eip);
+				printf("eflags CF = %d\n", cpu.eflags.CF);
+				printf("eflags OF = %d\n", cpu.eflags.OF);
+				printf("eflags SF = %d\n", cpu.eflags.SF);
+				printf("eflags ZF = %d\n", cpu.eflags.ZF);
 		}
 		else if(*arg == 'w'){
 					//printf("This command hasn't been implemented yet!\n");

@@ -1,12 +1,15 @@
-#include "klib.h"
-
+#include <stddef.h>
 #ifndef __ISA_NATIVE__
 
 size_t strlen(const char *s) {
-  return 0;
+	size_t i = 0;
+	while(*(s + i) != '\0'){
+		i ++;
+	}
+  return i;
 }
 
-char *strcpy(char* dst,const char* src) {
+char* strcpy(char* dst,const char* src) {
   return NULL;
 }
 
