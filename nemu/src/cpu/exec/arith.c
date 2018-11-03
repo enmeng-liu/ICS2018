@@ -80,7 +80,7 @@ make_EHelper(inc) {
 
   rtl_setrelop(RELOP_LTU, &t0, &t2, &id_dest->val);
   rtl_or(&t0, &t3, &t0);
-  rtl_set_CF(&t0);
+  //rtl_set_CF(&t0);
 	//update CF
 
   rtl_xori(&t0, &id_dest->val, 1);
@@ -104,7 +104,7 @@ make_EHelper(dec) {
 
   rtl_setrelop(RELOP_LTU, &t0, &id_dest->val, &t2);
   rtl_or(&t0, &t3, &t0);
-  rtl_set_CF(&t0);
+  //rtl_set_CF(&t0);
 
   rtl_xori(&t0, &id_dest->val, 1);
   rtl_xor(&t1, &id_dest->val, &t2);
