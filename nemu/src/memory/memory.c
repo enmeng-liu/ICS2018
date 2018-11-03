@@ -13,14 +13,14 @@ uint8_t pmem[PMEM_SIZE];
 /* Memory accessing interfaces */
 
 uint32_t paddr_read(paddr_t addr, int len) {
-	uint32_t mm = is_mmio(addr);
+	int mm = is_mmio(addr);
 	if(mm == -1)
   	return pmem_rw(addr, uint32_t) & (~0u >> ((4 - len) << 3));
 	else return mmio_read(addr, len, mm);
 }
 
 void paddr_write(paddr_t addr, uint32_t data, int len) {
-	uint32_t mm = is_mmio(addr);
+	int mm = is_mmio(addr);
 	if(mm == -1)
   	memcpy(guest_to_host(addr), &data, len);
 	else  mmio_write(addr, len, data, mm);
