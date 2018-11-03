@@ -9,7 +9,7 @@ void _puts(char* s){
 	for(int i = 0; i < strlen(s); ++i) _putc(s[i]);
 }
 
-char* itoa(char* dest, int n){
+char* my_itoa(char* dest, int n){
 	/*transfer int into char[]*/
 	//int outn = n;
 	if(n == 0) {
@@ -57,7 +57,7 @@ int printf(const char *format, ...) {
 			switch(format[i+1]){
 				case 'd'://%d 
 					in_num = va_arg(var_arg,int);
-					itoa(in_char,in_num);
+					my_itoa(in_char,in_num);
 					//strcat(str, in_char);
 					_puts(in_char);
 					in_size += strlen(in_char);
@@ -72,7 +72,7 @@ int printf(const char *format, ...) {
 					break;
 				case '0'://%02d
 					in_num = va_arg(var_arg,int);
-					itoa(in_char, in_num);
+					my_itoa(in_char, in_num);
 					int pwidth = format[i+2] - '0';//width of number
 					for(int i = strlen(in_char); i < pwidth; ++i) {
 						in_size ++;
@@ -119,7 +119,7 @@ int sprintf(char* str, const char* format, ...){
 			switch(format[i+1]){
 				case 'd'://%d 
 					in_num = va_arg(var_arg,int);
-					itoa(in_char,in_num);
+					my_itoa(in_char,in_num);
 					strcat(str, in_char);
 					in_size += strlen(in_char);
 					break;
