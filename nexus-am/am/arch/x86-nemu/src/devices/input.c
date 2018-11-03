@@ -10,7 +10,7 @@ size_t input_read(uintptr_t reg, void *buf, size_t size) {
     case _DEVREG_INPUT_KBD: {
       _KbdReg *kbd = (_KbdReg *)buf;
 			int keytemp = inl(I8042_DATA_PORT);
-      kbd->keydown = ((keytemp & 0x8000) == 0x8000) ? 1 : 0;
+      kbd->keydown = ((uint32_t)keytemp >> 15 );
       kbd->keycode = keytemp ^ 0x8000;
       return sizeof(_KbdReg);
     }
