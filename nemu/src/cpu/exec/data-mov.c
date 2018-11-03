@@ -84,7 +84,7 @@ make_EHelper(cwtl) {
   else {
     //TODO();
 		rtl_sext(&t0, &reg_l(R_EAX), 2);
-		rtl_sm(&reg_l(R_EAX), &t0, 4);
+		rtl_mv(&reg_l(R_EAX), &t0);
 		//EAX <- sign-ext of AX
   }
 
