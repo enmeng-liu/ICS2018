@@ -1,3 +1,4 @@
+#include "klib.h"
 #include <stddef.h>
 //#ifndef __ISA_NATIVE__
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
