@@ -52,6 +52,10 @@ make_EHelper(jmp_rm);
 make_EHelper(jcc);
 
 
+/*system.c*/
+make_EHelper(in);
+make_EHelper(out);
+
 /*special.c*/
 make_EHelper(nop);
 
