@@ -77,7 +77,7 @@ static inline void interpret_rtl_idiv64_r(rtlreg_t* dest,
   *dest = dividend % divisor;
 }
 
-static inline void interpret_rtl_lm(rtlreg_t *dest, const rtlreg_t* addr, int len) {
+inline void interpret_rtl_lm(rtlreg_t *dest, const rtlreg_t* addr, int len) {
   *dest = vaddr_read(*addr, len);
 }
 
@@ -162,7 +162,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 	//Log("After sar:0x%08x", *dest);
 }
 
-  void rtl_push(const rtlreg_t* src1) {
+static inline void rtl_push(const rtlreg_t* src1) {
   // esp <- esp - 4
 	rtl_subi(&cpu.esp,&cpu.esp,4);
   // M[esp] <- src1
