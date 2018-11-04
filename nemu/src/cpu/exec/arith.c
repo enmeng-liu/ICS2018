@@ -119,11 +119,12 @@ make_EHelper(neg) {
 	rtl_setrelopi(RELOP_EQ, &t0, &id_dest->val, 0);
 	rtl_set_CF(&t0);
 	//CF = (dest == 0)
-	switch(id_dest->width){
+	/*switch(id_dest->width){
 		case 1: rtl_ori(&t2, &id_dest->val, 0x80); break;
 		case 2: rtl_ori(&t2, &id_dest->val, 0x8000); break;
 		case 4: rtl_ori(&t2, &id_dest->val, 0x80000000); break;
-	}
+	}*/
+	t2 = - id_dest->val;
 	//dest = - dest
 	operand_write(id_dest, &t2);
 
