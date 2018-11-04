@@ -13,7 +13,7 @@ bool interpret_relop(uint32_t relop, const rtlreg_t src1, const rtlreg_t src2);
 
 /* RTL basic instructions */
 
-void interpret_rtl_li(rtlreg_t* dest, uint32_t imm) {
+static inline void interpret_rtl_li(rtlreg_t* dest, uint32_t imm) {
   *dest = imm;
 }
 
@@ -162,7 +162,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 	//Log("After sar:0x%08x", *dest);
 }
 
-static inline void rtl_push(const rtlreg_t* src1) {
+  void rtl_push(const rtlreg_t* src1) {
   // esp <- esp - 4
 	rtl_subi(&cpu.esp,&cpu.esp,4);
   // M[esp] <- src1
