@@ -10,6 +10,7 @@ void vecnull();
 _Context* irq_handle(_Context *tf) {
   _Context *next = tf;
 	printf("$eax = %d\n", tf->eax);
+	printf("$eip = %d\n", tf->eip);
   if (user_handler) {
     _Event ev;
     switch (tf->irq) {
