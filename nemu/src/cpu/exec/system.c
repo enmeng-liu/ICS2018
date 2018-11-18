@@ -3,9 +3,14 @@
 
 void difftest_skip_ref();
 void difftest_skip_dut();
+void raise_intr(uint8_t NO, vaddr_t ret_addr);
 
 make_EHelper(lidt) {
-  TODO();
+  //TODO();
+	//id_dest -- nanos/data[3];
+	rtl_li(&t0,id_dest->val); //load the addr of data[3] into t0
+	rtl_li(&cpu.idtr.limit, vaddr_read(t0,2)); //load data[0] to idtr.limit 
+	rtl_li(&cpu.idtr.base, vaddr_read(t0+2,4)); //load data[1-2] to idtr.base
 
   print_asm_template1(lidt);
 }
@@ -27,7 +32,8 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
-  TODO();
+  //TODO();
+	raise_intr((uint8_t)id_dest->val, decoding.seq_eip);
 
   print_asm("int %s", id_dest->str);
 

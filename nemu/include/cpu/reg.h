@@ -52,12 +52,15 @@ typedef struct {
 			rtlreg_t zero3:1;
 			rtlreg_t RF:1;
 			rtlreg_t VM:1;
-			rtlreg_t zero:16;	
+			rtlreg_t zero:14;	
 		}eflags;
 		uint32_t eflag;
 	};
-	uint16_t cs;
-
+	uint32_t cs;
+	struct{
+		uint32_t limit;
+		uint32_t base;
+	}idtr;
 } CPU_state;
 
 extern CPU_state cpu;

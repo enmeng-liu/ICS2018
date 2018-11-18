@@ -25,6 +25,8 @@ _Context* irq_handle(_Context *tf) {
 
 static GateDesc idt[NR_IRQ];	//NR_IRQ:IDT size
 
+
+
 int _cte_init(_Context*(*handler)(_Event, _Context*)) {
   // initialize IDT
   for (unsigned int i = 0; i < NR_IRQ; i ++) {
