@@ -10,7 +10,9 @@ make_EHelper(lidt) {
 	//id_dest -- nanos/data[3];
 	rtl_li(&t0,id_dest->val); //load the addr of data[3] into t0
 	rtl_li(&cpu.idtr.limit, vaddr_read(t0,2)); //load data[0] to idtr.limit 
+	Log("load idtr.limit:%d\n",vaddr_read(t0,2));
 	rtl_li(&cpu.idtr.base, vaddr_read(t0+2,4)); //load data[1-2] to idtr.base
+	Log("load idtr.base: %d\n", vaddr_read(t0+2,4));
 
   print_asm_template1(lidt);
 }
