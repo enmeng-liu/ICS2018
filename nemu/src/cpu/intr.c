@@ -11,7 +11,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	rtl_push(&cpu.cs);
 	rtl_push(&ret_addr);
 	//push eflags,cs,next eip
-	assert(NO <= cpu.idtr.limit);
+	//assert(NO <= cpu.idtr.limit);
 	//GateDesc = (GateDescriptor) vaddr_read(ret_addr + NO * 8 , 8);
 	//memcpy(&GateDesc, cpu.idtr.base + NO * 8, 8);
 	GateDesc gate_desc;
