@@ -31,27 +31,33 @@ typedef struct {
        rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 	};
  };
+
   vaddr_t eip;
-	struct {
-		rtlreg_t CF:1;
-		rtlreg_t one1:1;
-		rtlreg_t PF:1;
-		rtlreg_t zero1:1;
-	  rtlreg_t AF:1;
-		rtlreg_t zero2:1;
-		rtlreg_t ZF:1;
-		rtlreg_t SF:1;
-		rtlreg_t TF:1;
-		rtlreg_t IF:1;
-		rtlreg_t DF:1;
-		rtlreg_t OF:1;
-		rtlreg_t IOPL:2;
-		rtlreg_t NT:1;
-		rtlreg_t zero3:1;
-		rtlreg_t RF:1;
-		rtlreg_t VM:1;
-		rtlreg_t zero:16;	
-	}eflags;
+	union{
+		struct {
+			rtlreg_t CF:1;
+			rtlreg_t one1:1;
+			rtlreg_t PF:1;
+			rtlreg_t zero1:1;
+		  rtlreg_t AF:1;
+			rtlreg_t zero2:1;
+			rtlreg_t ZF:1;
+			rtlreg_t SF:1;
+			rtlreg_t TF:1;
+			rtlreg_t IF:1;
+			rtlreg_t DF:1;
+			rtlreg_t OF:1;
+			rtlreg_t IOPL:2;
+			rtlreg_t NT:1;
+			rtlreg_t zero3:1;
+			rtlreg_t RF:1;
+			rtlreg_t VM:1;
+			rtlreg_t zero:16;	
+		}eflags;
+		uint32_t eflag;
+	};
+	uint16_t cs;
+
 } CPU_state;
 
 extern CPU_state cpu;
