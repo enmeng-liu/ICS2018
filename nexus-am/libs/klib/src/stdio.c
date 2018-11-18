@@ -83,7 +83,10 @@ int printf(const char *format, ...) {
 					i += 4;
 					break;
 
-				default: printf("Not implememted argument type!\n");
+				default:
+				 	//printf("Not implememted argument type!\n");
+					//i ++;
+					i = len;
 			}
 		}
 		else {
