@@ -55,7 +55,10 @@ make_EHelper(int) {
 }
 
 make_EHelper(iret) {
-  TODO();
+  //TODO();
+	rtl_pop(&cpu.eip);
+	rtl_pop(&cpu.cs);
+	rtl_pop(&cpu.eflag);
 
   print_asm("iret");
 }

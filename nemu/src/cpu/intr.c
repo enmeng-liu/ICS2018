@@ -23,7 +23,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	}
 	//vaddr_t target = (gate_desc.offset_31_16 << 16) + (gate_desc.offset_15_0);
 	vaddr_t target = (gate_desc.val1 & 0x0000ffff) + (gate_desc.val2 & 0xffff0000);
-	Log("The jump target is 0x%08x", target);
+	//Log("The jump target is 0x%08x", target);
 	rtl_j(target);
 }
 
