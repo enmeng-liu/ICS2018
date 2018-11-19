@@ -2,6 +2,8 @@
 #include <x86.h>
 //#include "klib.h"
 
+#define YIELD 0x81
+
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
 void vectrap();
@@ -14,6 +16,7 @@ _Context* irq_handle(_Context *tf) {
   if (user_handler) {
     _Event ev;
     switch (tf->irq) {
+			case YIELD: ev.event = _EVENT_YIELD; break; 
       default: ev.event = _EVENT_ERROR; break;
     }
 
