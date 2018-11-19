@@ -15,7 +15,7 @@ _Context* irq_handle(_Context *tf) {
 	printf("$ecx = %d\n", tf->ecx);
 	printf("$edx = %d\n", tf->edx);
 	printf("$ebx = %d\n", tf->ebx);
-	printf("$esp = %d\n", tf->esp);
+//	printf("$esp = %d\n", tf->esp);
 	printf("$ebp = %d\n", tf->ebp);
 	printf("$esi = %d\n", tf->esi);
 	printf("$edi = %d\n", tf->edi);
