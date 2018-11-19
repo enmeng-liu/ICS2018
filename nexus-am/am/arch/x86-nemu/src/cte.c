@@ -19,8 +19,8 @@ _Context* irq_handle(_Context *tf) {
 	printf("$ebp = %d\n", tf->ebp);
 	printf("$esi = %d\n", tf->esi);
 	printf("$edi = %d\n", tf->edi);
-	printf("#irq = %d\n", tf-> irq);
 	*/
+	printf("#irq = %d\n", tf-> irq);
   if (user_handler) {
     _Event ev;
     switch (tf->irq) {
