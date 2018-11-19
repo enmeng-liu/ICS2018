@@ -1,6 +1,6 @@
 #include <am.h>
 #include <x86.h>
-//#include "klib.h"
+#include "klib.h"
 
 #define YIELD 0x81
 
@@ -13,6 +13,7 @@ _Context* irq_handle(_Context *tf) {
   _Context *next = tf;
 	//printf("$eax = %d\n", tf->eax);
 	//printf("$eip = %d\n", tf->eip);
+	printf("#irq = %d\n", tf-> irq);
   if (user_handler) {
     _Event ev;
     switch (tf->irq) {
