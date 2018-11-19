@@ -38,11 +38,11 @@ make_EHelper(int) {
   //TODO();
 	switch(decoding.opcode){
 		case 0xcc: raise_intr((uint8_t)0x3, decoding.seq_eip); break;
-		//case 0xcd: raise_intr(id_dest->val, decoding.seq_eip); break;
-		case 0xcd:
+		case 0xcd: raise_intr(id_dest->val, decoding.seq_eip); break;
+		/*case 0xcd:
 			Log("id_dest of int is 0x%x\n", id_dest->val);
 			raise_intr((uint8_t)id_dest->val, decoding.seq_eip);
-			break;
+			break;*/
 		case 0xce: raise_intr((uint8_t)0x4, decoding.seq_eip); break;
 		default: raise_intr((uint8_t)id_dest->val, decoding.seq_eip);
 	}
