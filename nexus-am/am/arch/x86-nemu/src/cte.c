@@ -11,8 +11,14 @@ void vecnull();
 
 _Context* irq_handle(_Context *tf) {
   _Context *next = tf;
-	//printf("$eax = %d\n", tf->eax);
-	//printf("$eip = %d\n", tf->eip);
+	printf("$eax = %d\n", tf->eax);
+	printf("$ecx = %d\n", tf->ecx);
+	printf("$edx = %d\n", tf->edx);
+	printf("$ebx = %d\n", tf->ebx);
+	printf("$esp = %d\n", tf->esp);
+	printf("$ebp = %d\n", tf->ebp);
+	printf("$esi = %d\n", tf->esi);
+	printf("$edi = %d\n", tf->edi);
 	printf("#irq = %d\n", tf-> irq);
   if (user_handler) {
     _Event ev;
