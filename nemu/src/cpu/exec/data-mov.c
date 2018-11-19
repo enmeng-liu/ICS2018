@@ -23,13 +23,12 @@ make_EHelper(pop) {
 }
 
 make_EHelper(pusha) {
-	rtlreg_t temp = 0;
-	rtl_lm(&temp,&cpu.esp,4);	
+	rtl_li(&t0, cpu.esp);	
 	rtl_push(&cpu.eax);
 	rtl_push(&cpu.ecx);
 	rtl_push(&cpu.edx);
 	rtl_push(&cpu.ebx);
-	rtl_push(&temp);
+	rtl_push(&t0);
 	rtl_push(&cpu.ebp);
 	rtl_push(&cpu.esi);
 	rtl_push(&cpu.edi);
