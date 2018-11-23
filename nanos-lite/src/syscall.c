@@ -16,14 +16,15 @@ extern _Context* do_syscall(_Context *c) {
 		case SYS_exit:  Log("call sys_exit!");
 										_halt(a[2]);
 									  break;
-		case SYS_write: Log("call sys_write!");
-										int fd = (int)a[1];
-										char* buf = (char*)a[2];
-										size_t count = (size_t)a[3];
-										if(fd == 1 || fd == 2){
-											for(int i = 0; i < count; ++i) _putc(buf[i]);
+		case SYS_write: //Log("call sys_write!");
+										//int fd = (int)a[1];
+										//char* buf = (char*)a[2];
+										//size_t count = (size_t)a[3];
+										if(a[1] == 1 || a[1] == 2){
+											char* buf = (char*)a[2];
+											for(int i = 0; i < a[3]; ++i) _putc(buf[i]);
 										}
-										c->GPRx = count;
+										c->GPRx = (size_t)a[3];
 										break;
 
     default: panic("Unhandled syscall ID = %d", a[0]);
