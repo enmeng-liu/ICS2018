@@ -2,8 +2,8 @@
 
 static _Context* do_event(_Event e, _Context* c) {
   switch (e.event) {
-		case _EVENT_YIELD: Log("Recognize yield event!\n"); break;
-		case _EVENT_SYSCALL: Log("Recognize system call!\n"); break;
+		case _EVENT_YIELD: Log("ID = %d: Recognize yield event!",e.event); break;
+		case _EVENT_SYSCALL: Log("ID = %d: Recognize system call!",e.event); break;
     default: panic("Unhandled event ID = %d", e.event);
   }
 

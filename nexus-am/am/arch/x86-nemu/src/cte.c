@@ -9,6 +9,7 @@ static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
 void vectrap();
 void vecnull();
+void vecsys();
 
 _Context* irq_handle(_Context *tf) {
   _Context *next = tf;
