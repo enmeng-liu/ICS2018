@@ -15,7 +15,17 @@ extern _Context* do_syscall(_Context *c) {
 										break;
 		case SYS_exit:  Log("call sys_exit!");
 										_halt(a[2]);
-									 break;
+									  break;
+		case SYS_write: Log("call sys_write!");
+										int fd = (int)a[1];
+										char* buf = (char*)a[2];
+										size_t count = (size_t)a[3];
+										if(fd == 1 || fd == 2){
+											for(int i = 0; i < count; ++i) _putc(buf[i]);
+										}
+										c->GPRx = count;
+										break;
+
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
