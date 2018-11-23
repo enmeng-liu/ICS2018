@@ -2,8 +2,12 @@
 
 #define DEFAULT_ENTRY 0x4000000
 
+size_t ramdisk_read(void *buf, size_t offset, size_t len);
+size_t get_ramdisk_size();
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  TODO();
+  //TODO();
+	ramdisk_read((void*)DEFAULT_ENTRY, 0, get_ramdisk_size());
   return DEFAULT_ENTRY;
 }
 
