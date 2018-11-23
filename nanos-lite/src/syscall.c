@@ -13,8 +13,8 @@ extern _Context* do_syscall(_Context *c) {
 									 	c->GPRx = 0; 
 										//Log("call sys_yield!");
 										break;
-		case SYS_exit: _halt(a[2]);
-									 Log("call sys_exit!");
+		case SYS_exit:  Log("call sys_exit!");
+										_halt(a[2]);
 									 break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
