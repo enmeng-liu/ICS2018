@@ -60,7 +60,7 @@ make_EHelper(iret) {
 	rtl_pop(&cpu.cs);
 	rtl_pop(&cpu.eflag);
 	rtl_j(decoding.jmp_eip);
-	Log("iret addr: 0x%x",decoding.jmp_eip);
+	//Log("iret addr: 0x%x",decoding.jmp_eip);
   print_asm("iret");
 }
 
