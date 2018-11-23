@@ -36,9 +36,9 @@ int _write(int fd, void *buf, size_t count){
 	/*if(fd == 1 || fd == 2){
 		for(int i = 0; i < count; ++i) _putc(buf[i]);
 	}*/
-	_syscall_(SYS_write, fd, (intptr_t)buf, count);
+	intptr_t ret = _syscall_(SYS_write, fd, (intptr_t)buf, count);
   //_exit(SYS_write);
-  return count;
+  return (int)ret;
 }
 
 void *_sbrk(intptr_t increment){
