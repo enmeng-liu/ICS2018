@@ -1,7 +1,7 @@
 #include "common.h"
 #include "syscall.h"
 
-_Context* do_syscall(_Context *c) {
+extern _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
 
