@@ -3,6 +3,7 @@
 #include "klib.h"
 
 #define YIELD 0x81
+#define SYSCALL 0x80
 
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
@@ -25,6 +26,7 @@ _Context* irq_handle(_Context *tf) {
     _Event ev;
     switch (tf->irq) {
 			case YIELD: ev.event = _EVENT_YIELD; break; 
+			case SYSCALL: ev.event = _EVENT_SYSCALL; break;
       default: ev.event = _EVENT_ERROR; break;
     }
 
