@@ -41,8 +41,16 @@ int _write(int fd, void *buf, size_t count){
   return (int)ret;
 }
 
+static intptr_t pbrk;
 void *_sbrk(intptr_t increment){
-  return (void *)-1;
+	intptr_t old_pbrk = pbrk;
+	intptr_t new_pbrk = pbrk + increment;
+	int sysret = _syscall_(SYS_brk, new_pbrk, 0 , 0);// let os set new pbrk
+	if(sysret == 0) {
+		pbrk = new_pbrk;
+		return (void*)old_pbrk;
+	}
+	else return (void *)-1;
 }
 
 int _read(int fd, void *buf, size_t count) {

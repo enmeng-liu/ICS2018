@@ -1,6 +1,8 @@
 #include "common.h"
 #include "syscall.h"
 
+extern char _end;
+
 extern _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;	//type 
@@ -26,7 +28,11 @@ extern _Context* do_syscall(_Context *c) {
 										}
 										c->GPRx = (size_t)a[3];
 										break;
-
+		case SYS_brk:		Log("call sys_brk!");
+										_heap.start = &_end;
+										_heap.end = (void*)a[1];
+										c->GPRx = 0;
+										break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
