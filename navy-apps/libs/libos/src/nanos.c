@@ -41,11 +41,12 @@ int _write(int fd, void *buf, size_t count){
   return (int)ret;
 }
 
-static intptr_t pbrk;
+extern char _end;
+static intptr_t pbrk = &_end;
 void *_sbrk(intptr_t increment){
 	intptr_t old_pbrk = pbrk;
 	intptr_t new_pbrk = pbrk + increment;
-	int sysret = _syscall_(SYS_brk, new_pbrk, 0 , 0);// let os set new pbrk
+	intptr_t sysret = _syscall_(SYS_brk, new_pbrk, 0 , 0);// let os set new pbrk
 	if(sysret == 0) {
 		pbrk = new_pbrk;
 		return (void*)old_pbrk;
