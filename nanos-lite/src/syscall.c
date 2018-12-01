@@ -27,12 +27,12 @@ extern _Context* do_syscall(_Context *c) {
 										_halt(a[2]);
 									  break;
 		case SYS_write: Log("call sys_write!");
-										/*if(a[1] == 1 || a[1] == 2){
+										if(a[1] == 1 || a[1] == 2){
 											char* buf = (char*)a[2];
 											for(int i = 0; i < a[3]; ++i) _putc(buf[i]);
+											c->GPRx = (size_t)a[3];
 										}
-										c->GPRx = (size_t)a[3];*/
-										c->GPRx = (ssize_t)fs_write((int)a[1], (const void*)a[2], (size_t)a[3]);
+										else c->GPRx = (ssize_t)fs_write((int)a[1], (const void*)a[2], (size_t)a[3]);
 										break;
 		case SYS_brk:		Log("call sys_brk!");
 										_heap.start = &_end;
