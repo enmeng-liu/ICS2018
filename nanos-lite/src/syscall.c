@@ -42,7 +42,7 @@ extern _Context* do_syscall(_Context *c) {
 										break;
 		case SYS_read: 	Log("call sys_read!");
 									 	c->GPRx = fs_read(a[1], (void*)a[2], a[3]);
-										 break;
+										break;
 		case SYS_open: 	Log("call sys_open!");
 									 	c->GPRx = fs_open((void*)a[1], a[2], a[3]);
 									 	break;
