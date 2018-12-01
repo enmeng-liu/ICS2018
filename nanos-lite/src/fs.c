@@ -63,6 +63,7 @@ extern size_t fs_filesz(int fd){
 
 extern ssize_t fs_read(int fd, void *buf, size_t len){
   //assert(file_table[fd].open_offset + len <= file_table[fd].size);  
+	Log("fs_read: fd = %d, offset = %d", fd, file_table[fd].open_offset);
 	if(file_table[fd].open_offset + len > file_table[fd].size){
 		len = file_table[fd].size - file_table[fd].open_offset;
 	}
@@ -77,6 +78,7 @@ extern ssize_t fs_close(int fd){
 
 extern ssize_t fs_write(int fd, const void* buf, size_t len){
   //assert(file_table[fd].open_offset + len <= file_table[fd].size);
+	Log("fs_write: fd = %d, offset = %d", fd, file_table[fd].open_offset);
 	if(file_table[fd].open_offset + len > file_table[fd].size){
 		len = file_table[fd].size - file_table[fd].open_offset;
 	}
@@ -86,7 +88,7 @@ extern ssize_t fs_write(int fd, const void* buf, size_t len){
 }
 
 extern off_t fs_lseek(int fd, off_t offset, int whence){
-	Log("lseek whence: %d", whence);
+	Log("lseek whence: fd = %d, offset = %d, whence = %d", fd, file_table[fd].open_offset, whence);
 	switch(whence){
 		case SEEK_SET: file_table[fd].open_offset = offset; break;
 		case SEEK_CUR: file_table[fd].open_offset += offset; break;
