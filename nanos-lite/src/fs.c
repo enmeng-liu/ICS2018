@@ -81,12 +81,18 @@ extern ssize_t fs_close(int fd){
 extern ssize_t fs_write(int fd, const void* buf, size_t len){
   //assert(file_table[fd].open_offset + len <= file_table[fd].size);
 	Log("fs_write: fd = %d, offset = %d", fd, file_table[fd].open_offset);
-	if(file_table[fd].open_offset + len > file_table[fd].size){
-		len = file_table[fd].size - file_table[fd].open_offset;
+	if(fd == 1 || fd == 2){
+		char* buff = (char*)buf;
+		for(int i = 0; i < len; ++i) _putc(buff[i]);
 	}
-  ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
-	file_table[fd].open_offset += len;
-	Log("fs_write: new offset = %d", file_table[fd].open_offset);
+	else{
+		if(file_table[fd].open_offset + len > file_table[fd].size){
+			len = file_table[fd].size - file_table[fd].open_offset;
+		}
+  	ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+		file_table[fd].open_offset += len;
+		Log("fs_write: new offset = %d", file_table[fd].open_offset);
+	}
   return len;
 }
 
