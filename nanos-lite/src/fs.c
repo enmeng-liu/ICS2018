@@ -92,5 +92,6 @@ extern off_t fs_lseek(int fd, off_t offset, int whence){
 		case SEEK_END: file_table[fd].open_offset = file_table[fd].size + offset; break;
 		default: panic("Unknown whence!");
 	}
-	return file_table[fd].open_offset;
+	if(file_table[fd].open_offset <= file_table[fd].size)return file_table[fd].open_offset;
+	else return file_table[fd].size;
 }
