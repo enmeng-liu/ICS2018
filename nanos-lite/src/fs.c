@@ -9,6 +9,8 @@ typedef size_t off_t;
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
+size_t serial_write(const void *buf, size_t offset, size_t len);
+
 typedef struct {
   char *name;
   size_t size;
@@ -33,8 +35,8 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
   {"stdin", 0, 0, 0, invalid_read, invalid_write},
-  {"stdout", 0, 0, 0, invalid_read, invalid_write},
-  {"stderr", 0, 0, 0, invalid_read, invalid_write},
+  {"stdout", 0, 0, 0, invalid_read, serial_write},
+  {"stderr", 0, 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 
@@ -81,18 +83,18 @@ extern ssize_t fs_close(int fd){
 extern ssize_t fs_write(int fd, const void* buf, size_t len){
   //assert(file_table[fd].open_offset + len <= file_table[fd].size);
 	Log("fs_write: fd = %d, offset = %d", fd, file_table[fd].open_offset);
-	if(fd == 1 || fd == 2){
+	/*if(fd == 1 || fd == 2){
 		char* buff = (char*)buf;
 		for(int i = 0; i < len; ++i) _putc(buff[i]);
+		return len;
+	}*/
+
+	if(file_table[fd].open_offset + len > file_table[fd].size){
+		len = file_table[fd].size - file_table[fd].open_offset;
 	}
-	else{
-		if(file_table[fd].open_offset + len > file_table[fd].size){
-			len = file_table[fd].size - file_table[fd].open_offset;
-		}
-  	ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
-		file_table[fd].open_offset += len;
-		Log("fs_write: new offset = %d", file_table[fd].open_offset);
-	}
+ 	ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+	file_table[fd].open_offset += len;
+	Log("fs_write: new offset = %d", file_table[fd].open_offset);
   return len;
 }
 
