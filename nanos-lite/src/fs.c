@@ -91,7 +91,8 @@ extern ssize_t fs_write(int fd, const void* buf, size_t len){
 }
 
 extern off_t fs_lseek(int fd, off_t offset, int whence){
-	Log("lseek whence: fd = %d, offset = %d, whence = %d", fd, file_table[fd].open_offset, whence);
+	Log("lseek whence: fd = %d, offset = %d, whence = %d", fd, offset, whence);
+	Log("fs_lseek: old offser = %d", file_table[fd].open_offset);
 	switch(whence){
 		case SEEK_SET: file_table[fd].open_offset = offset; break;
 		case SEEK_CUR: file_table[fd].open_offset += offset; break;
