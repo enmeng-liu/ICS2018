@@ -63,7 +63,7 @@ extern size_t fs_filesz(int fd){
 
 extern ssize_t fs_read(int fd, void *buf, size_t len){
   //assert(file_table[fd].open_offset + len <= file_table[fd].size);  
-	Log("fs_read: fd = %d, offset = %d", fd, file_table[fd].open_offset);
+	Log("fs_read: fd = %d, name = %s, offset = %d", fd, file_table[fd].name, file_table[fd].open_offset);
 	if(file_table[fd].open_offset + len > file_table[fd].size){
 		len = file_table[fd].size - file_table[fd].open_offset;
 	}
