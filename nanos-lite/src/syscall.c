@@ -25,7 +25,7 @@ extern _Context* do_syscall(_Context *c) {
 		case SYS_exit:  Log("call sys_exit!");
 										_halt(a[2]);
 									  break;
-		case SYS_write: Log("call sys_write!");
+		case SYS_write: //Log("call sys_write!");
 										//int fd = (int)a[1];
 										//char* buf = (char*)a[2];
 										//size_t count = (size_t)a[3];
