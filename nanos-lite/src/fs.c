@@ -79,6 +79,7 @@ extern ssize_t fs_write(int fd, const void* buf, size_t len){
 }
 
 extern off_t fs_lseek(int fd, off_t offset, int whence){
+	Log("lseek whence: %d", whence);
 	switch(whence){
 		case SEEK_SET: file_table[fd].open_offset = offset; break;
 		case SEEK_CUR: file_table[fd].open_offset += offset; break;
