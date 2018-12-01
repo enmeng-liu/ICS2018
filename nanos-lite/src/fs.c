@@ -69,6 +69,7 @@ extern ssize_t fs_read(int fd, void *buf, size_t len){
 	}
   ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
   file_table[fd].open_offset += len;
+	Log("fs_read: new offset = %d", file_table[fd].open_offset);
   return len;
 }
 
@@ -85,6 +86,7 @@ extern ssize_t fs_write(int fd, const void* buf, size_t len){
 	}
   ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 	file_table[fd].open_offset += len;
+	Log("fs_write: new offset = %d", file_table[fd].open_offset);
   return len;
 }
 
@@ -96,6 +98,7 @@ extern off_t fs_lseek(int fd, off_t offset, int whence){
 		case SEEK_END: file_table[fd].open_offset = file_table[fd].size + offset; break;
 		default: panic("Unknown whence!");
 	}
+	Log("fs_lseek: new offset = %d", file_table[fd].open_offset);
 	if(file_table[fd].open_offset <= file_table[fd].size)return file_table[fd].open_offset;
 	else return file_table[fd].size;
 }
