@@ -28,16 +28,18 @@ static char dispinfo[128] __attribute__((used));
 
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+	Log("dipinfo_read: offset = %d, len = %d", offset, len);
 	memcpy(buf, (void*)(dispinfo + offset), len);
   return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+	Log("fb_write: offset = %d, len = %d",offset, len);
 	int W = screen_width();
 	//int H = screen_height();
 	for(int i = 0; i < len/4; ++i){
-		int x = (offset + i) / W;
-		int y = (offset + i) % W;
+		int x = (offset + i) % W;
+		int y = (offset + i) / W;
 		draw_rect((uint32_t*)(buf + i * 4), x, y, 1, 1);
 	}
   return len;
