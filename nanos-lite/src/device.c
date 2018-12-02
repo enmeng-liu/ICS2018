@@ -54,6 +54,7 @@ void init_device() {
 	int j = sprintf(dispinfo, "WIDTH:%d\n", W);
 	sprintf(dispinfo + j, "HEIGHT:%d\n", H);
 	Log("dispinfo = %s", dispinfo);
+	assert(0);
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
 }
