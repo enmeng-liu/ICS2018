@@ -26,12 +26,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 	char temp[128]; 
 	if(keytemp != 0) {
 		if((keytemp & 0x8000) == 1){
-			assert(0);
 			sprintf(temp, "kd %s", keyname[keytemp ^ 0x8000]);
 			strncpy(buf, temp, len);
 		}
 		else {
-			sprintf(temp, "ku %s", keyname[keytemp]);
+			sprintf(temp, "ku %s", keyname[keytemp ^ 0x8000]);
 			strncpy(buf, temp, len);
 		}
 	}
