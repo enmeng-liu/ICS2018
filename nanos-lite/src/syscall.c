@@ -34,7 +34,7 @@ extern _Context* do_syscall(_Context *c) {
 										_heap.end = (void*)a[1];
 										c->GPRx = 0;
 										break;
-		case SYS_read: 	Log("call sys_read!");
+		case SYS_read: 	Log("call sys_read! len = %d", a[3]);
 									 	c->GPRx = (ssize_t)fs_read((int)a[1], (void*)a[2], (size_t)a[3]);
 										break;
 		case SYS_open: 	Log("call sys_open!");
