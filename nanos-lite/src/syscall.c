@@ -27,7 +27,8 @@ extern _Context* do_syscall(_Context *c) {
 										//Log("call sys_yield!");
 										break;
 		case SYS_exit:  //Log("call sys_exit!");
-										_halt(a[2]);
+										//_halt(a[2]);
+										naive_uload(NULL, "/bin/init");
 									  break;
 		case SYS_write: //Log("call sys_write!");
 										c->GPRx = (ssize_t)fs_write((int)a[1], (const void*)a[2], (size_t)a[3]);
@@ -49,7 +50,8 @@ extern _Context* do_syscall(_Context *c) {
 		case SYS_lseek: //Log("call sys_lseek!");
 										c->GPRx = (off_t)fs_lseek((int)a[1], (off_t)a[2], (int)a[3]);
 										break;	
-		case SYS_execve: naive_uload(NULL, (char*)a[1]);
+		case SYS_execve: Log("call SYS_execve, name = %s", (char*)a[1]);
+										 naive_uload(NULL, (char*)a[1]);
 										 c->GPRx = 0;
 										 break;
     default: panic("Unhandled syscall ID = %d", a[0]);
