@@ -22,6 +22,7 @@ static const char *keyname[256] __attribute__((used)) = {
 size_t events_read(void *buf, size_t offset, size_t len) {
 	Log("events_read! len = %d", len);
 	int keytemp = read_key();
+	Log("get key: %d", keytemp);
 	char *temp = "\0";
 	if(keytemp != 0) {
 		if((keytemp & 0x8000) == 1){
