@@ -29,6 +29,7 @@ static char dispinfo[128] __attribute__((used));
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 	Log("dipinfo_read: offset = %d, len = %d", offset, len);
+	assert(0);
 	memcpy(buf, (void*)dispinfo + offset, len);
   return len;
 }
@@ -53,8 +54,7 @@ void init_device() {
 	int H = screen_height();
 	int j = sprintf(dispinfo, "WIDTH:%d\n", W);
 	sprintf(dispinfo + j, "HEIGHT:%d\n", H);
-	Log("dispinfo = %s", dispinfo);
-	assert(0);
+	//Log("dispinfo = %s", dispinfo);
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
 }
