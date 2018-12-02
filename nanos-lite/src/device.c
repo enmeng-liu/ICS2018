@@ -24,7 +24,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 	int keytemp = read_key() & 0xffff;
 	char temp[128]; 
 	if(keytemp != 0) {
-		Log("get key: %d", keytemp ^ 0x8000);
+		//Log("get key: %d", keytemp ^ 0x8000);
 		if((keytemp & 0x8000) != 0){
 			sprintf(temp, "kd %s\n", keyname[keytemp ^ 0x8000]);
 			strncpy(buf, temp, len);
@@ -40,7 +40,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 		strncpy(buf, temp, len);
 	}
 
-	Log("get events: %s", temp);
+	//Log("get events: %s", temp);
 	if(strlen(temp) < len) len = strlen(temp);
   return len;
 }
