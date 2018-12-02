@@ -30,6 +30,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 			strncpy(buf, temp, len);
 		}
 		else {
+			assert(0);
 			sprintf(temp, "ku %s", keyname[keytemp ^ 0x8000]);
 			strncpy(buf, temp, len);
 		}
