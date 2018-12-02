@@ -3,7 +3,7 @@
 #include "klib.h"
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
-	Log("call serial write!");
+	//Log("call serial write!");
 	char* buff = (char*) buf;
 	for(int i = 0; i < len; ++i){
 		_putc(buff[i]);
@@ -20,7 +20,7 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-	Log("events_read! len = %d", len);
+	//Log("events_read! len = %d", len);
 	int keytemp = read_key() & 0xffff;
 	char temp[128]; 
 	if(keytemp != 0) {
@@ -50,13 +50,13 @@ static char dispinfo[128] __attribute__((used));
 
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-	Log("dipinfo_read: offset = %d, len = %d", offset, len);
+	//Log("dipinfo_read: offset = %d, len = %d", offset, len);
 	memcpy(buf, (void*)dispinfo + offset, len);
   return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-	Log("fb_write: offset = %d, len = %d",offset, len);
+	//Log("fb_write: offset = %d, len = %d",offset, len);
 	//assert(0);
 	int W = screen_width();
 	/*for(int i = 0; i < len; i += 4){

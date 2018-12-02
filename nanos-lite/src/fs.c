@@ -59,7 +59,7 @@ void init_fs() {
 
 
 extern int fs_open(const char *pathname, int flags, int mode){
-	Log("open file: %s", pathname);
+	//Log("open file: %s", pathname);
 	for(int i = 0; i < NR_FILES; ++i){
 		if(strcmp(pathname, file_table[i].name) == 0){
       file_table[i].open_offset = 0;
@@ -77,7 +77,7 @@ extern size_t fs_filesz(int fd){
 extern ssize_t fs_read(int fd, void *buf, size_t len){
   //assert(file_table[fd].open_offset + len <= file_table[fd].size);  
 	int ret = 0;
-	Log("fs_read: fd = %d, name = %s, offset = %d, len = %d", fd, file_table[fd].name, file_table[fd].open_offset, len);
+	//Log("fs_read: fd = %d, name = %s, offset = %d, len = %d", fd, file_table[fd].name, file_table[fd].open_offset, len);
 	if(fd != FD_EVENTS && file_table[fd].open_offset + len > file_table[fd].size){
 		len = file_table[fd].size - file_table[fd].open_offset;
 	}
@@ -87,17 +87,17 @@ extern ssize_t fs_read(int fd, void *buf, size_t len){
 	}
 	else ret = file_table[fd].read(buf, file_table[fd].open_offset, len);
   file_table[fd].open_offset += ret;
-	Log("fs_read: new offset = %d", file_table[fd].open_offset);
+	//Log("fs_read: new offset = %d", file_table[fd].open_offset);
   return ret;
 }
 
 extern ssize_t fs_close(int fd){
-	Log("fs_close: fd = %d, name = %s, offset = %d", fd, file_table[fd].name, file_table[fd].open_offset);
+	//Log("fs_close: fd = %d, name = %s, offset = %d", fd, file_table[fd].name, file_table[fd].open_offset);
   return 0;
 }
 
 extern ssize_t fs_write(int fd, const void* buf, size_t len){
-	Log("fs_write: fd = %d, offset = %d", fd, file_table[fd].open_offset);
+	//Log("fs_write: fd = %d, offset = %d", fd, file_table[fd].open_offset);
 	/*if(fd == 1 || fd == 2){
 		char* buff = (char*)buf;
 		for(int i = 0; i < len; ++i) _putc(buff[i]);
@@ -113,13 +113,13 @@ extern ssize_t fs_write(int fd, const void* buf, size_t len){
 	else file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 
 	file_table[fd].open_offset += len;
-	Log("fs_write: new offset = %d", file_table[fd].open_offset);
+	//Log("fs_write: new offset = %d", file_table[fd].open_offset);
   return len;
 }
 
 extern off_t fs_lseek(int fd, off_t offset, int whence){
-	Log("lseek whence: fd = %d, name = %s, offset = %d, whence = %d", fd, file_table[fd].name, offset, whence);
-	Log("fs_lseek: old offset = %d", file_table[fd].open_offset);
+	//Log("lseek whence: fd = %d, name = %s, offset = %d, whence = %d", fd, file_table[fd].name, offset, whence);
+	//Log("fs_lseek: old offset = %d", file_table[fd].open_offset);
 	if(strcmp(file_table[fd].name, "/proc/dispinfo") == 0) assert(0);
 	switch(whence){
 		case SEEK_SET: file_table[fd].open_offset = offset; break;
@@ -127,7 +127,7 @@ extern off_t fs_lseek(int fd, off_t offset, int whence){
 		case SEEK_END: file_table[fd].open_offset = file_table[fd].size + offset; break;
 		default: return -1;
 	}
-	Log("fs_lseek: new offset = %d", file_table[fd].open_offset);
+	//Log("fs_lseek: new offset = %d", file_table[fd].open_offset);
 	if(file_table[fd].open_offset > file_table[fd].size)
 		file_table[fd].open_offset = file_table[fd].size;
 	return file_table[fd].open_offset;
