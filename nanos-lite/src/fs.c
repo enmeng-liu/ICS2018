@@ -53,7 +53,7 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
 	int W = screen_width();
 	int H = screen_height();
- 	file_table[3].size = W * H;
+ 	file_table[3].size = W * H * 4;
 }
 
 
