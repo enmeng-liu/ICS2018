@@ -31,8 +31,8 @@ extern _Context* do_syscall(_Context *c) {
 										break;
 		case SYS_brk:		Log("call sys_brk! _end = %d", &_end);
 										_heap.start = &_end;
-										assert(0);
 										_heap.end = (void*)a[1];
+										assert(0);
 										c->GPRx = 0;
 										break;
 		case SYS_read: 	Log("call sys_read!");
