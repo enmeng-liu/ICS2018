@@ -88,7 +88,7 @@ extern ssize_t fs_read(int fd, void *buf, size_t len){
 	else ret = file_table[fd].read(buf, file_table[fd].open_offset, len);
   file_table[fd].open_offset += ret;
 	Log("fs_read: new offset = %d", file_table[fd].open_offset);
-  return len;
+  return ret;
 }
 
 extern ssize_t fs_close(int fd){
