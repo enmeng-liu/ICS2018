@@ -30,9 +30,8 @@ extern _Context* do_syscall(_Context *c) {
 										c->GPRx = (ssize_t)fs_write((int)a[1], (const void*)a[2], (size_t)a[3]);
 										break;
 		case SYS_brk:		Log("call sys_brk! _end = %d", &_end);
-										_heap.start = &_end;
+										//_heap.start = &_end;
 										_heap.end = (void*)a[1];
-										assert(0);
 										c->GPRx = 0;
 										break;
 		case SYS_read: 	Log("call sys_read!");
