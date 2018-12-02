@@ -25,7 +25,7 @@ typedef struct {
   WriteFn write;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_DISPINFO, FD_EVENTS};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -44,7 +44,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"stderr", 0, 0, 0, invalid_read, serial_write},
 	{"/dev/fb", 0, 0, 0, invalid_read, fb_write},
 	{"/proc/dispinfo", 128, 0, 0, dispinfo_read, invalid_write},
-	{"/dev/events", 1024, 0, 0, events_read, invalid_write},
+	{"/dev/events", 0, 0, 0, events_read, invalid_write},
 #include "files.h"
 };
 
@@ -54,7 +54,7 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
 	int W = screen_width();
 	int H = screen_height();
- 	file_table[3].size = W * H * 4;
+ 	file_table[FD_FB].size = W * H * 4;
 }
 
 
@@ -77,7 +77,7 @@ extern size_t fs_filesz(int fd){
 extern ssize_t fs_read(int fd, void *buf, size_t len){
   //assert(file_table[fd].open_offset + len <= file_table[fd].size);  
 	Log("fs_read: fd = %d, name = %s, offset = %d, len = %d", fd, file_table[fd].name, file_table[fd].open_offset, len);
-	if(file_table[fd].open_offset + len > file_table[fd].size){
+	if(fd != FD_EVENTS && file_table[fd].open_offset + len > file_table[fd].size){
 		len = file_table[fd].size - file_table[fd].open_offset;
 	}
 
