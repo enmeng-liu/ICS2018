@@ -1,5 +1,6 @@
 #include "common.h"
 #include "syscall.h"
+#include "proc.h"
 
 extern char _end;
 
@@ -10,6 +11,8 @@ ssize_t fs_read(int fd, void* buf, size_t len);
 ssize_t fs_close(int fd);
 ssize_t fs_lseek(int fd, off_t offset, int whence);
 ssize_t fs_write(int fd, const void* buf, size_t len);
+
+void naive_uload(PCB *pcb, const char *filename);
 
 extern _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
@@ -46,6 +49,9 @@ extern _Context* do_syscall(_Context *c) {
 		case SYS_lseek: //Log("call sys_lseek!");
 										c->GPRx = (off_t)fs_lseek((int)a[1], (off_t)a[2], (int)a[3]);
 										break;	
+		case SYS_execve: naive_uload(NULL, (char*)a[1]);
+										 c->GPRx = 0;
+										 break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
