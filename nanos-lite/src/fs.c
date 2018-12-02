@@ -74,7 +74,7 @@ extern size_t fs_filesz(int fd){
 
 extern ssize_t fs_read(int fd, void *buf, size_t len){
   //assert(file_table[fd].open_offset + len <= file_table[fd].size);  
-	Log("fs_read: fd = %d, name = %s, offset = %d", fd, file_table[fd].name, file_table[fd].open_offset);
+	Log("fs_read: fd = %d, name = %s, offset = %d, len = %d", fd, file_table[fd].name, file_table[fd].open_offset, len);
 	if(file_table[fd].read == NULL){
 		if(file_table[fd].open_offset + len > file_table[fd].size){
 			len = file_table[fd].size - file_table[fd].open_offset;
@@ -88,7 +88,7 @@ extern ssize_t fs_read(int fd, void *buf, size_t len){
 }
 
 extern ssize_t fs_close(int fd){
-	Log("fs_close: fd = %d, name = %d, offset = %d", fd, file_table[fd].name, file_table[fd].open_offset);
+	Log("fs_close: fd = %d, name = %s, offset = %d", fd, file_table[fd].name, file_table[fd].open_offset);
   return 0;
 }
 
