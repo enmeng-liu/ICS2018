@@ -114,7 +114,7 @@ extern ssize_t fs_write(int fd, const void* buf, size_t len){
 }
 
 extern off_t fs_lseek(int fd, off_t offset, int whence){
-	Log("lseek whence: fd = %d, offset = %d, whence = %d", fd, offset, whence);
+	Log("lseek whence: fd = %d, name = %s, offset = %d, whence = %d", fd, file_table[fd].name, offset, whence);
 	Log("fs_lseek: old offset = %d", file_table[fd].open_offset);
 	if(strcmp(file_table[fd].name, "/proc/dispinfo") == 0) assert(0);
 	switch(whence){
