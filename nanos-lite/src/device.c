@@ -20,7 +20,26 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  return 0;
+	int keytemp = read_key();
+	char *temp = "\0";
+	if(keytemp != 0) {
+		if((keytemp & 0x8000) == 1){
+			sprintf(temp, "kd %s", keyname[keytemp ^ 0x8000]);
+			strncpy(buf, temp, len);
+		}
+		else {
+			sprintf(temp, "ku %s", keyname[keytemp]);
+			strncpy(buf, temp, len);
+		}
+	}
+	else{
+		uint32_t time_now = uptime();
+		sprintf(temp, "t %d", time_now);
+		strncpy(buf, temp, len);
+	}
+
+	if(strlen(temp) < len) len = strlen(temp);
+  return len;
 }
 
 
