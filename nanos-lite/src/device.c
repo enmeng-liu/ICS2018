@@ -35,7 +35,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
 	Log("fb_write: offset = %d, len = %d",offset, len);
-	assert(0);
+	//assert(0);
 	int W = screen_width();
 	//int H = screen_height();
 	for(int i = 0; i < len/4; ++i){
