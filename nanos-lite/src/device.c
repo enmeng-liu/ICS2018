@@ -42,8 +42,8 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 		int y = (offset + i) / W;
 		draw_rect((uint32_t*)(buf + i), x, y, 1, 1);
 	}*/
-	int x = offset % W;
-	int y = offset / W;
+	int x = (offset / 4) % W;
+	int y = (offset / 4) / W;
 	draw_rect((uint32_t*)buf, x, y, len/4, 1);
   return len;
 }
