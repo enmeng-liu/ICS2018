@@ -95,3 +95,9 @@ pid_t _getpid() {
   _exit(-SYS_getpid);
   return 1;
 }
+
+int _fork(){
+}
+
+int _wait(){
+}
