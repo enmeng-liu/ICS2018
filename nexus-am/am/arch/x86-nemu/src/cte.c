@@ -67,7 +67,7 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
 	_Context *cont = (_Context*)(stack.end - sizeof(_Context));
 	cont->cs = 8;
 	cont->eip = (uintptr_t)(entry);
-	cont->ebp = (int)(stack.start);
+	cont->ebp = (int)(stack.start + sizeof(_Context*));
 	cont->edi = cont->esi = cont->esp = cont->ebx = cont->ecx = cont->eax = 0;
 	cont->irq = cont->eip = cont->eflags = 0;
 	//how to initialize cont?
