@@ -23,8 +23,11 @@ void hello_fun(void *arg) {
 
 void init_proc() {
 	naive_uload(NULL, "/bin/init");
+	switch_boot_pcb();
 }
 
 _Context* schedule(_Context *prev) {
-  return NULL;
+	current->cp = prev; //save the context pointer
+	current = &pcb[0];  //always seletc pcb[0] as the new process
+	return current->cp;	//then return the new context
 }
