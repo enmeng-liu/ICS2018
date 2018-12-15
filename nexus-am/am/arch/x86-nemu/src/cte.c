@@ -73,7 +73,8 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
 	//how to initialize cont?
 	int cont_addr = (int)(stack.end) - sizeof(cont);
 	memcpy((void*)cont_addr, &cont, sizeof(cont));
-  return (_Context*)(cont_addr) ;
+	printf("kcontext return!");
+  return (_Context*)(cont_addr);
 }
 
 void _yield() {
