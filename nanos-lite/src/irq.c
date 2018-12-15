@@ -7,7 +7,7 @@ static _Context* do_event(_Event e, _Context* c) {
 	_Context* ret = NULL;
   switch (e.event) {
 		case _EVENT_YIELD: 
-			Log("ID = %d: Recognize yield event!",e.event); break;
+			Log("ID = %d: Recognize yield event!",e.event); 
 			ret = schedule(c);
 			break;
 		case _EVENT_SYSCALL: 
