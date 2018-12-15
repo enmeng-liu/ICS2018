@@ -9,9 +9,10 @@ void _puts(char* s){
 	for(int i = 0; i < strlen(s); ++i) _putc(s[i]);
 }
 
-char* my_itoa(char* dest, int n){
+char* my_itoa(char* dest, int n, int base){
 	/*transfer int into char[]*/
 	//int outn = n;
+	char number[20] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 	if(n == 0) {
 		dest[0] = '0';
 		dest[1] = '\0';
@@ -28,14 +29,15 @@ char* my_itoa(char* dest, int n){
 	int temp = n;
 	while(temp > 0){
 		len ++;
-		temp /= 10;
+		temp /= base;
 	}
 	
 	for(int i = 0; i < len; ++i){
-		int x = n % 10;
-		dest[len - i - 1] = x + '0';
+		int x = n % base;
+		assert(x < 16);
+		dest[len - i - 1] = number[x];
 		//printf("dest[%d] = %c\n", len-i-1,dest[len-i-1]);
-		n /= 10;
+		n /= base;
 	}
 	if(neg) dest[0] = '-';
 	dest[len] = '\0';
@@ -57,7 +59,7 @@ int printf(const char *format, ...) {
 			switch(format[i+1]){
 				case 'd'://%d 
 					in_num = va_arg(var_arg,int);
-					my_itoa(in_char,in_num);
+					my_itoa(in_char, in_num, 10);
 					//strcat(str, in_char);
 					_puts(in_char);
 					in_size += strlen(in_char);
@@ -72,7 +74,7 @@ int printf(const char *format, ...) {
 					break;
 				case '0'://%02d
 					in_num = va_arg(var_arg,int);
-					my_itoa(in_char, in_num);
+					my_itoa(in_char, in_num, 10);
 					int pwidth = format[i+2] - '0';//width of number
 					for(int i = strlen(in_char); i < pwidth; ++i) {
 						in_size ++;
@@ -82,7 +84,13 @@ int printf(const char *format, ...) {
 					in_size += strlen(in_char);
 					i += 4;
 					break;
-
+				case 'p': //%p
+					in_num = va_arg(var_arg, int);
+					my_itoa(in_char, in_num, 16);
+					_puts(in_char);
+					in_size += strlen(in_char);
+					i += 2;
+					break;
 				default:
 				 	//printf("Not implememted argument type!\n");
 					//i ++;
@@ -122,7 +130,7 @@ int sprintf(char* str, const char* format, ...){
 			switch(format[i+1]){
 				case 'd'://%d 
 					in_num = va_arg(var_arg,int);
-					my_itoa(in_char,in_num);
+					my_itoa(in_char, in_num, 10);
 					strcat(str, in_char);
 					in_size += strlen(in_char);
 					break;

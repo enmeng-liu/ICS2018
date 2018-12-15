@@ -2,8 +2,8 @@
 
 #define DEFAULT_ENTRY 0x4000000
 
-//typedef size_t ssize_t;
-//typedef size_t off_t;
+typedef size_t ssize_t;
+typedef size_t off_t;
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t get_ramdisk_size();
 int fs_open(const char *pathname, int flags, int mode);
@@ -32,7 +32,7 @@ void context_kload(PCB *pcb, void *entry) {
   stack.start = pcb->stack;
   stack.end = stack.start + sizeof(pcb->stack);
 
-  pcb->tf = _kcontext(stack, entry, NULL);
+  pcb->cp = _kcontext(stack, entry, NULL);
 }
 
 void context_uload(PCB *pcb, const char *filename) {
@@ -42,5 +42,5 @@ void context_uload(PCB *pcb, const char *filename) {
   stack.start = pcb->stack;
   stack.end = stack.start + sizeof(pcb->stack);
 
-  pcb->tf = _ucontext(&pcb->as, stack, stack, (void *)entry, NULL);
+  pcb->cp = _ucontext(&pcb->as, stack, stack, (void *)entry, NULL);
 }

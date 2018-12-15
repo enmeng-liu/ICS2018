@@ -4,8 +4,8 @@
 
 extern char _end;
 
-//typedef size_t ssize_t;
-//typedef size_t off_t;
+typedef size_t ssize_t;
+typedef size_t off_t;
 int fs_open(const char* pathname, int flags, int mode);
 ssize_t fs_read(int fd, void* buf, size_t len);
 ssize_t fs_close(int fd);
