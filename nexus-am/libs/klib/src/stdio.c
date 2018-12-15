@@ -90,6 +90,8 @@ int printf(const char *format, ...) {
 				case 'p': //%p
 					in_num = va_arg(var_arg, int);
 					my_itoa(in_char, in_num, 16);
+					_putc('0'); _putc('x');
+					in_size += 2;
 					_puts(in_char);
 					in_size += strlen(in_char);
 					i += 2;
