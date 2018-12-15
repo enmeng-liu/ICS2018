@@ -29,6 +29,7 @@ void init_proc() {
 }
 
 _Context* schedule(_Context *prev) {
+	Log("call schedule!");
 	current->cp = prev; //save the context pointer
 	Log("prev context saved!");
 	current = &pcb[0];  //always seletc pcb[0] as the new process
