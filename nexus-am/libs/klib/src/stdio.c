@@ -12,7 +12,10 @@ void _puts(char* s){
 char* my_itoa(char* dest, int n, int base){
 	/*transfer int into char[]*/
 	//int outn = n;
-	char number[20] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+	char number[20];
+	for(int i = 0; i <= 9; ++i) number[i] = i + '0';
+	number[10] = 'a'; number[11] = 'b'; number[12] = 'c';
+	number[13] = 'd'; number[14] = 'e'; number[15] = 'f';
 	if(n == 0) {
 		dest[0] = '0';
 		dest[1] = '\0';
