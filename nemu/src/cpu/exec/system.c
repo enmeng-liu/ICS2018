@@ -34,8 +34,8 @@ make_EHelper(mov_cr2r) {
   //TODO();
 	Log("id_src = %d", id_src->reg);
 	switch(id_src->reg) {
-		case 0: operand_write(id_dest, &cpu.cr0);
-		case 3:	operand_write(id_dest, &cpu.cr3);
+		case 0: operand_write(id_dest, &cpu.cr0); break;
+		case 3:	operand_write(id_dest, &cpu.cr3); break;
 		default: panic("Invalid control reg!");
 	}
 	assert(0);
