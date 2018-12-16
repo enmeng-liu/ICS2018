@@ -16,6 +16,7 @@ uint8_t pmem[PMEM_SIZE];
 
 paddr_t page_translate(vaddr_t addr) {
 	if((cpu.cr0 & PG) == 0) return addr; 
+	assert(0);
 	uint32_t dir = addr >> 22;
 	uint32_t page = (addr & 0x003ff000) >> 12;
 	uint32_t offset = addr & 0x00000fff;
