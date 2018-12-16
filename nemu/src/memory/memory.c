@@ -18,6 +18,7 @@ paddr_t page_translate(vaddr_t addr) {
 	uint32_t page = (addr & 0x003ff000) >> 12;
 	uint32_t offset = addr & 0x00000fff;
 	uint32_t page_dir_addr = HIGH20(cpu.cr3);
+	Log("page_dir_aadr = 0x%x", page_dir_addr);
 	uint32_t page_addr = paddr_read(page_dir_addr + 4 * dir, 4);
 	assert(PRESENT(page_addr) == 1);
 	uint32_t page_num = paddr_read(page_addr + 4 * page, 4);
