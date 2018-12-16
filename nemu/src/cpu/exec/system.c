@@ -35,13 +35,13 @@ make_EHelper(mov_r2cr) {
 make_EHelper(mov_cr2r) {
   //TODO();
 	Log("id_src = %d", id_src->reg);
-	Log("id-dest->val = %d", id_dest->val);
 	switch(id_src->reg) {
 		case 0: operand_write(id_dest, &cpu.cr0); break;
 		case 3:	operand_write(id_dest, &cpu.cr3); break;
 		default: panic("Invalid control reg!");
 	}
 	Log("cr0 = %d, cr3 = %d", cpu.cr0, cpu.cr3);
+	Log("id_dest->val = %d", id_dest->val);
 	assert(0);
 	//operand_write(id_dest, &id_src->val);
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
