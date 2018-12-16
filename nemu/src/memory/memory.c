@@ -33,11 +33,11 @@ paddr_t page_translate(vaddr_t addr) {
 
 	PTE pt_pte;
 	uint32_t page = (addr & 0x003ff000) >> 12;
-	pt_pte.val = paddr_read(pt_pde.page_frame + 4 * page, 4);
+	pt_pte.val = paddr_read((pt_pde.page_frame << 12) + 4 * page, 4);
 	assert(pt_pte.present);
 
 	uint32_t offset = addr & 0x00000fff;
-	paddr_t paddr = pt_pte.page_frame + offset;
+	paddr_t paddr = (pt_pte.page_frame << 12) + offset;
 	return paddr;
 
 	/*if((cpu.cr0 & PG) == 0) return addr; 
