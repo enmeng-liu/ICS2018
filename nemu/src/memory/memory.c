@@ -38,7 +38,7 @@ paddr_t page_translate(vaddr_t addr) {
 
 	uint32_t offset = addr & 0x00000fff;
 	paddr_t paddr = (pt_pte.page_frame << 12) + offset;
-	Log("paddr = 0x%x", paddr);
+	//Log("paddr = 0x%x", paddr);
 	return paddr;
 
 	/*if((cpu.cr0 & PG) == 0) return addr; 
