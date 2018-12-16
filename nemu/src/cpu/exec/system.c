@@ -41,6 +41,7 @@ make_EHelper(mov_cr2r) {
 		default: panic("Invalid control reg!");
 	}
   printf("movl %%cr%d,%%%s\n", id_src->reg, reg_name(id_dest->reg, 4));
+	printf("eax = 0x%x\n", cpu.eax);
 	Log("cr0 = 0x%x, cr3 = 0x%x", cpu.cr0, cpu.cr3);
 	Log("id_dest->val = 0x%x", id_dest->val);
 	assert(0);
