@@ -22,13 +22,13 @@ paddr_t page_translate(vaddr_t addr) {
 
 	CR3 pt_cr3;
 	pt_cr3.val = cpu.cr3;
-	Log("CR3 = 0x%x", pt_cr3.val);
+	//Log("CR3 = 0x%x", pt_cr3.val);
 	uint32_t pt_dir_base = pt_cr3.page_directory_base << 12;
 	
 	PDE pt_pde;
 	uint32_t dir = addr >> 22;
 	pt_pde.val = paddr_read(pt_dir_base + 4 * dir , 4);
-	Log("PDE.val = 0x%x", pt_pde.val);
+	//Log("PDE.val = 0x%x", pt_pde.val);
 	assert(pt_pde.present);
 
 	PTE pt_pte;
@@ -38,6 +38,7 @@ paddr_t page_translate(vaddr_t addr) {
 
 	uint32_t offset = addr & 0x00000fff;
 	paddr_t paddr = (pt_pte.page_frame << 12) + offset;
+	Log("paddr = 0x%x", paddr);
 	return paddr;
 
 	/*if((cpu.cr0 & PG) == 0) return addr; 
