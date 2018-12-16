@@ -1,5 +1,6 @@
 #include "nemu.h"
 #include "device/mmio.h"
+#include "memory/mmu.h"
 
 #define PMEM_SIZE (128 * 1024 * 1024)
 #define VMEM_SIZE 0xffffffff
@@ -15,7 +16,29 @@
 uint8_t pmem[PMEM_SIZE];
 
 paddr_t page_translate(vaddr_t addr) {
-	if((cpu.cr0 & PG) == 0) return addr; 
+	CR0 pt_cr0;
+	pt_cr0.val = cpu.cr0;
+	if(pt_cr0.paging == 0) return addr;
+
+	CR3 pt_cr3;
+	pt_cr3.val = cpu.cr3;
+	uint32_t pt_dir_base = pt_cr3.page_directory_base;
+	
+	PDE pt_pde;
+	uint32_t dir = addr >> 22;
+	pt_pde.val = paddr_read(pt_dir_base + 4 * dir , 4);
+	assert(pt_pde.present);
+
+	PTE pt_pte;
+	uint32_t page = (addr & 0x003ff000) >> 12;
+	pt_pte.val = paddr_read(pt_pde.page_frame + 4 * page, 4);
+	assert(pt_pte.present);
+
+	uint32_t offset = addr & 0x00000fff;
+	paddr_t paddr = pt_pte.page_frame + offset;
+	return paddr;
+
+	/*if((cpu.cr0 & PG) == 0) return addr; 
 	uint32_t dir = addr >> 22;
 	uint32_t page = (addr & 0x003ff000) >> 12;
 	uint32_t offset = addr & 0x00000fff;
@@ -26,7 +49,7 @@ paddr_t page_translate(vaddr_t addr) {
 	uint32_t page_num = paddr_read(page_addr + 4 * page, 4);
 	assert(PRESENT(page_num) == 1);
   paddr_t paddr = HIGH20(page_num) + offset;
-	return paddr;	
+	return paddr;*/	
 }
 
 /* Memory accessing interfaces */
