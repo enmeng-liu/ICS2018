@@ -28,6 +28,7 @@ make_EHelper(mov_r2cr) {
 make_EHelper(mov_cr2r) {
   //TODO();
 	Log("id_src = %d", id_src->reg);
+	assert(0);
 	operand_write(id_dest, &id_src->val);
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
