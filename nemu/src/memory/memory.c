@@ -5,7 +5,7 @@
 #define VMEM_SIZE 0xffffffff
 #define PRESENT(x) (x & 0x00000001)
 #define HIGH20(x) ((x & 0xfffff000) >> 12)
-#define PG 0x00000001
+#define PG 0x80000000
 
 #define pmem_rw(addr, type) *(type *)({\
     Assert(addr < PMEM_SIZE, "physical address(0x%08x) is out of bound", addr); \
