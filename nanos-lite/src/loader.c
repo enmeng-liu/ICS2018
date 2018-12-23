@@ -25,7 +25,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 	for(int i = 0; i < filesz/PGSIZE; ++i) {
 		void* pa = new_page(1);
 		//Log("create %d new page(s)", filesz/PGSIZE);
-		Log("pcb->as.ptr=%p",pcb->as.ptr);
+		//Log("pcb->as.ptr=%p",pcb->as.ptr);
 		_map(&(pcb->as), (void*)(DEFAULT_ENTRY + PGSIZE), pa, 1);
 		Log("map va=0x%p to pa=0x%x", (void*)DEFAULT_ENTRY, pa);
 	}
