@@ -72,6 +72,7 @@ void get_cur_as(_Context *c) {
 }
 
 void _switch(_Context *c) {
+	printf("c->prot->ptr = %p\n",c->prot->ptr);
   set_cr3(c->prot->ptr);
   cur_as = c->prot;
 }
