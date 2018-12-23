@@ -68,6 +68,7 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 uint32_t vaddr_read(vaddr_t addr, int len) {
 	if((addr & 0xfff) + len > PGSIZE) {
 		//assert(0);
+		Log("vaddr=0x%x, len=%d", addr, len);
 		int this_page_len = PGSIZE - (addr & 0xfff);
 		paddr_t paddr = page_translate(addr);
 		uint32_t this_page = paddr_read(paddr, this_page_len);
