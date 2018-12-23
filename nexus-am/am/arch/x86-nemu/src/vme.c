@@ -88,17 +88,19 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	if((map_pde & PTE_P) == 0) {
 		printf("map_pde=%p\n",map_pde);
 		printf("create new PDE\n");
-		PDE new_page_addr = (PDE)pgalloc_usr(1);
-		pgalloc_usr(1);
-		printf("new PDE is at %p\n", new_page_addr);
+		PDE new_pt_addr = (PDE)pgalloc_usr(1);
+		//allocate one page as page table
 	 	PDE* map_pde_ptr = p->ptr + 4 * dir;
-		*map_pde_ptr = (new_page_addr >> 12) << 12;
+		*map_pde_ptr = (new_pt_addr >> 12) << 12;
+		//fill in the page dir with the addr of new page table
+		//printf("new page table is at %p\n", new_page_addr);
 	 	*map_pde_ptr |= PTE_P;	
 		printf("now map_pde=%p\n",*map_pde_ptr);
 		//create a new page
 	}
 
 	uint32_t page = PTX(va);
+	printf("map_pde=%p\n",map_pde);
 	void* pt_addr = (void*)((map_pde >> 12) << 12); //get page table addr
 	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
