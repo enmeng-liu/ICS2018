@@ -18,6 +18,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
 	//ramdisk_read((void*)DEFAULT_ENTRY, 0, get_ramdisk_size());
 	void* pa = new_page(1);
+	Log("pcb->as.ptr=%p",pcb->as.ptr);
 	_map(&(pcb->as), (void*)DEFAULT_ENTRY, pa, 1);
 	Log("map va=0x%p to pa=0x%x", (void*)DEFAULT_ENTRY, pa);
   int fd = fs_open(filename, 0, 0);

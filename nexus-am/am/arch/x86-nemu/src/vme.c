@@ -77,7 +77,7 @@ void _switch(_Context *c) {
 }
 
 int _map(_Protect *p, void *va, void *pa, int mode) {
-	printf("p->ptr=0x%p\n", p->ptr);
+	printf("p->ptr=%p\n", p->ptr);
 	//uint32_t vaddr = (uint32_t)va;
 	uint32_t paddr = (uint32_t)pa;
 	uint32_t dir = PDX(va);
