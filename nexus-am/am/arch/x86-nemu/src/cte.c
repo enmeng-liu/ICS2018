@@ -15,6 +15,7 @@ void get_cur_as(_Context *c);
 void _switch(_Context* c);
 
 _Context* irq_handle(_Context *tf) {
+	printf("call irq_handle!\n");
 	get_cur_as(tf);
   _Context *next = tf;
 	/*printf("$eax = %d\n", tf->eax);
