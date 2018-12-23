@@ -21,11 +21,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 	//ramdisk_read((void*)DEFAULT_ENTRY, 0, get_ramdisk_size());
   int fd = fs_open(filename, 0, 0);
 	uint32_t filesz = fs_filesz(fd);
-	void* pa = new_page(filesz/PGSIZE);
-	Log("create %d new page(s)", filesz/PGSIZE);
-	Log("pcb->as.ptr=%p",pcb->as.ptr);
-	_map(&(pcb->as), (void*)DEFAULT_ENTRY, pa, 1);
-	Log("map va=0x%p to pa=0x%x", (void*)DEFAULT_ENTRY, pa);
+	//int pgnum = filesz / PGSIZE;
+	for(int i = 0; i < filesz/PGSIZE; ++i) {
+		void* pa = new_page(1);
+		//Log("create %d new page(s)", filesz/PGSIZE);
+		Log("pcb->as.ptr=%p",pcb->as.ptr);
+		_map(&(pcb->as), (void*)(DEFAULT_ENTRY + PGSIZE), pa, 1);
+		Log("map va=0x%p to pa=0x%x", (void*)DEFAULT_ENTRY, pa);
+	}
   fs_read(fd, (void*)DEFAULT_ENTRY, fs_filesz(fd));
 	fs_close(fd);
   return DEFAULT_ENTRY;
