@@ -3,6 +3,8 @@
 
 #define DEFAULT_ENTRY 0x8048000
 
+void _switch(_Context* c);
+
 typedef size_t ssize_t;
 typedef size_t off_t;
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
@@ -45,6 +47,8 @@ void context_kload(PCB *pcb, void *entry) {
 
 void context_uload(PCB *pcb, const char *filename) {
 	Log("pcb->as.ptr=%p", pcb->as.ptr);
+	Log("pcb->cp.prot=%p", pcb->cp->prot);
+	_switch(pcb->cp);
   uintptr_t entry = loader(pcb, filename);
 
   _Area stack;

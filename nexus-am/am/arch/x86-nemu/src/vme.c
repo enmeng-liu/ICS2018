@@ -112,7 +112,8 @@ _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *
 	cont->eip = (uintptr_t)(entry);
 	cont->esp = cont->ebp = (uintptr_t)(ustack.end);
 	cont->edi = cont->esi = cont->ebx = cont->ecx = cont->eax = 0;
-	cont->irq = cont->err = cont->eflags = 0;
+	cont->irq = 0x81;
+	cont->err = cont->eflags = 0;
 	cont->prot = p;
   return cont;
 }
