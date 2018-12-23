@@ -88,6 +88,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	
 	if((*map_pde_ptr & PTE_P) == 0) {
 		//printf("map_pde=%p\n",map_pde);
+		printf("------------------------\n");
 		printf("create new PDE\n");
 		PDE new_pt_addr = (PDE)pgalloc_usr(1);
 		//allocate one page as page table
@@ -104,6 +105,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	void* pt_addr = (void*)(((*map_pde_ptr) >> 12) << 12); //get page table addr
 	printf("pt_addr=%p\n",pt_addr);
 	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
+	printf("map_pte=%p\n",*map_pte_ptr);
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
 	*map_pte_ptr |= PTE_P; // set present
 	if((mode & PTE_P) == 0) *map_pte_ptr = 0; // make mapping invalid
