@@ -16,7 +16,6 @@ void free_page(void *p) {
   panic("not implement yet");
 }
 
-extern char _end;
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t new_brk) {
@@ -31,8 +30,8 @@ int mm_brk(uintptr_t new_brk) {
 		int size_left = new_brk - pre_max_brk;
 		int page_left = PGSIZE - pre_max_brk%PGSIZE;
 		size_left -= page_left;
-		Log("_end=%p", &_end);
-		void* va = (void*)(&_end + (pre_max_brk/PGSIZE + 1) * PGSIZE);
+		Log("_heap.start=%p", _heap.start);
+		void* va = (void*)(_heap.start + (pre_max_brk/PGSIZE + 1) * PGSIZE);
 		Log("start from va=%p", va);
 		assert(0);
 		while(size_left > 0) {
