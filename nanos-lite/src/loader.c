@@ -21,16 +21,17 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 	//ramdisk_read((void*)DEFAULT_ENTRY, 0, get_ramdisk_size());
   int fd = fs_open(filename, 0, 0);
 	uint32_t filesz = fs_filesz(fd);
-	//int pgnum = filesz / PGSIZE;
-	for(int i = 0; i < filesz/PGSIZE; ++i) {
+	int size_left = filesz;
+	void* va = (void*)DEFAULT_ENTRY;
+	while(size_left > 0) {
 		void* pa = new_page(1);
-		Log("pa = %p", pa);
-		//Log("create %d new page(s)", filesz/PGSIZE);
-		//Log("pcb->as.ptr=%p",pcb->as.ptr);
-		_map(&(pcb->as), (void*)(DEFAULT_ENTRY + PGSIZE * i), pa, 1);
-		Log("map va=%p to pa=%p", (void*)DEFAULT_ENTRY + PGSIZE* i, pa);
+		_map(&(pcb->as), va, pa, 1);
+		va += PGSIZE;
+		int size_to_read = PGSIZE;
+		if(size_left < PGSIZE) size_to_read = size_left;
+		fs_read(fd, pa, size_to_read);
+		size_left -= PGSIZE;
 	}
-  fs_read(fd, (void*)DEFAULT_ENTRY, fs_filesz(fd));
 	fs_close(fd);
   return DEFAULT_ENTRY;
 }
