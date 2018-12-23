@@ -20,7 +20,7 @@ void free_page(void *p) {
 int mm_brk(uintptr_t new_brk) {
 	Log("new_brk=%p", new_brk);
 	Log("max_brk=%p", current->max_brk);
-	assert(0);
+	//assert(0);
 	current->cur_brk = new_brk;
 	if(new_brk > current->max_brk) {
 		current->max_brk = new_brk;
