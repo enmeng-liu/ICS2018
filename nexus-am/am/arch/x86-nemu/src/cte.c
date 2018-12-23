@@ -40,6 +40,7 @@ _Context* irq_handle(_Context *tf) {
       next = tf;
     }
   }
+	printf("next->prot=%p\n", next->prot);
 	_switch(next);
   return next;
 }
