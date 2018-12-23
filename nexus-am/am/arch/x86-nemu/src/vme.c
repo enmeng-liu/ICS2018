@@ -77,17 +77,19 @@ void _switch(_Context *c) {
 }
 
 int _map(_Protect *p, void *va, void *pa, int mode) {
+	printf("p->ptr=0x%p\n", p->ptr);
   return 0;
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
+	_protect(p);
 	void* start_frame = ustack.end - 3 * sizeof(void*);
 	memset(start_frame, 0, sizeof(void*) * 3);
 	_Context *cont = (_Context*)(start_frame - sizeof(_Context));
 	cont->cs = 8;
 	cont->eip = (uintptr_t)(entry);
-	cont->ebp = (uintptr_t)(ustack.end);
-	cont->edi = cont->esi = cont->esp = cont->ebx = cont->ecx = cont->eax = 0;
+	cont-> esp = cont->ebp = (uintptr_t)(ustack.end);
+	cont->edi = cont->esi = cont->ebx = cont->ecx = cont->eax = 0;
 	cont->irq = cont->err = cont->eflags = 0;
   return cont;
 }

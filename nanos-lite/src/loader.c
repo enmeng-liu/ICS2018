@@ -1,7 +1,7 @@
 #include "proc.h"
 #include "common.h"
 
-#define DEFAULT_ENTRY 0x4000000
+#define DEFAULT_ENTRY 0x8048000
 
 typedef size_t ssize_t;
 typedef size_t off_t;
