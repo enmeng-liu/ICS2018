@@ -19,8 +19,8 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t new_brk) {
-	Log("new_brk=%p", new_brk);
-	Log("max_brk=%p", current->max_brk);
+	//Log("new_brk=%p", new_brk);
+	//Log("max_brk=%p", current->max_brk);
 	//assert(0);
 	current->cur_brk = new_brk;
 	int pre_max_brk = current->max_brk;
@@ -32,12 +32,12 @@ int mm_brk(uintptr_t new_brk) {
 		size_left -= page_left;
 		//Log("_heap.start=%p", _heap.start);
 		void* va = (void*)((pre_max_brk/PGSIZE + 1) * PGSIZE);
-		Log("start from va=%p", va);
+		//Log("start from va=%p", va);
 		//assert(0);
 		while(size_left > 0) {
 			void* pa = new_page(1);
 			_map(&(current->as), va, pa, 1);
-			Log("map va=%p to pa=%p",va, pa);
+			//Log("map va=%p to pa=%p",va, pa);
 			va += PGSIZE;
 			size_left -= PGSIZE;
 		}
