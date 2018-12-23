@@ -93,12 +93,12 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 		*map_pde_ptr = (new_page_addr >> 12) << 12;
 	 	*map_pde_ptr |= PTE_P;	
 		printf("now map_pde=%p\n",*map_pde_ptr);
-		assert(0);
 		//create a new page
 	}
 
 	uint32_t page = PTX(va);
 	void* pt_addr = (void*)((map_pde >> 12) << 12); //get page table addr
+	assert(0);
 	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
 	*map_pte_ptr |= PTE_P; // set present
