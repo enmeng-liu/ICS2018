@@ -103,6 +103,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
+	printf("call _ucontext!\n");
 	_protect(p);
 	void* start_frame = ustack.end - 3 * sizeof(void*);
 	memset(start_frame, 0, sizeof(void*) * 3);
