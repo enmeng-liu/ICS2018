@@ -24,7 +24,7 @@ paddr_t page_translate(vaddr_t addr) {
 	pt_cr3.val = cpu.cr3;
 	//Log("CR3 = 0x%x", pt_cr3.val);
 	uint32_t pt_dir_base = pt_cr3.page_directory_base << 12;
-	Log("pt_dir_base is at 0x%x",pt_dir_base);
+	//Log("pt_dir_base is at 0x%x",pt_dir_base);
 	
 	PDE pt_pde;
 	uint32_t dir = addr >> 22;
