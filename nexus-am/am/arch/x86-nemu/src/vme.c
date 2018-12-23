@@ -99,8 +99,8 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	uint32_t page = PTX(va);
 	void* pt_addr = (void*)((map_pde >> 12) << 12); //get page table addr
 	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
-	assert(0);
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
+	assert(0);
 	*map_pte_ptr |= PTE_P; // set present
 	if((mode & PTE_P) == 0) *map_pte_ptr = 0; // make mapping invalid
   return 0;
