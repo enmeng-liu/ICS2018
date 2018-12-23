@@ -43,7 +43,7 @@ extern void naive_uload(PCB *pcb, const char *filename) {
 }
 
 void context_kload(PCB *pcb, void *entry) {
-	Log("call context_kload!");
+	//Log("call context_kload!");
   _Area stack;
   stack.start = pcb->stack;
   stack.end = stack.start + sizeof(pcb->stack);
@@ -52,8 +52,8 @@ void context_kload(PCB *pcb, void *entry) {
 }
 
 void context_uload(PCB *pcb, const char *filename) {
-	Log("pcb->as.ptr=%p", pcb->as.ptr);
-	Log("pcb->cp.prot=%p", pcb->cp->prot);
+	//Log("pcb->as.ptr=%p", pcb->as.ptr);
+	//Log("pcb->cp.prot=%p", pcb->cp->prot);
 	_protect(&(pcb->as));
 	//_switch(pcb->cp);
   uintptr_t entry = loader(pcb, filename);

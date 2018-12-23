@@ -26,7 +26,7 @@ int mm_brk(uintptr_t new_brk) {
 	int pre_max_brk = current->max_brk;
 	if(new_brk > current->max_brk) {
 		current->max_brk = new_brk;
-		Log("now max_brk=%p",current->max_brk);
+		//Log("now max_brk=%p",current->max_brk);
 		int size_left = new_brk - pre_max_brk;
 		int page_left = PGSIZE  - pre_max_brk%PGSIZE - 1;
 		size_left -= page_left;

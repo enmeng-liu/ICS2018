@@ -24,13 +24,13 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-	Log("before load dummy");
+	//Log("before load dummy");
 	//naive_uload(NULL, "/bin/init");
 	context_kload(&pcb[0], (void*)hello_fun);
 	context_uload(&pcb[1], "/bin/init");
 	context_uload(&pcb[2], "/bin/dummy");
 	context_uload(&pcb[3], "/bin/pal");
-	Log("after load dummy");
+	//Log("after load dummy");
 	switch_boot_pcb();
 }
 
