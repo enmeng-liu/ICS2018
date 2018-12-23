@@ -7,6 +7,7 @@
 #define PRESENT(x) (x & 0x00000001)
 #define HIGH20(x) ((x & 0xfffff000) >> 12)
 #define PG 0x80000000
+#define PGSIZE 1024
 
 #define pmem_rw(addr, type) *(type *)({\
     Assert(addr < PMEM_SIZE, "physical address(0x%08x) is out of bound", addr); \
@@ -42,19 +43,6 @@ paddr_t page_translate(vaddr_t addr) {
 	paddr_t paddr = (pt_pte.page_frame << 12) + offset;
 	//Log("paddr = 0x%x", paddr);
 	return paddr;
-
-	/*if((cpu.cr0 & PG) == 0) return addr; 
-	uint32_t dir = addr >> 22;
-	uint32_t page = (addr & 0x003ff000) >> 12;
-	uint32_t offset = addr & 0x00000fff;
-	uint32_t page_dir_addr = HIGH20(cpu.cr3);
-	Log("page_dir_addr = 0x%x", page_dir_addr);
-	uint32_t page_addr = paddr_read(page_dir_addr + 4 * dir, 4);
-	assert(PRESENT(page_addr) == 1);
-	uint32_t page_num = paddr_read(page_addr + 4 * page, 4);
-	assert(PRESENT(page_num) == 1);
-  paddr_t paddr = HIGH20(page_num) + offset;
-	return paddr;*/	
 }
 
 /* Memory accessing interfaces */
@@ -78,8 +66,16 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
-	if(addr + len - 1 > VMEM_SIZE) {
+	if((addr & 0xfff) + len > PGSIZE) {
 		assert(0);
+		int this_page_len = PGSIZE - (addr & 0xfff);
+		paddr_t paddr = page_translate(addr);
+		uint32_t this_page = paddr_read(paddr, this_page_len);
+		paddr = page_translate(addr + this_page_len);
+		int next_page_len = len - this_page_len;
+		uint32_t next_page = paddr_read(paddr, next_page_len);
+		uint32_t real_data = (next_page << (this_page_len * 8)) + this_page;
+		return real_data;
 	}// data cross the page boundary
 	else {
 		paddr_t paddr = page_translate(addr);
