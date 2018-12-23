@@ -92,8 +92,8 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	 	PDE* map_pde_ptr = p->ptr + 4 * dir;
 		*map_pde_ptr = (new_page_addr >> 12) << 12;
 	 	*map_pde_ptr |= PTE_P;	
-		assert(0);
 		printf("now map_pde=%p\n",*map_pde_ptr);
+		assert(0);
 		//create a new page
 	}
 
