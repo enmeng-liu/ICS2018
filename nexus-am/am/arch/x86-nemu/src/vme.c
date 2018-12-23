@@ -90,8 +90,8 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 		PDE new_page_addr = (PDE)pgalloc_usr(1);
 		printf("new PDE is at %p\n", new_page_addr);
 	 	PDE* map_pde_ptr = p->ptr + 4 * dir;
-		assert(0);
 		*map_pde_ptr = (new_page_addr >> 12) << 12;
+		assert(0);
 	 	*map_pde_ptr |= PTE_P;	
 		printf("now map_pde=%p\n",*map_pde_ptr);
 		//create a new page
