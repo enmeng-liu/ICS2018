@@ -36,7 +36,7 @@ paddr_t page_translate(vaddr_t addr) {
 	PTE pt_pte;
 	uint32_t page = (addr & 0x003ff000) >> 12;
 	pt_pte.val = paddr_read((pt_pde.page_frame << 12) + 4 * page, 4);
-	Assert(pt_pte.present, "invalid PTE value whn reading 0x%x", addr);
+	Assert(pt_pte.present, "invalid PTE value when reading 0x%x", addr);
 
 	uint32_t offset = addr & 0x00000fff;
 	paddr_t paddr = (pt_pte.page_frame << 12) + offset;
