@@ -32,6 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 		fs_read(fd, pa, size_to_read);
 		size_left -= PGSIZE;
 	}
+	pcb->max_brk = DEFAULT_ENTRY + filesz;
 	fs_close(fd);
   return DEFAULT_ENTRY;
 }
