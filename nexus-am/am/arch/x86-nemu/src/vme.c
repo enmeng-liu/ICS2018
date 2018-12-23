@@ -110,6 +110,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
 	*map_pte_ptr |= PTE_P; // set present
 	if((mode & PTE_P) == 0) *map_pte_ptr = 0; // make mapping invalid
+	printf("now map_pte=%p\n", *map_pte_ptr);
   return 0;
 }
 

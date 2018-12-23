@@ -28,6 +28,7 @@ paddr_t page_translate(vaddr_t addr) {
 	PDE pt_pde;
 	uint32_t dir = addr >> 22;
 	pt_pde.val = paddr_read(pt_dir_base + 4 * dir , 4);
+	Log("pt_pde is at 0x%x", pt_dir_base + 4 * dir);
 	//Log("PDE.val = 0x%x", pt_pde.val);
 	Assert(pt_pde.present, "invalid PDE value when reading 0x%x", addr);
 
