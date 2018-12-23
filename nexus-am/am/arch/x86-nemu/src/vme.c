@@ -82,15 +82,15 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	//uint32_t vaddr = (uint32_t)va;
 	uint32_t paddr = (uint32_t)pa;
 	uint32_t dir = PDX(va);
-	PDE map_pde = *((PDE*)(p->ptr + 4 * dir));
+	//PDE map_pde = *((PDE*)(p->ptr + 4 * dir));
+	PDE* map_pde_ptr = p->ptr + 4 * dir;
 	//find its page directory
 	
-	if((map_pde & PTE_P) == 0) {
-		printf("map_pde=%p\n",map_pde);
+	if((*map_pde_ptr & PTE_P) == 0) {
+		//printf("map_pde=%p\n",map_pde);
 		printf("create new PDE\n");
 		PDE new_pt_addr = (PDE)pgalloc_usr(1);
 		//allocate one page as page table
-	 	PDE* map_pde_ptr = p->ptr + 4 * dir;
 		*map_pde_ptr = (new_pt_addr >> 12) << 12;
 		//fill in the page dir with the addr of new page table
 		//printf("new page table is at %p\n", new_page_addr);
@@ -100,8 +100,8 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	}
 
 	uint32_t page = PTX(va);
-	printf("map_pde=%p\n",map_pde);
-	void* pt_addr = (void*)((map_pde >> 12) << 12); //get page table addr
+	printf("map_pde=%p\n",*map_pde_ptr);
+	void* pt_addr = (void*)(((*map_pde_ptr) >> 12) << 12); //get page table addr
 	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
 	*map_pte_ptr |= PTE_P; // set present
