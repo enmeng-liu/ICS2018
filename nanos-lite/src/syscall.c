@@ -14,6 +14,8 @@ ssize_t fs_write(int fd, const void* buf, size_t len);
 
 void naive_uload(PCB *pcb, const char *filename);
 
+int mm_brk(uintptr_t new_brk);
+
 extern _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;	//type 
@@ -36,6 +38,7 @@ extern _Context* do_syscall(_Context *c) {
 		case SYS_brk:		//Log("call sys_brk! _end = %d", &_end);
 										//_heap.start = &_end;
 										_heap.end = (void*)a[1];
+										mm_brk(a[1]);
 										c->GPRx = 0;
 										break;
 		case SYS_read: 	//Log("call sys_read! len = %d", a[3]);
