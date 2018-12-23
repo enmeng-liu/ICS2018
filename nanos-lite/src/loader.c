@@ -17,11 +17,13 @@ off_t fs_lseek(int fd, off_t offset, int whence);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
 	//ramdisk_read((void*)DEFAULT_ENTRY, 0, get_ramdisk_size());
-	void* pa = new_page(1);
+  int fd = fs_open(filename, 0, 0);
+	uint32_t filesz = fs_filesz(fd);
+	void* pa = new_page(filesz/PGSIZE);
+	Log("create %d new page(s)", filesz/PGSIZE);
 	Log("pcb->as.ptr=%p",pcb->as.ptr);
 	_map(&(pcb->as), (void*)DEFAULT_ENTRY, pa, 1);
 	Log("map va=0x%p to pa=0x%x", (void*)DEFAULT_ENTRY, pa);
-  int fd = fs_open(filename, 0, 0);
   fs_read(fd, (void*)DEFAULT_ENTRY, fs_filesz(fd));
 	fs_close(fd);
   return DEFAULT_ENTRY;
