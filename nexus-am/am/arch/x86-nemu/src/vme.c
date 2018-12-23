@@ -78,6 +78,20 @@ void _switch(_Context *c) {
 
 int _map(_Protect *p, void *va, void *pa, int mode) {
 	printf("p->ptr=0x%p\n", p->ptr);
+	//uint32_t vaddr = (uint32_t)va;
+	uint32_t paddr = (uint32_t)pa;
+	uint32_t dir = PDX(va);
+	PDE map_pde = *((PDE*)(p->ptr + 4 * dir));
+	//find its page directory
+	
+	uint32_t page = PTX(va);
+	//PTE* map_pte_ptr = (PTE*)((map_pde >> 12) << 12); // get pte
+	//printf("PTE addr = 0x%p\n", map_pte_ptr);
+	void* pt_addr = (void*)((map_pde >> 12) << 12); //get page table addr
+	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
+	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
+	*map_pte_ptr |= PTE_P; // set present
+	if((mode & PTE_P) == 0) *map_pte_ptr = 0; // make mapping invalid
   return 0;
 }
 
