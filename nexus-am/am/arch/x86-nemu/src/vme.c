@@ -78,7 +78,8 @@ void _switch(_Context *c) {
 }
 
 int _map(_Protect *p, void *va, void *pa, int mode) {
-	//printf("p->ptr=%p\n", p->ptr);
+	printf("------------------------\n");
+	printf("p->ptr=%p\n", p->ptr);
 	//uint32_t vaddr = (uint32_t)va;
 	printf("**now map va=%p to pa=%p\n", va, pa);
 	uint32_t paddr = (uint32_t)pa;
@@ -89,7 +90,6 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	
 	if((*map_pde_ptr & PTE_P) == 0) {
 		//printf("map_pde=%p\n",map_pde);
-		printf("------------------------\n");
 		printf("create new PDE\n");
 		PDE new_pt_addr = (PDE)pgalloc_usr(1);
 		//allocate one page as page table
