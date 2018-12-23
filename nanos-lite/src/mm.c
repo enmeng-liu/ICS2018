@@ -22,14 +22,14 @@ int mm_brk(uintptr_t new_brk) {
 	Log("max_brk=%p", current->max_brk);
 	//assert(0);
 	current->cur_brk = new_brk;
+	int pre_max_brk = current->max_brk;
 	if(new_brk > current->max_brk) {
 		current->max_brk = new_brk;
-		int m_brk = current->max_brk;
 		Log("now max_brk=%p",current->max_brk);
-		int size_left = new_brk - m_brk;
-		int page_left = PGSIZE - m_brk%PGSIZE;
+		int size_left = new_brk - pre_max_brk;
+		int page_left = PGSIZE - pre_max_brk%PGSIZE;
 		size_left -= page_left;
-		void* va = (void*)(m_brk/PGSIZE + 1);
+		void* va = (void*)(pre_max_brk/PGSIZE + 1);
 		while(size_left > 0) {
 			void* pa = new_page(1);
 			_map(&(current->as), va, pa, 1);
