@@ -27,7 +27,7 @@ extern _Context* do_syscall(_Context *c) {
 										//Log("call sys_yield!");
 										break;
 		case SYS_exit:  //Log("call sys_exit!");
-										//_halt(a[2]);
+										_halt(a[2]);
 										naive_uload(NULL, "/bin/init");
 									  break;
 		case SYS_write: //Log("call sys_write!");

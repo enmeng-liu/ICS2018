@@ -27,6 +27,7 @@ void init_proc() {
 	//naive_uload(NULL, "/bin/init");
 	context_kload(&pcb[0], (void*)hello_fun);
 	context_uload(&pcb[1], "/bin/init");
+	context_uload(&pcb[2], "/bin/dummy");
 	switch_boot_pcb();
 }
 
@@ -34,8 +35,8 @@ _Context* schedule(_Context *prev) {
 	Log("call schedule!");
 	current->cp = prev; //save the context pointer
 	//Log("prev context saved!");
-	//current = &pcb[0];  //always seletc pcb[0] as the new process
-	current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+	current = &pcb[2];  //always seletc dummy as the new process
+	//current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 	//Log("current context changed!");
 	return current->cp;	//then return the new context
 }
