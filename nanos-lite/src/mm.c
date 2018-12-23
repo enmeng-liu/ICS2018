@@ -28,7 +28,7 @@ int mm_brk(uintptr_t new_brk) {
 		current->max_brk = new_brk;
 		Log("now max_brk=%p",current->max_brk);
 		int size_left = new_brk - pre_max_brk;
-		int page_left = PGSIZE - pre_max_brk%PGSIZE;
+		int page_left = PGSIZE  - pre_max_brk%PGSIZE - 1;
 		size_left -= page_left;
 		//Log("_heap.start=%p", _heap.start);
 		void* va = (void*)((pre_max_brk/PGSIZE + 1) * PGSIZE);
