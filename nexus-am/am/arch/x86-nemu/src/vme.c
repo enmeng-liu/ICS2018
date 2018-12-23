@@ -88,9 +88,11 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	if((map_pde & PTE_P) == 0) {
 		printf("create new PDE\n");
 		PDE new_page_addr = (PDE)pgalloc_usr(1);
+		printf("new PDE is at %p", new_page_addr);
 	 	PDE* map_pde_ptr = p->ptr + 4 * dir;
 		*map_pde_ptr = (new_page_addr >> 12) << 12;
 	 	*map_pde_ptr |= PTE_P;	
+		printf("now map_pde=%p",*map_pde_ptr);
 		//create a new page
 	}
 
