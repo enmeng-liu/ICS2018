@@ -101,8 +101,8 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
 	*map_pte_ptr |= PTE_P; // set present
-	assert(0);
 	if((mode & PTE_P) == 0) *map_pte_ptr = 0; // make mapping invalid
+	assert(0);
   return 0;
 }
 
