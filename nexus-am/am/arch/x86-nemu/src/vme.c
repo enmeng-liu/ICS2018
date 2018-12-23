@@ -93,7 +93,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 		//allocate one page as page table
 		*map_pde_ptr = (new_pt_addr >> 12) << 12;
 		//fill in the page dir with the addr of new page table
-		//printf("new page table is at %p\n", new_page_addr);
+		printf("new page table is at %p\n", new_pt_addr);
 	 	*map_pde_ptr |= PTE_P;	
 		printf("now map_pde=%p\n",*map_pde_ptr);
 		//create a new page
@@ -102,6 +102,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	uint32_t page = PTX(va);
 	printf("map_pde=%p\n",*map_pde_ptr);
 	void* pt_addr = (void*)(((*map_pde_ptr) >> 12) << 12); //get page table addr
+	printf("pt_addr=%p\n",pt_addr);
 	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
 	*map_pte_ptr |= PTE_P; // set present
