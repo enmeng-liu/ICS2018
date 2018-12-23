@@ -84,9 +84,15 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	PDE map_pde = *((PDE*)(p->ptr + 4 * dir));
 	//find its page directory
 	
+	if((map_pde & PTE_P) == 0) {
+		PDE new_page_addr = (PDE)pgalloc_usr(1);
+	 	PDE* map_pde_ptr = p->ptr + 4 * dir;
+		*map_pde_ptr = (new_page_addr >> 12) << 12;
+	 	*map_pde_ptr |= PTE_P;	
+		//create a new page
+	}
+
 	uint32_t page = PTX(va);
-	//PTE* map_pte_ptr = (PTE*)((map_pde >> 12) << 12); // get pte
-	//printf("PTE addr = 0x%p\n", map_pte_ptr);
 	void* pt_addr = (void*)((map_pde >> 12) << 12); //get page table addr
 	PTE* map_pte_ptr = (PTE*)(pt_addr + page * 4);
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
