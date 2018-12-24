@@ -78,7 +78,7 @@ void _switch(_Context *c) {
 }
 
 int _map(_Protect *p, void *va, void *pa, int mode) {
-	printf("**starting map va=%p to pa=%p**\n", va ,pa);
+	//printf("**starting map va=%p to pa=%p**\n", va ,pa);
 	uint32_t paddr = (uint32_t)pa;
 	uint32_t dir = PDX(va);
 	PDE* map_pde_ptr = p->ptr + 4 * dir;
@@ -99,7 +99,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 	*map_pte_ptr = (paddr >> 12) << 12; //fill in physical page number
 	*map_pte_ptr |= PTE_P; // set present
 	if((mode & PTE_P) == 0) *map_pte_ptr = 0; // make mapping invalid
-	printf("**starting map va=%p to pa=%p**\n", va ,pa);
+	//printf("**starting map va=%p to pa=%p**\n", va ,pa);
   return 0;
 }
 
