@@ -85,8 +85,23 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, uint32_t data, int len) {
-	if(addr + len - 1 > VMEM_SIZE) {
-		assert(0);
+	if((addr & 0xfff) + len > PGSIZE) {
+		//assert(0);
+		int this_page_len = PGSIZE -(addr & 0xfff);
+		paddr_t paddr = page_translate(addr);
+		int this_page = data;
+		switch(this_page_len){
+			case 1: this_page = data & 0xff; break;
+			case 2: this_page = data & 0xffff; break;
+			case 3: this_page = data & 0xffffff; break;
+			case 4: this_page = data; break;
+			default: assert(0);
+		}
+		paddr_write(paddr, this_page, this_page_len);
+		int next_page_len = len - this_page_len;
+		int next_page = data - this_page;
+		paddr = page_translate(addr + this_page_len);
+		paddr_write(paddr, next_page, next_page_len);
 	}
 	else {
 		paddr_t paddr = page_translate(addr);			
