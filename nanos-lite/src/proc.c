@@ -38,9 +38,9 @@ _Context* schedule(_Context *prev) {
 	//Log("call schedule!");
 	current->cp = prev; //save the context pointer
 	//Log("prev context saved!");
-	//current = &pcb[0];  //always seletc dummy as the new process
+	current = &pcb[3];  //always seletc dummy as the new process
 	//Log("current->as.ptr=%p",current->as.ptr);
-	current = (current == &pcb[0] ? &pcb[3] : &pcb[0]);
+	//current = (current == &pcb[0] ? &pcb[3] : &pcb[0]);
 	//Log("current context changed!");
 	return current->cp;	//then return the new context
 }
