@@ -69,7 +69,7 @@ int _cte_init(_Context*(*handler)(_Event, _Context*)) {
 }
 
 _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
-	printf("**Call kcontext!\n");
+	//printf("**Call kcontext!\n");
 	_Context *cont = (_Context*)(stack.end - sizeof(_Context));
 	cont->cs = 8;
 	cont->eip = (uintptr_t)(entry);
@@ -79,7 +79,7 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
 	cont->irq = 0x81;
 	cont->err = cont->eflags = 0;
 	//how to initialize cont?
-	printf("kcontext return!\n");
+	//printf("kcontext return!\n");
   return cont;
 }
 
