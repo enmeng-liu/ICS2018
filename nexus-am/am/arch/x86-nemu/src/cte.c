@@ -31,6 +31,7 @@ _Context* irq_handle(_Context *tf) {
 	//printf("#irq = %d\n", tf-> irq);
   if (user_handler) {
     _Event ev;
+		printf("--tf->irq=%d--\n", tf->irq);
     switch (tf->irq) {
 			case YIELD: ev.event = _EVENT_YIELD; break; 
 			case SYSCALL: ev.event = _EVENT_SYSCALL; break;
