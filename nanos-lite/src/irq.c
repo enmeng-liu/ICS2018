@@ -18,6 +18,7 @@ static _Context* do_event(_Event e, _Context* c) {
 			Log("ID = %d: Recognize timer intr!", e.event);
 			//assert(0);
 			_yield();
+			break;
     default: panic("Unhandled event ID = %d", e.event);
   }
 
