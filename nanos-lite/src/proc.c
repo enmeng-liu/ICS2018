@@ -50,6 +50,7 @@ _Context* schedule(_Context *prev) {
 	else {
 		palcnt ++;
 		if(palcnt == 10) current = &pcb[0];
+		else current = &pcb[3];
 	}
 	return current->cp;	//then return the new context
 }
