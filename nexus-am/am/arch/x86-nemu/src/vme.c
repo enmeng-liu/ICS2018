@@ -115,6 +115,7 @@ _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *
 	cont->edi = cont->esi = cont->ebx = cont->ecx = cont->eax = 0;
 	cont->irq = 0x81;
 	cont->err = cont->eflags = 0;
+	cont->eflags &= (1 << 9); //set IF
 	cont->prot = p;
   return cont;
 }

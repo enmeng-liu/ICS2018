@@ -4,6 +4,7 @@
 
 #define YIELD 0x81
 #define SYSCALL 0x80
+#define IRQ_TIMER 32
 
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
@@ -33,6 +34,7 @@ _Context* irq_handle(_Context *tf) {
     switch (tf->irq) {
 			case YIELD: ev.event = _EVENT_YIELD; break; 
 			case SYSCALL: ev.event = _EVENT_SYSCALL; break;
+			case IRQ_TIMER: ev.event = _EVENT_IRQ_TIMER; break;
       default: ev.event = _EVENT_ERROR; break;
     }
 

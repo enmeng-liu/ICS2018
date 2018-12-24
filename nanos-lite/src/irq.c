@@ -14,6 +14,9 @@ static _Context* do_event(_Event e, _Context* c) {
 			//Log("ID = %d: Recognize system call!",e.event);
 			do_syscall(c);
 			break;
+		case _EVENT_IRQ_TIMER: 
+			Log("ID = %d: Recognize timer intr!", e.event);
+			_yield();
     default: panic("Unhandled event ID = %d", e.event);
   }
 
