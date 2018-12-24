@@ -8,7 +8,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 
   //TODO();
 	rtl_push(&cpu.eflag);
-	cpu.eflags.IF = 1;
+	cpu.eflags.IF = 0;
 	rtl_push(&cpu.cs);
 	rtl_push(&ret_addr);
 	//push eflags,cs,next eip
