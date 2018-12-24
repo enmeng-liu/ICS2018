@@ -259,7 +259,7 @@ void exec_wrapper(bool print_flag) {
 	
 	// check hardware intr
 	if(cpu.INTR & cpu.eflags.IF) {
-		Log("cpu.INTR=%d IF=%d\n", cpu.INTR, cpu.eflags.IF);
+		//Log("cpu.INTR=%d IF=%d\n", cpu.INTR, cpu.eflags.IF);
 		cpu.INTR = false;
 		raise_intr(IRQ_TIMER, cpu.eip);
 		update_eip();
