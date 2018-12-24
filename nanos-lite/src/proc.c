@@ -34,6 +34,7 @@ void init_proc() {
 	switch_boot_pcb();
 }
 
+int palcnt = 0;
 _Context* schedule(_Context *prev) {
 	//Log("call schedule!");
 	current->cp = prev; //save the context pointer
@@ -42,7 +43,6 @@ _Context* schedule(_Context *prev) {
 	//Log("current->as.ptr=%p",current->as.ptr);
 	//current = (current == &pcb[0] ? &pcb[3] : &pcb[0]);
 	//Log("current context changed!");
-	int palcnt = 0;
 	if(current == &pcb[0]) {
 		current = &pcb[3];
 		palcnt = 0;
