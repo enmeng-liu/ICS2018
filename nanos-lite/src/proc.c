@@ -26,7 +26,7 @@ void hello_fun(void *arg) {
 void init_proc() {
 	//Log("before load dummy");
 	//naive_uload(NULL, "/bin/init");
-	context_kload(&pcb[0], (void*)hello_fun);
+	context_kload(&pcb[0], "/bin/hello");
 	context_uload(&pcb[1], "/bin/init");
 	context_uload(&pcb[2], "/bin/dummy");
 	context_uload(&pcb[3], "/bin/pal");
@@ -38,9 +38,9 @@ _Context* schedule(_Context *prev) {
 	//Log("call schedule!");
 	current->cp = prev; //save the context pointer
 	//Log("prev context saved!");
-	current = &pcb[3];  //always seletc dummy as the new process
+	//current = &pcb[3];  //always seletc dummy as the new process
 	//Log("current->as.ptr=%p",current->as.ptr);
-	//current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+	current = (current == &pcb[0] ? &pcb[3] : &pcb[0]);
 	//Log("current context changed!");
 	return current->cp;	//then return the new context
 }
