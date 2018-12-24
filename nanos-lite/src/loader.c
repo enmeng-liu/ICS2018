@@ -33,6 +33,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 		size_left -= PGSIZE;
 	}
 	pcb->max_brk = DEFAULT_ENTRY + filesz;
+	Log("before loader return");
 	fs_close(fd);
   return DEFAULT_ENTRY;
 }
