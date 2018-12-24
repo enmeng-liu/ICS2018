@@ -35,7 +35,9 @@ _Context* irq_handle(_Context *tf) {
     switch (tf->irq) {
 			case YIELD: ev.event = _EVENT_YIELD; break; 
 			case SYSCALL: ev.event = _EVENT_SYSCALL; break;
-			case IRQ_TIMER: ev.event = _EVENT_IRQ_TIMER; break;
+			case IRQ_TIMER: printf("**receive timer evenr!\n");
+											assert(0);
+											ev.event = _EVENT_IRQ_TIMER; break;
       default: ev.event = _EVENT_ERROR; break;
     }
 
