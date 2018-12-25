@@ -41,12 +41,14 @@ void init_proc() {
 
 PCB* get_fg_pcb(){
 	Log("call get_fg_pcb");
+	PCB* fg_pcb = &pcb[1];
 	int fd = fs_open("/dev/events", 0, 0);
   char buf[128];
 	fs_read(fd, buf, 128);
+	if(strlen(buf) == 0) fg_pcb =  &pcb[1];
 	Log("Receive events %s!", buf);
 	assert(0);
-	if(strlen(buf) == 0) return &pcb[1];
+	return fg_pcb;
 }
 
 
