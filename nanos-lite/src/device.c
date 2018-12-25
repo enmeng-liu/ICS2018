@@ -29,6 +29,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 	if(keytemp != 0) {
 		//Log("get key: %d", keytemp ^ 0x8000);
 		if((keytemp & 0x8000) != 0){
+			assert(0);
 			sprintf(temp, "kd %s\n", keyname[keytemp ^ 0x8000]);
 			strncpy(buf, temp, len);
 			/*add fg_pcb switch*/
