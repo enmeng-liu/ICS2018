@@ -65,9 +65,18 @@ _Context* schedule(_Context *prev) {
 	/* get current fg_pcb*/
   char buf[128];
 	events_read(buf, 0, 128);
-	if(strcmp(buf, "kd F1\n") == 0) fg_pcb = &pcb[1];
-	else if(strcmp(buf, "kd F2\n") == 0) fg_pcb = &pcb[2];
-			 else if(strcmp(buf , "kd F3\n") == 0) fg_pcb = &pcb[3];
+	if(strcmp(buf, "kd F1\n") == 0) {
+		fg_pcb = &pcb[1];
+		Log("switch to F1");
+	}
+	else if(strcmp(buf, "kd F2\n") == 0) {
+				 fg_pcb = &pcb[2];
+			 	 Log("switch to F2");	 
+			 }
+			 else if(strcmp(buf , "kd F3\n") == 0) {
+							fg_pcb = &pcb[3];
+							Log("switch to F3");
+			 			}
 			 			else fg_pcb = fg_pcb;
 	
 	if(current == &pcb[0]) {
