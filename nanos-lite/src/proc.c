@@ -40,22 +40,18 @@ void init_proc() {
 	switch_boot_pcb();
 }
 
-PCB* get_fg_pcb(PCB* pre_pcb){
-	//Log("call get_fg_pcb");
-	//PCB* fg_pcb = &pcb[1];
-	//int fd = fs_open("/dev/events", 0, 0);
+/*PCB* get_fg_pcb(){
   char buf[128];
-	//fs_read(fd, buf, 128);
 	events_read(buf, 0, 128);
 	if(strcmp(buf, "kd F1\n") == 0) return &pcb[1];
 	if(strcmp(buf, "kd F2\n") == 0) return &pcb[2];
-	//if(strcmp(buf, "kd F2\n") == 0)	assert(0);
 	if(strcmp(buf, "kd F3\n") == 0) return &pcb[3];
-	return pre_pcb;
-}
+	return &pcb[1];
+}*/
 
 
 int palcnt = 0;
+PCB* fg_pcb = &pcb[1];
 _Context* schedule(_Context *prev) {
 	//Log("call schedule!");
 	current->cp = prev; //save the context pointer
@@ -64,19 +60,23 @@ _Context* schedule(_Context *prev) {
 	//Log("current->as.ptr=%p",current->as.ptr);
 	//current = (current == &pcb[0] ? &pcb[3] : &pcb[0]);
 	//Log("current context changed!");
-	PCB* fg_pcb = &pcb[1];
+	//PCB* pre_cur = &pcb[1];
+	
+	/* get current fg_pcb*/
+  char buf[128];
+	events_read(buf, 0, 128);
+	if(strcmp(buf, "kd F1\n") == 0) fg_pcb = &pcb[1];
+	else if(strcmp(buf, "kd, F2\n") == 0) fg_pcb = &pcb[2];
+			 else if(strcmp(buf , "kd F3\n") == 0) fg_pcb = &pcb[3];
+	
 	if(current == &pcb[0]) {
-		fg_pcb = get_fg_pcb(fg_pcb);
-		current = fg_pcb;
 		palcnt = 0;
+		current = fg_pcb;
 	}
 	else {
 		palcnt ++;
 		if(palcnt == 100) current = &pcb[0];
-		else {
-			fg_pcb = get_fg_pcb(fg_pcb);
-			current = fg_pcb;
-		}
+		else  current = fg_pcb;
 	}
 	return current->cp;	//then return the new context
 }
