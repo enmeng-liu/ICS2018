@@ -10,10 +10,11 @@ void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *pcb, void *entry);
 void context_uload(PCB *pcb, const char *filename);
 
-typedef size_t ssize_t;
-int fs_open(const char *pathname, int flags, int mode);
-size_t fs_filesz(int fd);
-ssize_t fs_read(int fd ,void *buf, size_t len);
+//typedef size_t ssize_t;
+//int fs_open(const char *pathname, int flags, int mode);
+//size_t fs_filesz(int fd);
+//ssize_t fs_read(int fd ,void *buf, size_t len);
+size_t events_read(void* buf, size_t offset, size_t len);
 
 void switch_boot_pcb() {
   current = &pcb_boot;
@@ -42,9 +43,10 @@ void init_proc() {
 PCB* get_fg_pcb(){
 	Log("call get_fg_pcb");
 	PCB* fg_pcb = &pcb[1];
-	int fd = fs_open("/dev/events", 0, 0);
+	//int fd = fs_open("/dev/events", 0, 0);
   char buf[128];
-	fs_read(fd, buf, 128);
+	//fs_read(fd, buf, 128);
+	events_read(buf, 0, 128);
 	assert(0);
 	if(strlen(buf) == 0) fg_pcb =  &pcb[1];
 	Log("Receive events %s!", buf);
