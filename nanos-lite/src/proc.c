@@ -47,7 +47,7 @@ PCB* get_fg_pcb(){
   char buf[128];
 	//fs_read(fd, buf, 128);
 	events_read(buf, 0, 128);
-	assert(0);
+	//assert(0);
 	if(strlen(buf) == 0) fg_pcb =  &pcb[1];
 	Log("Receive events %s!", buf);
 	assert(0);
