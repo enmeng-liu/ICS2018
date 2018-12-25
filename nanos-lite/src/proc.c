@@ -62,8 +62,9 @@ _Context* schedule(_Context *prev) {
 	char buf[128];
 	events_read(buf, 0, 128);
 	if(first_flag == 1) {
-		current = &pcb[1];
+		current = &pcb[0];
 		first_flag = 0;
+		fg_pcb = 1;
 	}
 	else 
 		current = (current == &pcb[0] ? &pcb[fg_pcb] : &pcb[0]);
