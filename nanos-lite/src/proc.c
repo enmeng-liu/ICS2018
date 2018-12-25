@@ -48,7 +48,7 @@ PCB* get_fg_pcb(){
 	//fs_read(fd, buf, 128);
 	events_read(buf, 0, 128);
 	if(strcmp(buf, "kd F1\n") == 0) return &pcb[1];
-	if(strcmp(buf, "kd F2") == 0) return &pcb[2];
+	if(strcmp(buf, "kd F2\n") == 0) return &pcb[2];
 	//if(strcmp(buf, "kd F2\n") == 0)	assert(0);
 	if(strcmp(buf, "kd F3\n") == 0) return &pcb[3];
 	return &pcb[1];
