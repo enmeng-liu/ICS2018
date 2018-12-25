@@ -4,7 +4,7 @@
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
 	//Log("call serial write!");
-	_yield();
+	//_yield();
 	char* buff = (char*) buf;
 	for(int i = 0; i < len; ++i){
 		_putc(buff[i]);
@@ -22,8 +22,7 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
 	Log("events_read! len = %d", len);
-	assert(0);
-	_yield();
+	//_yield();
 	int keytemp = read_key() & 0xffff;
 	char temp[128]; 
 	if(keytemp != 0) {
@@ -61,7 +60,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 size_t fb_write(const void *buf, size_t offset, size_t len) {
 	//Log("fb_write: offset = %d, len = %d",offset, len);
 	//assert(0);
-	_yield();
+	//_yield();
 	int W = screen_width();
 	/*for(int i = 0; i < len; i += 4){
 		int x = (offset + i) % W;
