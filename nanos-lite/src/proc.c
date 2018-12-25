@@ -40,7 +40,7 @@ void init_proc() {
 	switch_boot_pcb();
 }
 
-PCB* get_fg_pcb(){
+PCB* get_fg_pcb(PCB* pre_pcb){
 	//Log("call get_fg_pcb");
 	//PCB* fg_pcb = &pcb[1];
 	//int fd = fs_open("/dev/events", 0, 0);
@@ -51,7 +51,7 @@ PCB* get_fg_pcb(){
 	if(strcmp(buf, "kd F2\n") == 0) return &pcb[2];
 	//if(strcmp(buf, "kd F2\n") == 0)	assert(0);
 	if(strcmp(buf, "kd F3\n") == 0) return &pcb[3];
-	return &pcb[1];
+	return pre_pcb;
 }
 
 
@@ -64,14 +64,19 @@ _Context* schedule(_Context *prev) {
 	//Log("current->as.ptr=%p",current->as.ptr);
 	//current = (current == &pcb[0] ? &pcb[3] : &pcb[0]);
 	//Log("current context changed!");
+	PCB* fg_pcb = &pcb[1];
 	if(current == &pcb[0]) {
-		current = get_fg_pcb();
+		fg_pcb = get_fg_pcb(fg_pcb);
+		current = fg_pcb;
 		palcnt = 0;
 	}
 	else {
 		palcnt ++;
 		if(palcnt == 100) current = &pcb[0];
-		else current = get_fg_pcb();
+		else {
+			fg_pcb = get_fg_pcb(fg_pcb);
+			current = fg_pcb;
+		}
 	}
 	return current->cp;	//then return the new context
 }
