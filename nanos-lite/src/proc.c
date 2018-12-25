@@ -48,9 +48,19 @@ PCB* get_fg_pcb(){
 	//fs_read(fd, buf, 128);
 	events_read(buf, 0, 128);
 	//assert(0);
-	if(strlen(buf) == 0) fg_pcb =  &pcb[1];
 	Log("Receive events %s!", buf);
-	assert(0);
+	if(buf[0] != 'k' && buf[1] != 'd' && buf[3] != 'F') {
+		fg_pcb = &pcb[1];
+	}
+	else {
+		switch(buf[4]){
+			case '1': fg_pcb = &pcb[1]; break;
+			case '2': fg_pcb = &pcb[2]; break;
+			case '3': fg_pcb = &pcb[3]; break;
+			default: fg_pcb = &pcb[1]; 
+		}
+	}
+	//assert(0);
 	return fg_pcb;
 }
 
