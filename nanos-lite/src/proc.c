@@ -59,8 +59,12 @@ _Context* schedule(_Context *prev) {
 	//Log("prev context saved!");
 	//current = &pcb[3];  //always seletc dummy as the new process
 	//Log("current->as.ptr=%p",current->as.ptr);
-	if(first_flag == 1) current = &pcb[1];
-	else current = (current == &pcb[0] ? &pcb[fg_pcb] : &pcb[0]);
+	if(first_flag == 1) {
+		current = &pcb[1];
+		first_flag = 0;
+	}
+	else 
+		current = (current == &pcb[0] ? &pcb[fg_pcb] : &pcb[0]);
 	//Log("current context changed!");
 	//PCB* pre_cur = &pcb[1];
 	
