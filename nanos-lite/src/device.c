@@ -23,6 +23,7 @@ static const char *keyname[256] __attribute__((used)) = {
 size_t events_read(void *buf, size_t offset, size_t len) {
 	Log("events_read! len = %d", len);
 	_yield();
+	assert(0);
 	int keytemp = read_key() & 0xffff;
 	char temp[128]; 
 	if(keytemp != 0) {
@@ -40,7 +41,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 		uint32_t time_now = uptime();
 		sprintf(temp, "t %d\n", time_now);
 		strncpy(buf, temp, len);
-		assert(0);
 	}
 
 	//Log("get events: %s", temp);
