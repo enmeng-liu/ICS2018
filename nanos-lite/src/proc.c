@@ -64,15 +64,14 @@ _Context* schedule(_Context *prev) {
 	//Log("current->as.ptr=%p",current->as.ptr);
 	//current = (current == &pcb[0] ? &pcb[3] : &pcb[0]);
 	//Log("current context changed!");
-	PCB* fg_pcb = get_fg_pcb();
 	if(current == &pcb[0]) {
-		current = fg_pcb;
+		current = get_fg_pcb();
 		palcnt = 0;
 	}
 	else {
 		palcnt ++;
 		if(palcnt == 100) current = &pcb[0];
-		else current = fg_pcb;
+		else current = get_fg_pcb();
 	}
 	return current->cp;	//then return the new context
 }
