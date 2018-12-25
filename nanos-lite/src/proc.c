@@ -51,7 +51,7 @@ void init_proc() {
 
 
 int palcnt = 0;
-PCB* fg_pcb = &pcb[1];
+int fg_pcb;
 _Context* schedule(_Context *prev) {
 	//Log("call schedule!");
 	current->cp = prev; //save the context pointer
@@ -62,31 +62,14 @@ _Context* schedule(_Context *prev) {
 	//Log("current context changed!");
 	//PCB* pre_cur = &pcb[1];
 	
-	/* get current fg_pcb*/
-  char buf[128];
-	events_read(buf, 0, 128);
-	if(strcmp(buf, "kd F1\n") == 0) {
-		fg_pcb = &pcb[1];
-		Log("switch to F1");
-	}
-	else if(strcmp(buf, "kd F2\n") == 0) {
-				 fg_pcb = &pcb[2];
-			 	 Log("switch to F2");	 
-			 }
-			 else if(strcmp(buf , "kd F3\n") == 0) {
-							fg_pcb = &pcb[3];
-							Log("switch to F3");
-			 			}
-			 			else fg_pcb = fg_pcb;
-	
 	if(current == &pcb[0]) {
 		palcnt = 0;
-		current = fg_pcb;
+		current = &pcb[fg_pcb];
 	}
 	else {
 		palcnt ++;
 		if(palcnt == 100) current = &pcb[0];
-		else  current = fg_pcb;
+		else  current = &pcb[fg_pcb];
 	}
 	return current->cp;	//then return the new context
 }

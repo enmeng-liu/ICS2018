@@ -20,6 +20,7 @@ static const char *keyname[256] __attribute__((used)) = {
   _KEYS(NAME)
 };
 
+extern int fg_pcb; 
 size_t events_read(void *buf, size_t offset, size_t len) {
 	//Log("events_read! len = %d", len);
 	//_yield();
@@ -30,6 +31,13 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 		if((keytemp & 0x8000) != 0){
 			sprintf(temp, "kd %s\n", keyname[keytemp ^ 0x8000]);
 			strncpy(buf, temp, len);
+			/*add fg_pcb switch*/
+			char name[128];
+			strcpy(name, keyname[keytemp ^ 0x8000]);
+			if(strcmp("F1", name) == 0) fg_pcb = 1;
+			else if(strcmp("F2", name) == 0) fg_pcb = 2;
+					 else if(strcmp("F3", name) == 0) fg_pcb = 3;
+								else fg_pcb = fg_pcb;
 		}
 		else {
 			sprintf(temp, "ku %s\n", keyname[keytemp]);
