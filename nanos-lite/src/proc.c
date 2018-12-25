@@ -41,7 +41,7 @@ void init_proc() {
 }
 
 PCB* get_fg_pcb(){
-	Log("call get_fg_pcb");
+	//Log("call get_fg_pcb");
 	PCB* fg_pcb = &pcb[1];
 	//int fd = fs_open("/dev/events", 0, 0);
   char buf[128];
@@ -67,7 +67,7 @@ PCB* get_fg_pcb(){
 
 int palcnt = 0;
 _Context* schedule(_Context *prev) {
-	Log("call schedule!");
+	//Log("call schedule!");
 	current->cp = prev; //save the context pointer
 	//Log("prev context saved!");
 	//current = &pcb[3];  //always seletc dummy as the new process
