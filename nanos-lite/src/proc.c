@@ -59,6 +59,8 @@ _Context* schedule(_Context *prev) {
 	//Log("prev context saved!");
 	//current = &pcb[3];  //always seletc dummy as the new process
 	//Log("current->as.ptr=%p",current->as.ptr);
+	char buf[128];
+	events_read(buf, 0, 128);
 	if(first_flag == 1) {
 		current = &pcb[1];
 		first_flag = 0;
