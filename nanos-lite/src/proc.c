@@ -66,8 +66,9 @@ _Context* schedule(_Context *prev) {
   char buf[128];
 	events_read(buf, 0, 128);
 	if(strcmp(buf, "kd F1\n") == 0) fg_pcb = &pcb[1];
-	else if(strcmp(buf, "kd, F2\n") == 0) fg_pcb = &pcb[2];
+	else if(strcmp(buf, "kd F2\n") == 0) fg_pcb = &pcb[2];
 			 else if(strcmp(buf , "kd F3\n") == 0) fg_pcb = &pcb[3];
+			 			else fg_pcb = fg_pcb;
 	
 	if(current == &pcb[0]) {
 		palcnt = 0;
