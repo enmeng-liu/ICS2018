@@ -42,26 +42,15 @@ void init_proc() {
 
 PCB* get_fg_pcb(){
 	//Log("call get_fg_pcb");
-	PCB* fg_pcb = &pcb[1];
+	//PCB* fg_pcb = &pcb[1];
 	//int fd = fs_open("/dev/events", 0, 0);
   char buf[128];
 	//fs_read(fd, buf, 128);
 	events_read(buf, 0, 128);
-	//assert(0);
-	if(buf[0] != 'k' && buf[1] != 'd' && buf[3] != 'F') {
-		fg_pcb = &pcb[1];
-	}
-	else {
-		Log("Receive events %s!", buf);
-		switch(buf[4]){
-			case '1': fg_pcb = &pcb[1]; break;
-			case '2': fg_pcb = &pcb[2]; break;
-			case '3': fg_pcb = &pcb[3]; break;
-			default: fg_pcb = &pcb[1]; 
-		}
-	}
-	//assert(0);
-	return fg_pcb;
+	if(strcmp(buf, "kd F1") == 0) return &pcb[1];
+	if(strcmp(buf, "kd F2") == 0) return &pcb[2];
+	if(strcmp(buf, "kd F3") == 0) return &pcb[3];
+	return &pcb[1];
 }
 
 
