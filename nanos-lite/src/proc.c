@@ -33,7 +33,7 @@ void init_proc() {
 	Log("before uload");
 	//naive_uload(NULL, "/bin/init");
 	context_uload(&pcb[0], "/bin/hello");
-	context_uload(&pcb[1], "/bin/pal");
+	context_uload(&pcb[1], "/bin/bmptest");
 	context_uload(&pcb[2], "/bin/pal");
 	context_uload(&pcb[3], "/bin/pal");
 	Log("after uload");
