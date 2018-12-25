@@ -22,8 +22,8 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
 	Log("events_read! len = %d", len);
-	_yield();
 	assert(0);
+	_yield();
 	int keytemp = read_key() & 0xffff;
 	char temp[128]; 
 	if(keytemp != 0) {
