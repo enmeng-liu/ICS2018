@@ -19,7 +19,7 @@ off_t fs_lseek(int fd, off_t offset, int whence);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
 	//ramdisk_read((void*)DEFAULT_ENTRY, 0, get_ramdisk_size());
-	Log("call loader!");
+	//Log("call loader!");
   int fd = fs_open(filename, 0, 0);
 	uint32_t filesz = fs_filesz(fd);
 	int size_left = filesz;
@@ -34,7 +34,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 		size_left -= PGSIZE;
 	}
 	pcb->max_brk = DEFAULT_ENTRY + filesz;
-	Log("before loader return");
+	//Log("before loader return");
 	fs_close(fd);
   return DEFAULT_ENTRY;
 }
