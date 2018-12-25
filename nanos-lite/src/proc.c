@@ -40,6 +40,8 @@ void init_proc() {
 }
 
 PCB* get_fg_pcb(){
+	Log("call get_fg_pcb");
+	assert(0);
 	int fd = fs_open("/dev/events", 0, 0);
   char buf[128];
 	fs_read(fd, buf, fs_filesz(fd));
