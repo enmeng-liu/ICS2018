@@ -10,6 +10,11 @@ void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *pcb, void *entry);
 void context_uload(PCB *pcb, const char *filename);
 
+typedef size_t ssize_t;
+int fs_open(const char *pathname, int flags, int mode);
+size_t fs_filesz(int fd);
+ssize_t fs_read(int fd ,void *buf, size_t len);
+
 void switch_boot_pcb() {
   current = &pcb_boot;
 }
@@ -27,12 +32,22 @@ void init_proc() {
 	//Log("before load dummy");
 	//naive_uload(NULL, "/bin/init");
 	context_uload(&pcb[0], "/bin/hello");
-	context_uload(&pcb[1], "/bin/init");
-	context_uload(&pcb[2], "/bin/dummy");
+	context_uload(&pcb[1], "/bin/pal");
+	context_uload(&pcb[2], "/bin/pal");
 	context_uload(&pcb[3], "/bin/pal");
 	//Log("after load dummy");
 	switch_boot_pcb();
 }
+
+PCB* get_fg_pcb(){
+	int fd = fs_open("/dev/events", 0, 0);
+  char buf[128];
+	fs_read(fd, buf, fs_filesz(fd));
+	Log("Receive events %s!", buf);
+	assert(0);
+	if(strlen(buf) == 0) return &pcb[1];
+}
+
 
 int palcnt = 0;
 _Context* schedule(_Context *prev) {
@@ -43,14 +58,15 @@ _Context* schedule(_Context *prev) {
 	//Log("current->as.ptr=%p",current->as.ptr);
 	//current = (current == &pcb[0] ? &pcb[3] : &pcb[0]);
 	//Log("current context changed!");
+	PCB* fg_pcb = get_fg_pcb();
 	if(current == &pcb[0]) {
-		current = &pcb[3];
+		current = fg_pcb;
 		palcnt = 0;
 	}
 	else {
 		palcnt ++;
-		if(palcnt == 10) current = &pcb[0];
-		else current = &pcb[3];
+		if(palcnt == 30) current = &pcb[0];
+		else current = fg_pcb;
 	}
 	return current->cp;	//then return the new context
 }
