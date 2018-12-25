@@ -52,13 +52,15 @@ void init_proc() {
 
 int palcnt = 0;
 int fg_pcb;
+int first_flag = 1;
 _Context* schedule(_Context *prev) {
 	//Log("call schedule!");
 	current->cp = prev; //save the context pointer
 	//Log("prev context saved!");
 	//current = &pcb[3];  //always seletc dummy as the new process
 	//Log("current->as.ptr=%p",current->as.ptr);
-	current = (current == &pcb[0] ? &pcb[fg_pcb] : &pcb[0]);
+	if(first_flag == 1) current = &pcb[1];
+	else current = (current == &pcb[0] ? &pcb[fg_pcb] : &pcb[0]);
 	//Log("current context changed!");
 	//PCB* pre_cur = &pcb[1];
 	
