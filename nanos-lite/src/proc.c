@@ -29,13 +29,13 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-	//Log("before load dummy");
+	Log("before uload");
 	//naive_uload(NULL, "/bin/init");
 	context_uload(&pcb[0], "/bin/hello");
 	context_uload(&pcb[1], "/bin/pal");
 	context_uload(&pcb[2], "/bin/pal");
 	context_uload(&pcb[3], "/bin/pal");
-	//Log("after load dummy");
+	Log("after uload");
 	switch_boot_pcb();
 }
 
@@ -51,7 +51,7 @@ PCB* get_fg_pcb(){
 
 int palcnt = 0;
 _Context* schedule(_Context *prev) {
-	//Log("call schedule!");
+	Log("call schedule!");
 	current->cp = prev; //save the context pointer
 	//Log("prev context saved!");
 	//current = &pcb[3];  //always seletc dummy as the new process
