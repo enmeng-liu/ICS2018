@@ -32,6 +32,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 			sprintf(temp, "kd %s\n", keyname[keytemp ^ 0x8000]);
 			strncpy(buf, temp, len);
 			/*add fg_pcb switch*/
+			Log("get key events: %s", temp);
 			if(strcmp("kd F1\n", temp) == 0) fg_pcb = 1;
 			else if(strcmp("kd F2\n", temp) == 0) fg_pcb = 2;
 					 else if(strcmp("kd F3\n", temp) == 0) fg_pcb = 3;
