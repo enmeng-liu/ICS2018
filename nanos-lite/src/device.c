@@ -40,6 +40,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 		uint32_t time_now = uptime();
 		sprintf(temp, "t %d\n", time_now);
 		strncpy(buf, temp, len);
+		assert(0);
 	}
 
 	//Log("get events: %s", temp);
